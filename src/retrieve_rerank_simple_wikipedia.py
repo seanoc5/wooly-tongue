@@ -21,7 +21,7 @@ scores the query and all retrieved passages for their relevancy. The cross-encod
 especially when you search over a corpus for which the bi-encoder was not trained for.
 """
 
-!pip install -U sentence-transformers rank_bm25
+# !pip install -U sentence-transformers rank_bm25
 
 import json
 from sentence_transformers import SentenceTransformer, CrossEncoder, util

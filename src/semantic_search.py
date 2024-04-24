@@ -13,10 +13,10 @@ Original file is located at
 In this walkthrough we will see how to use Pinecone for semantic search. To begin we must install the required prerequisite libraries:
 """
 
-!pip install -qU \
-  pinecone-client==3.1.0 \
-  pinecone-datasets==0.7.0 \
-  sentence-transformers==2.2.2
+# !pip install -qU \
+#   pinecone-client==3.1.0 \
+#   pinecone-datasets==0.7.0 \
+#   sentence-transformers==2.2.2
 
 """---
 
@@ -53,12 +53,12 @@ We begin by initializing our connection to Pinecone. To do this we need a [free 
 
 import os
 from pinecone import Pinecone
-from google.colab import userdata
+# from google.colab import userdata
 
 
 # initialize connection to pinecone (get API key at app.pinecone.io)
 # api_key = os.environ.get('PINECONE_API_KEY') or 'PINECONE_API_KEY'
-api_key = userdata.get('PINECONE_API_KEY')
+api_key = os.environ['PINECONE_API_KEY']
 # configure client
 pc = Pinecone(api_key=api_key)
 
