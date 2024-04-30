@@ -128,7 +128,7 @@ This pipeline takes the prompt, searches the document store for relevant documen
 from haystack.components.embedders import SentenceTransformersTextEmbedder
 from haystack.components.retrievers.in_memory import InMemoryEmbeddingRetriever
 from haystack.components.builders import PromptBuilder
-from haystack.components.generators import HuggingFaceTGIGenerator
+# from haystack.components.generators import HuggingFaceTGIGenerator
 
 template = """
 Answer the questions based on the given context.
