@@ -1,0 +1,3270 @@
+Tracking Firm Use of AI in Real Time: A Snapshot from the Business Trends and 
+Outlook Survey 
+
+by 
+
+Kathryn Bonney 
+U.S. Census Bureau 
+
+Cory Breaux 
+U.S. Census Bureau 
+
+Catherine Buffington 
+U.S. Census Bureau 
+
+Emin Dinlersoz 
+U.S. Census Bureau 
+
+Lucia Foster 
+U.S. Census Bureau 
+
+Nathan Goldschlag 
+U.S. Census Bureau 
+
+John Haltiwanger 
+University of Maryland 
+
+Zachary Kroff 
+U.S. Census Bureau 
+
+Keith Savage 
+U.S. Census Bureau 
+
+CES 24-16 
+
+March 2024 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The  research  program  of  the  Center  for  Economic  Studies  (CES)  produces  a  wide  range  of 
+economic analyses to improve the statistical programs of the U.S. Census Bureau. Many of these 
+analyses  take  the  form  of  CES  research  papers.  The  papers  have  not  undergone  the  review 
+accorded Census Bureau publications and no endorsement should be inferred. Any opinions and 
+conclusions expressed herein are those of the author(s) and do not represent the views of the 
+U.S. Census Bureau. All results have been reviewed to ensure that no confidential information is 
+disclosed. Republication in whole or part must be cleared with the authors. 
+
+To obtain information about the series, see www.census.gov/ces or contact Sean Wang, Editor, 
+Discussion  Papers,  U.S.  Census  Bureau,  Center  for  Economic  Studies,  4600  Silver  Hill  Road, 
+Washington, DC 20233, CES.Working.Papers@census.gov. To subscribe to the series, please click 
+here. 
+
+ 
+Abstract 
+
+Timely  and  accurate  measurement  of  AI  use  by  firms  is  both  challenging  and  crucial  for 
+understanding the impacts of AI on the U.S. economy. We provide new, real-time estimates of 
+current and expected future use of AI for business purposes based on the Business Trends and 
+Outlook Survey for September 2023 to February 2024. During this period, bi-weekly estimates of 
+AI use rate rose from 3.7% to 5.4%, with an expected rate of about 6.6% by early Fall 2024. The 
+fraction of workers at businesses that use AI is higher, especially for large businesses and in the 
+Information sector. AI use is higher in large firms but the relationship between AI use and firm 
+size is non-monotonic. In contrast, AI use is higher in young firms although, on an employment-
+weighted basis, is U-shaped in firm age. Common uses of AI include marketing automation, virtual 
+agents,  and  data/text  analytics.  AI  users  often  utilize  AI  to  substitute  for  worker  tasks  and 
+equipment/software,  but  few  report  reductions  in  employment  due  to  AI  use.  Many  firms 
+undergo  organizational  changes  to  accommodate  AI,  particularly  by  training  staff,  developing 
+new  workflows,  and  purchasing  cloud  services/storage.  AI  users  also  exhibit  better  overall 
+performance and higher incidence of employment expansion compared to other businesses. The 
+most common reason for non-adoption is the inapplicability of AI to the business. 
+
+1
+
+0F
+
+* Any opinions and conclusions expressed herein are those of the authors and do not represent the views of the 
+U.S. Census Bureau. The Census Bureau has reviewed this data product to ensure appropriate access, use, and 
+disclosure avoidance protection of the confidential source data (Project No. P-7529868, Disclosure Review Board 
+(DRB) approval numbers: CBDRB-FY23-0478, CBDRB-FY24-0162, and CBDRB-FY24-0225). We thank Joe Staudt and 
+John Eltinge for helpful comments. John Haltiwanger was also a Schedule A employee of the Bureau of the Census 
+at the time of the writing of this paper. 
+
+ 
+ 
+ 
+ 
+ 
+1.  Introduction  
+
+What effects Artificial Intelligence (AI) will have on the U.S. economy is a crucial question. 
+
+Some expect AI to be transformative, especially given recent breakthroughs in Generative AI, 
+
+leading to a sustained period of high productivity growth (Baily, Brynjolfsson, Korinek (2023)) 
+
+while others are less optimistic about its impact (Gordon (2024)). AI development and use has 
+
+been ongoing for several years and investigating the impact of AI on the economy is an active 
+
+area of research. However, real time, comprehensive data on AI use by businesses has been 
+
+limited. The most recent comprehensive studies of AI use, which rely on Annual Business 
+
+Survey (ABS) data, report use during the 2016-18 period (Acemoglu et al. (2023, 2022) and a 
+
+subset, 2017, in McElheran et al. (2024) and Zolas et al. (2020)), prior to the rapid recent 
+
+developments of Generative AI.1 
+
+Tracking AI use by firms in a timely fashion has become even more pressing given the recent 
+
+advances in Generative AI. Some evidence suggests rapid adoption and usage of Generative AI. 
+
+Press reports document that ChatGPT had more than 1 million users within 5 days of its release 
+
+and 100 million users within weeks of its release (NYT, December 12, 2023). Recent reports 
+
+suggest ChatGPT has about 180.5 million users as of March 2024.2 However, it remains unclear 
+
+how many businesses are currently using AI. We fill this gap by using the real time Business 
+
+Trends and Outlook Survey (BTOS).  
+
+The BTOS is an experimental data product intended to capture high-frequency changes in 
+
+economic conditions through a qualitative survey representative of U.S. employer businesses.3 
+
+The BTOS collection starting in September 2023, covering both single and multiple location 
+
+businesses, included two new questions about the use of AI in the production of goods and 
+
+services. These “core” AI questions are asked in reference to two time periods: current (previous 
+
+1 The research using the ABS has its own advantages since it integrates the ABS with the Longitudinal Business 
+Database (LBD) tracking firm dynamics and firm-level productivity data. Our contribution is real time information 
+on AI use that is concurrent with the rapid advances in Generative AI. The LBD is currently only tracking firm 
+dynamics through 2021. When the new vintages of LBD become available, we will also be able to combine them 
+with BTOS to analyze the connection between AI use and firm dynamics. 
+2 See https://explodingtopics.com/blog/chatgpt-users#how-many. 
+3 See Buffington et al. (2023) for a description of the first survey year of the BTOS which covered only single 
+location businesses. This paper focuses solely on the second survey year of the BTOS which covers single and 
+multi-location businesses. Surveyed businesses are also asked about changes employment, input prices, and output 
+prices (see Appendix A for the core BTOS questions). We take advantage of this information in our analysis. 
+
+1 
+
+ 
+ 
+two weeks) and six months in the future. Supplemental content was added to the BTOS from 
+
+December 2023 to February 2024 to provide more detailed information about businesses’ use of 
+
+AI. There are 13 questions in the supplement in addition to the two core AI questions (see 
+
+Appendix B for the AI supplement). These questions ask about two time frames: the last six 
+
+months and six months into the future. The supplement questions ask businesses about the type 
+
+of AI used and applications to business functions, the impact of AI use on worker tasks and 
+
+existing equipment, employment effects of AI, and other changes to the production process. A 
+
+final question for those businesses who responded that they do not intend to use AI in the next 
+
+six months concerns impediments to future use of AI. The data collection for the AI 
+
+supplemental content stopped in February 2024, however the two core AI questions remain.  
+
+The BTOS sample consists of approximately 1.2 million employer businesses over a given 
+
+12-week period. Thus, each bi-weekly collection goes to a sample of about 200,000 businesses. 
+
+The average biweekly response rate over the period of collection for AI-related core and 
+
+supplement content is about 16%, resulting in a sample of about 164,500 businesses for our main 
+
+analysis sample utilizing the supplement.  Following standard Census Bureau procedures, the 
+
+sample is weighted so that estimates are representative at the national, state, sector and firm size 
+
+level. We exploit this novel data to provide a real time assessment of AI use by U.S. businesses.4   
+
+We find that the fraction of firms using AI is relatively low but rising: from about 3.7% at the 
+
+start of the collection in September 2023 to about 5.4% at the end of February 2024. AI use is 
+
+expected to rise further to about 6.6% by Fall 2024.  There is enormous variation in current use 
+
+by sector from a low of 1.4% in Construction and Agriculture to a high of 18.1% in Information. 
+
+4 Dinlersoz, Dogan, and Zolas (2024) use a distinct approach to obtain timely information on the diffusion of AI by 
+using high-frequency administrative data from Census Bureau’s Business Formation Statistics (BFS). Using the 
+write-in information on the applications, they find that there has been a surge in new AI-related business 
+applications and formations in recent years. Relatedly, using the BFS industry-level data Decker and Haltiwanger 
+(2024) find that high-tech sectors (e.g., Information and Professional, Scientific and Technical) where AI businesses 
+are classified have played a major role in the surge in new business formation from 2021-23.  However, the BFS 
+does not provide estimates of AI use rates for the general population of firms. There are also efforts to report on AI 
+use on a timely basis from unrepresentative samples (McKinsey (2023) or indirect measures such as online resumes 
+and job postings (for example, Babina et al. (2024)) or patenting behavior (for example, Miric et al. 2023)). All of 
+these approaches have yielded valuable insights, but the BTOS has the advantage of being a large, nationally 
+representative survey of U.S. businesses directly asking about AI use for business purposes. 
+
+2 
+
+ 
+ 
+Future expected use exhibits similar variation with a low of 1.5% in Agriculture and 21.5% in 
+
+Information.   
+
+ Firm-level use rates mask the fact that a larger fraction of workers are employed at 
+
+businesses that are using AI. This finding reflects that larger businesses are more likely to use 
+
+AI. For example, among firms with at least 250 employees, about 7% of firms and about 9% of 
+
+workers are in firms that use AI. This gap between firm and employment-weighted use rates also 
+
+varies by sector—about 1.9% of workers in Construction and about 22.3% of employees in the 
+
+Information sector are at firms using AI.   For these same sectors, expected future rates by Fall 
+
+2024 on an employment-weighted basis are 3.2% and 25.2% respectively.   
+
+While there is an overall positive relationship between AI use and firm size, the relationship 
+
+is U-shaped.  The smallest firms (1–4 employees) have higher AI use than firms in the 5–99 
+
+employee range. Firms with 250 or more employees have the highest fraction of AI use. 
+
+Relatedly but distinctly, we find AI use declines with firm age.  However, on an employment-
+
+weighted basis, there is a U-shaped relationship between AI use and firm age.  That is, youngest 
+
+and oldest groups of firms having the most employees exposed to AI use.  
+
+Looking deeper, we see that businesses that use AI typically utilize it for marketing 
+
+automation, virtual agents and chatbots, natural language processing and data/text analytics. On 
+
+an employment-weighted basis, the primary focus shifts to data analytics. In all cases, AI using 
+
+firms have clearer perspectives on specific business applications in the future compared to the 
+
+current use. A substantial fraction of AI users indicate that they use it to substitute for worker 
+
+tasks and for equipment/software operations. However, relatively few AI users indicate they 
+
+reduce employment due to AI use. Many AI users implement organizational changes—including 
+
+a high propensity to train existing staff to use AI.  For those businesses that do not intend to use 
+
+AI in the near future, the most cited reason is that AI is not applicable for their business.      
+
+There are many challenges in measuring AI business use that need to be recognized in 
+
+interpreting our findings. Firms may use AI in incidentally or insignificant ways, and not report 
+
+such use, as AI may not be a part of their core processes or products. Others may rely on AI 
+
+embedded in systems or services provided by third parties; in which case they are unknowing 
+
+users of AI. The estimates produced from business responses to the BTOS may not include these 
+
+incidental and/or embedded uses of AI. Still, we think that the BTOS statistics are highly 
+
+3 
+
+ 
+relevant as they arguably reflect more direct and significant use of AI for business purposes. 
+
+Given the explosion of interest about Generative AI transforming the economy, the tracking of 
+
+such significant use is important.  
+
+Interestingly, the patterns we have detected from September 2023 to February 2024 are 
+
+broadly consistent with the results from the two complementary collections of the ABS covering 
+
+the period 2016–2018 (see Acemoglu et al. (2023, 2022) and 2017 in McElheran et al. (2024) 
+
+and Zolas et al. (2020)). 5   AI use rates are relatively low over this period but higher on an 
+
+employment-weighted basis. They are much higher in sectors such as the Information sector. 
+
+While more analysis is needed, the rapid developments in Generative AI have not yet led to an 
+
+explosion of AI use among businesses between September 2023 and February 2024.   Still, we 
+
+do find that AI use for business purposes is substantially higher (when adjustments are made for 
+
+comparable tabulations) in our sample period compared to the ABS sample periods pre-2019.   
+
+The rest of the paper is structured as follows. In the next section we describe the design and 
+
+testing of AI questions. In section 3, we provided results from the core AI questions and compare 
+
+these results to adoption rates from other surveys. In section 4, we provide results from the AI 
+
+Supplement. We bring in other data from the BTOS in section 5, where we examine relationships 
+
+between AI adoption and firm performance (and compare these to results from ABS). Finally, in 
+
+section 6 we provide our conclusions and a discussion about future research.  
+
+2.  Design and Testing of AI Questions 
+
+As denoted by its name, the BTOS provides almost real-time information on current trends 
+
+and future outlook for businesses. BTOS provides a more qualitative view of the economy with 
+
+questions concerning changes and movements in terms of improving or worsening conditions. 
+
+With its biweekly collection period, the questions asked of respondents must be answerable in a 
+
+timely fashion. The dissemination platform needs to be agile enough to handle almost continuous 
+
+5 Caution is required in comparing AI use rates from BTOS to those reported from the ABS in the 2016-18 period in 
+Acemoglu et al. (2023, 2022) and 2017 in McElheran et al. (2024) and Zolas et al. (2020).  In the latter papers, AI 
+use statistics are based on the fraction of AI users over all businesses excluding those that answered “Do Not 
+Know”.  In the current paper, we include “Do Not Know” in our baseline statistics.  We discuss why and also make 
+comparisons to ABS statistics by excluding “Do Not Know” in section 3.c below.  When comparisons are made on 
+an “apples-to-apples” basis we find substantially higher AI use rates in 2023-24 from BTOS compared to the 2016-
+18 period from ABS. 
+
+4 
+
+ 
+ 
+ 
+ 
+updates of results. Finally, BTOS is designed to handle changes in content in a relatively 
+
+streamlined fashion while still striving to adhere to Census Bureau quality standards. We 
+
+describe how the BTOS sample, methodology, content review, and dissemination platform work 
+
+to meet these goals.  
+
+a.  Sample and Methodology 
+
+The BTOS sample of about 1.2 million businesses is drawn annually from the Business 
+
+Register. Beginning in September 2023, the sample covers all nonfarm, private employer 
+
+businesses and produces data representative at the national, state, and sector levels in addition to 
+
+the 25 largest metropolitan statistical areas6; each representative panel includes approximately 
+
+200,000 businesses -- the average biweekly response rate over the period of collection for AI-
+
+related content so far is about 16%, resulting in about 164,500 businesses for our main analysis 
+
+sample. The BTOS rotates across these six panels over the year so that businesses in each panel 
+
+are asked to report once every 12 weeks for the BTOS cycle.7  The first time each biweekly 
+
+panel is in sample, businesses are contacted either by email or letter with an invitation to respond 
+
+to the survey. Starting with the second time each biweekly panel is in sample, businesses are 
+
+contacted only by email with an invitation to respond to the survey. Survey responses and 
+
+nonresponse-adjusted survey weights are used to create estimates of the percent of businesses 
+
+responding to each question response. The weights make the estimates representative at the 
+
+national level and by state, sector and size. Unlike many other Census Bureau surveys large 
+
+businesses are not selected for sampling with higher probability than smaller businesses. 
+
+The BTOS published statistics include estimates by geography and NAICS sectors, but also 
+
+for an unclassified geography and NAICS sector. Multiple location businesses operating in more 
+
+than one state (or MSA) are considered unclassified for geography and are not included in any 
+
+state (or MSA) total. Similarly, multiple location businesses operating in more than one sector 
+
+are considered unclassified for sector and are not included in any sector total. These exclusions 
+
+from detailed totals are done to prevent double counting. Businesses assigned as unclassified, for 
+
+6 See the published BTOS Methodology for additional details: https://www.census.gov/hfp/btos/methodology. 
+7 The BTOS rotates these six panels (a “cycle”) four times for a total of 48 weeks of survey coverage. Some panels 
+will be surveyed five times instead of four to cover the remaining weeks of the survey year. 
+
+5 
+
+ 
+ 
+geography and/or sector, are included in national totals including by firm characteristics such as 
+
+firm age and size.8  
+
+b.  Core Content 
+
+In terms of content, businesses are asked about changes or movements in terms of actual and 
+
+anticipated increases or decreases for concepts of interest including employment, input prices, 
+
+and output prices (see Appendix A for the core BTOS questions). These are asked in reference to 
+
+two time periods: current and six months in the future. In a parallel fashion, there are two core AI 
+
+questions about the use of AI in the production of goods and services in the current time period 
+
+and six months in the future. The questions ask: “Between MMM DD – MMM DD, did this 
+
+business use Artificial Intelligence (AI) in producing goods or services? (Examples of AI: 
+
+machine learning, natural language processing, virtual agents, voice recognition, etc.)” and 
+
+“During the next six months, do you think this business will be using Artificial Intelligence (AI) 
+
+in producing goods or services? (Examples of AI: machine learning, natural language processing, 
+
+virtual agents, voice recognition, etc.)”. 
+
+The additional AI content (both the two core questions as well as the 13 supplemental 
+
+questions) were tested separately in summer 2023. 9 Most respondents understood the AI 
+
+8 The decision to create unclassified geography and sector classifications for estimation was made after careful 
+consideration of alternate methods as well as extensive cognitive interviews conducted in the field of large, complex 
+businesses. The BTOS relies heavily on business email addresses for survey respondent contact; these addresses are 
+nearly always reported at the company level given the source of these data are other responses to Census Bureau 
+business surveys. Cognitive interviews were used in part to determine if companies would be willing to provide 
+establishment level contact information as part of a two stage survey process. Companies reported that not only 
+would providing establishment-level contact email addresses be burdensome (extremely so for very large 
+businesses), but it would also be something they were unwilling to do. Without a source of establishment-level 
+contacts, the BTOS is currently limited to surveying at the company level. The decision to use unclassified 
+categories for estimates was made in order to increase the representativeness of the national estimates produced by 
+the survey by including multiple location businesses while making minimal assumptions about how to allocate these 
+multiple location business responses across geography and sectors. As BTOS is an experimental product, the Census 
+Bureau may revisit the choice to use these unclassified estimates in the future. 
+9 With limited exceptions, Census Bureau survey questions undergo pretesting using cognitive interviews and/or 
+unmoderated tests to fulfill the Census Bureau’s Statistical Quality Standard A2-3.3 . The standard states data 
+collection instruments and supporting materials must be pretested with respondents to identify problems (e.g., 
+problems related to content, order/context effects, skip instructions, formatting, navigation, and edits) and then 
+refined, prior to implementation, based on the pretesting results. Typically, two rounds of testing are used, the first 
+to identify issues and the second to confirm that earlier identified issues have been resolved. The main two topics 
+evaluated during cognitive testing are content quality and respondent burden. Most core content found in Appendix 
+A was tested in early 2022 prior to the launch of the BTOS in July 2022. General findings from this study included 
+that respondents had no difficulty answering questions looking back in time nor in the future, that six months was a 
+reasonable amount of time looking forward, and that some respondents expressed had concerns about seasonality for 
+
+6 
+
+ 
+ 
+ 
+questions and were able answer them. Challenges presented during cognitive testing included 
+
+whether the respondent was knowledgeable about the current or planned use of AI or the reasons 
+
+why the company was not using AI. Some respondents had a role in the company financials or 
+
+accounting and/or were unfamiliar with the technical plans for the company. Testing supported 
+
+that in these situations respondents would select the correct response option “do not know”. The 
+
+most common challenge presented during cognitive testing surrounded the definition of and what 
+
+qualifies as AI. To assist respondents,  the BTOS includes hyperlinks on each AI question within 
+
+the online instrument to the previously tested ABS survey definition.10   
+
+We include the “do not know” cases in our analysis of AI use rates given the current versus 
+
+future perspective of BTOS. It may be for example that a firm is planning on using AI in the 
+
+future for business purposes but there is uncertainty about whether some AI use has commenced 
+
+already. That is, as we will see there are interesting transitions from “do not know” in the current 
+
+period to “Yes” in the future.  
+
+c.  Supplement Content 
+
+A supplement to the BTOS was added in December 2023 covering six biweekly periods 
+
+‘cycle’ to dive deeper into AI usage. Altogether, 13 additional questions were added, but some 
+
+are only applicable conditional on AI use. The supplement focused broadly on understanding the 
+
+types of AI technologies and applications used by businesses, task, labor, and capital augmenting 
+
+versus replacing roles/effects of AI, organizational changes made to accommodate AI, and the 
+
+reasons for businesses not adopting or using AI. We next describe these questions (and provide 
+
+the exact questions in Appendix B).  
+
+One of the  challenges revealed by cognitive testing was having a common understanding of 
+
+a cutting-edge technology (see Miric et al. (2023) for a similar discussion). Thus, the first 
+
+certain questions looking six months forward (e.g., in sectors that experience seasonal changes in hours or 
+employment). Study authors also noted that it was important to be consistent in framing forward looking questions 
+depending on whether the concept being measured takes place over the span of six months or is a point estimate for 
+six months in the future. 
+10 “Artificial Intelligence is computer systems and software that are able to perform tasks normally requiring human 
+intelligence, such as decision-making, visual perception, speech recognition, and language processing. 
+Types or applications of AI include machine learning, natural language processing, virtual agents, predictive 
+analytics, machine vision, voice recognition, decision making systems, data analytics, text analytics, image 
+processing, etc.” 
+
+7 
+
+ 
+ 
+ 
+supplemental question attempts to cast a wide net in determining AI use by providing 17 detailed 
+
+examples that respondents can check in response to the question “In the last six months, what 
+
+types of applications of Artificial Intelligence (AI) did this business use in producing goods or 
+
+services?” The examples are intended to capture the scope of AI usage and the differences in 
+
+terminology used. Thus, it includes overlapping concepts such as “deep learning” and “machine 
+
+learning.” Given the rapidly expanding technology, we also include “Other” as an option.  
+
+If the respondent picks any of these 18 options, they are then asked five follow-up questions. 
+
+Many of these questions focus on the impact on workers: whether AI is used to perform tasks 
+
+previously done by employees in producing goods and services, and if so, the intensity of this 
+
+use (number of tasks: “small,” “moderate,” or “large”) and whether the use of AI has changed 
+
+the total employment at the business (increased, decreased, no change). Since adopting AI may 
+
+also impact capital/equipment, the respondents are further asked whether AI has replaced 
+
+operations performed by existing equipment/software. The final retrospective question asks 
+
+about other changes needed in order for the business to use AI. There are 7 options that focus on 
+
+changes in staffing, equipment, and processes and an option for “Other” and “None.” These 
+
+questions provide guidance regarding the complements to AI adoption.  
+
+BTOS then asks the same series of questions but with a forward-looking time frame of 
+
+during the next six months. The AI supplement ends with a question for those respondents who 
+
+noted that they do not expect to use AI in the next six months. The question is intended to help 
+
+us understand why businesses have not adopted AI. It asks for reasons why the business does not 
+
+plan to use AI during the next six months and provides 10 possible reasons and then “Other.” 
+
+The ten possible reasons include constraints due to costs, skilled workforce, data available, or 
+
+laws/regulations; concerns about privacy/security or bias; issues with AI technology not being 
+
+sufficiently mature or having not met expectation; and either not knowing about the capabilities 
+
+of AI or whether it is applicable to the business.  
+
+3.  AI Use Rates  
+
+We first consider the overall current and future use rates of AI by firms estimated from 
+
+BTOS and compare these rates with those estimated from other recent surveys. 
+
+8 
+
+ 
+ 
+a.  AI Use Rates in the BTOS 
+
+The first collection period of the core questions in September 2023 yielded an AI usage rate 
+
+of 3.7% across firms. That is, an estimated 3.7% of firms nationally used AI in the previous two 
+
+weeks in producing goods or services. Over the following 11 two-week collection periods, the AI 
+
+usage rate has grown to 5.4% in February 2024. This represents a 46% growth in the number of 
+
+firms using AI over 5 months. To abstract away from the variation in sampling error inherent in 
+
+bi-weekly measurements, Figure 1 shows the linear trend fitted through the use rates observed in 
+
+all 12 bi-weekly periods of collection. The linear trend indicates a clear rise in current AI use 
+
+during this time period.  In contrast, the linear trend for future use has a slight upward trend 
+
+reflecting the within sample increase from 6.3% in September 2023 to 6.6% in February 2024  
+
+(where the latter reflects expectations for early Fall 2024).    Conceptually, we would expect 
+
+current and future use rates to eventually converge.  If we combine the current use in Fall 2023 
+
+of 3.7% with the expected use of 6.6% in Fall 2024, this represents rapid growth in AI use over 
+
+the year combining actual and expected growth. It will be possible to confirm whether such 
+
+expectations are realized in the near future using future BTOS collections.   
+
+Employment-weighted use rates in Figure 1 show similar trends with higher levels. The share 
+
+of employment in firms indicating current use grew from about 4.5% to nearly 9% over the 
+
+sample period. Employment-weighted expected future rates increase from about 10% to 12% 
+
+during the same period.  The employment-weighted use rates provide information on the fraction 
+
+of workers at firms using AI—a rough measure of worker exposure to AI.   
+
+Figure 2a contains the current and expected rates of AI use by 2-digit NAICS sector.11 
+
+Information (NAICS 51) and Professional, Scientific, and Technical services (NAICS 54) sectors 
+
+have the highest rates of current and expected AI use. The sectors with the lowest rates of current 
+
+and expected AI use are Construction (NAICS 23) and Agriculture, Forestry, Fishing and 
+
+Hunting (NAICS 11). All sectors had more firms indicating expected use than current use (with 
+
+the exception of Management),12 but not all sectors have the same proportional expected 
+
+increase. For example, AI use in Educational Services (NAICS 61), which has the third-highest 
+
+11 Current AI use for utilities (NAICS 22) is not reported for confidentiality reasons. Firms with establishments in 
+multiple sectors are tabulated in a separate unclassified group (see Section 2.a) and are labeled as “XX.” 
+12 Estimates for the management sector (NAICS 55) also have particularly large standard errors of 2.4%–2.7% (no 
+other sector has standard errors larger than 1%). 
+
+9 
+
+ 
+ 
+rate of current AI use at 9.1%, expects to rise 1 percentage point (pp) over six months. However, 
+
+firms in Finance and Insurance (NAICS 52), which has a current AI usage rate of 6.9% (sixth-
+
+highest among sectors), have expectations of a 48% increase (or 3.3pp increase) in AI use over 
+
+six months. 
+
+Figure 2b provides the employment-weighted estimates of AI use by 2-digit sector. The rank 
+
+ordering is very similar to the firm-weighted statistics with the rates almost uniformly higher. 
+
+For example, in terms of the fraction of firms, 18% of firms in the Information sector reported 
+
+current use of AI, with 22% of workers at firms in the Information sector currently using AI. The 
+
+future use differential between firm and employment weighted is similar, with 22% of firms in 
+
+the Information sector anticipating using AI for producing goods or services and 25% of workers 
+
+at firms in the Information sector anticipating using AI in the next 6 months. The lowest ranked 
+
+sectors on an employment-weighted basis are Construction and Mining, Quarrying, and Oil and 
+
+Gas extraction (NAICS 21)—only 1.9% of workers in these sectors are at firms using AI for 
+
+producing goods or services.  
+
+Figure 3a contains estimates of current and expected AI use rate by state, the District of 
+
+Columbia, and Puerto Rico—see also the map in Figure 3c. The highest current AI usage rates 
+
+are in Colorado, the District of Columbia, Florida, Utah, Nevada, and Delaware. In general, the 
+
+states with the highest shares of firms with current AI use appear to be located in the West or 
+
+Northeast regions of the U.S. Also in the top quartile are the firms unclassifiable by state because 
+
+they operate in multiple states (labeled as “XX” in the figure)—notably, many large, multi-unit 
+
+firms fall into this category. This category of firms has an especially large expected increase in 
+
+AI use, second only to D.C. (despite having only the 11th-highest current rate of AI use). Firms in 
+
+Mississippi and West Virginia have the lowest rates of current and expected AI use. 
+
+Employment-weighted results in Figure 3b indicate more of a mixture of states from different 
+
+regions, including the “XX” category which includes many large, multi-unit firms.  
+
+Figure 4a shows the current and expected usage rates by firm size class. We find a U-shaped 
+
+pattern with respect to size for both current and expected use, with higher rates of AI use in the 
+
+smallest and the largest size classes than the middle size classes. Businesses in the largest size 
+
+class (250+ employees) have the highest current and expected use rates; at 7.2% and 11.0%, 
+
+respectively. Firms in the smallest size class (1–4 employees) have the next highest rate of 
+
+10 
+
+ 
+current AI use at 5.5%, and those with 100–249 employees use at a rate of 4.8%. Businesses in 
+
+these two groups expect AI use rates of 7.0% and 7.8%, respectively. As discussed more in detail 
+
+in Section 3c, the finding that the smallest firms have relatively higher rates of AI use differs 
+
+from the patterns observed previously in the Annual Business Survey (ABS). Note, however, that 
+
+the expected future use rates by firm size class also indicates that the AI use rate is generally 
+
+expected to grow more (in percentage terms) for larger firm size classes than the smaller ones. 
+
+For example, the use rate in the smallest size class (1-4 employees) is expected to grow by 27%, 
+
+whereas the use rate in the largest class (250+ employees) is expected to increase by 53%. 
+
+Nevertheless, the non-monotonic pattern across size classes is expected to prevail in the near 
+
+future.  
+
+Employment-weighted patterns by firm size are depicted in Figure 4b. The patterns are 
+
+broadly similar to the firm-weighted statistics which is not surprising given that we are already 
+
+using firm size as the key variable. However, there is a notable increase in current and expected 
+
+use for the employment-weighted statistics for the 250+ firm size class. This implies that it is 
+
+especially the largest firms in this size class with higher AI use rates.  
+
+Figure 5a reports current and expected rates of AI use by firm age categories.13 Current use 
+
+rate is the highest (7.1%) among the youngest group and lower for older groups, with the lowest 
+
+rate (2.8%) observed in the oldest category. Expected future use rates are uniformly higher for 
+
+each age category and exhibit a similar decline from the youngest to the oldest group (though the 
+
+first two groups have similar rates). While the use rate is expected to grow for all age categories, 
+
+the percent gap between expected future and current use rate increases monotonically with age 
+
+category, from 28% for the youngest group to 52% for the oldest.14    
+
+Employment-weighted use rates by firm age in Figure 5b show a similar pattern of decline 
+
+with age group, with the exception of the oldest category. Among all age categories, the 
+
+youngest has the largest share of employment in current users (6.3%) and expected future users 
+
+13 Firm age is collected from the Longitudinal Business Database and captures the age of the oldest establishment 
+when a firm identifier is first observed (Jarmin and Miranda 2002; Chow et al. 2021). Since the LBD is produced 
+with a significant lag (the latest year available at the time of writing was 2021) we attempt to find firms in BTOS in 
+the LBD from 2018 to 2021. Considering a window of LBD years accounts for reactivations. We then classify firms 
+that appear in BTOS but not the LBD as part of the age 0 to 5 group since they are likely firms that enter after the 
+last LBD year observed.  
+14 It is important to note that firms naturally traverse the age groups over time. For this analysis, this implies that the 
+firms that make up the youngest group in the future have not yet been born. 
+
+11 
+
+ 
+ 
+(10.0%). For the oldest, these figures are 5.5% and 10.2%, respectively – indicating an expected 
+
+doubling of employment share of users in this age category in the near future. 
+
+b.  Firm-level Current versus Expected Future Use 
+
+An important question is how persistent AI use at the firm level is—will firms that currently 
+
+use AI continue to do so in the future? Because AI is still an early technology, many firms may 
+
+be testing the use of AI in various tasks and processes. De-adoption may occur if such 
+
+experimentation does not yield anticipated benefits or organizational synergies. Equally 
+
+important is the question of what share of the current non-users expect to use AI in the future, 
+
+and whether this group of firms is systematically different (e.g., in scale) than current users.   
+
+The cross tabulations showing the relationship between current and future use is presented in 
+
+Table 1. Each cell in a panel gives the estimated share of firms with a given current use status 
+
+(indicated by the rows) and an expected future use status (indicated by the columns). Panel A 
+
+gives the unconditional fraction of firms in each cell, whereas panels B and C condition on 
+
+current and expected future use, respectively.  
+
+In Table 1 panel A we find evidence of persistent use and non-use, adoption, and significant 
+
+uncertainty. We find 3.4% of the firms are persistent users, responding that they currently use AI 
+
+and expect to continue to use in the future and 67.4% are non-users that expect to remain non-
+
+users. Another 2.8% of firms are not using AI currently but plan to in the future and a small 
+
+percent of firms (0.7%) currently use but do not expect to in the future. We also find substantial 
+
+uncertainty in Panel A, with 14.0% of firms responding that they are current non-users but don’t 
+
+know whether they will use AI in the future. Eight percent of firms don’t know whether they use 
+
+AI currently or will use it in the future, and 2.5% don’t know whether they use currently and will 
+
+not use in the future. Overall, a large fraction (22.9%) of firms don’t know whether they will use 
+
+in the future, potentially indicating uncertainty about the net benefits of AI or potential issues 
+
+about respondents’ information on the use of AI within their firms.15 
+
+Panels B and C, which condition on current or future use, provide several key insights. In 
+
+Panel B, which conditions on current use (rows sum to 100%), we find large diagonal elements 
+
+15 This is particularly the case for large firms, based on the results of cognitive testing and similar issues encountered 
+in the 2018 and 2019 ABS technology modules. 
+
+12 
+
+ 
+ 
+(in the range 68–80%), indicating that current use patterns at the firm level will largely persist 
+
+over time. A large fraction of the firms (67.9%) that currently use AI also expect to use in the 
+
+future. However, a non-trivial fraction (14.5%) of the current users do not expect to use in the 
+
+future, and another 17.6% don’t know whether they will. Thus, about one in seven (and possibly 
+
+more) of the current AI users may “de-adopt” in the future. 96.7% of current non-users either 
+
+expect to stay non-users (80%) or don’t know if they will use in the future (16.7%). Similarly, 
+
+96.9% of the firms in the current “don’t know” category do not expect to use (23%) or don’t 
+
+know whether they will use (73.9%). 
+
+Turning to panel C, which conditions on future use, we find that only half (52.0%) of the 
+
+firms that expect to use AI in the future are accounted for by current users, whereas a large 
+
+fraction (42.8%) will originate from current non-users. A relatively small share (5.2%) comes 
+
+from the current “don’t know” group. A large fraction (95.5%) of future non-users originates 
+
+from current non-users. The group of firms that do not know whether they will use AI in the 
+
+future is mainly made up of current non-users (61.3%) and firms that do not know whether they 
+
+currently use AI (34.9%).  
+
+Employment-weighted results in Table 2, panel A indicate that about 4.8% of the total 
+
+employment is in firms that are current and expected future users, whereas most of the total 
+
+employment (50.8%) is in current non-users that expect to stay non-users in the future. Note also 
+
+that a large fraction of employment (18.8%) is in firms that don’t know whether they use AI 
+
+currently or will use in the future. As in the case of the firm-weighted results, the diagonal 
+
+elements of the matrix conditional on current adoption in panel B are relatively high (around 66-
+
+81%), indicating that a large fraction of employment in each current use status fall into that same 
+
+status for future use status—again, indicating a large degree of persistence in the use status over 
+
+time. However, about 34% of the employment in current users is in firms that do not expect to 
+
+use or don’t know whether they will use in the future. Only 6.1% of the employment in current 
+
+non-users is expected to be in the future user category.  
+
+As shown in panel C, about 43% of the employment in firms that expect future use is 
+
+accounted by current users, whereas the rest will come mostly from current non-users (38%) and 
+
+about half as much (19%) from firms in the current “don’t know” category.  
+
+13 
+
+ 
+The average firm size (employment) in each cell is shown in Table 3. First, note that the 
+
+average size of current users as a whole is much larger than that of current non-users (34 versus 
+
+19 employees). However, firms in the current “don’t know” category is the largest on average 
+
+(49). In particular, firms that are in the current “don’t know” category but expect to use AI in the 
+
+future are the largest on average (150). This may in part reflect issues with responses in 
+
+large/multi-unit firms or experimentation with AI.  
+
+Firms that expect to use AI in the future are on average larger than the current users (40 
+
+versus 34). The firms that are current non-users and expect to remain non-users are the smallest 
+
+on average (18). As seen in Table 1, this group makes up the largest fraction of firms, and 
+
+consists, on average, of smaller firms that do not use AI and are unlikely to adopt in the near 
+
+future. More generally, firms that do not expect to use in the future are made up of smaller firms 
+
+on average (18). Firms that are current non-users but expect to use in the future have roughly of 
+
+similar size (36) on average as the current users (34). Note also that current users that do not 
+
+expect to continue to use tend to be on average smaller (22) compared to the average user size. 
+
+c.  Comparison with AI Use Rates in Other Surveys  
+
+We start with a comparison to two waves of collections on the ABS. The ABS represents a 
+
+joint partnership between the Census Bureau and the National Center for Science and 
+
+Engineering Statistics (NCSES). The ABS is a firm-level survey that was sent to a nationally 
+
+representative sample of approximately 850,000 private, non-farm employer firms in the 2018 
+
+collection and approximately 300,000 firms for the 2019 collection. For both collections, the 
+
+intent is to repeat the collections after about 3–4 years to learn more about adoption and diffusion 
+
+and to potentially allow us to examine causality.  
+
+In the research discussed below using the 2018 and 2019 waves of the ABS, “Do Not Know” 
+
+cases were excluded from all calculations.  The motivation stemmed in part from AI being at 
+
+earlier stage of development and also from evidence discussed in Zolas et al. (2020) that “Do 
+
+Not Know” responses were skewed toward relatively larger firms.  This contrasts with the 
+
+treatment of “Do Not Know” in the above analysis in the current paper discussed in prior 
+
+sections.  Given these differences in methodology, we proceed as follows.  First, we discuss the 
+
+research using the 2018 and 2019 waves of the ABS.  Second, we report statistics from the 
+
+14 
+
+ 
+BTOS that also exclude “Do Not Know” so that magnitudes across research papers are 
+
+comparable.   
+
+Working with Erik Brynjolfsson and Kristina McElheran, a technology module of three 
+
+questions was designed for the 2018 ABS to capture the adoption and diffusion of five business 
+
+technologies that can be associated with artificial intelligence (automated-guided vehicles, 
+
+machine learning, machine vision, natural language processing, and voice recognition). It is 
+
+important to note, however, that the 2018 ABS did not explicitly mention AI or relate these 
+
+technologies to AI when asking about them. Therefore, some respondents may have reported use 
+
+of these technologies without an AI component (e.g., some voice recognition and automated-
+
+guided vehicles may not embed AI). Zolas et al. (2020) and McElheran et al. (2024) find that 
+
+overall adoption of any of these five technologies was less than 6% around 2017. However, since 
+
+adoption was skewed towards larger businesses, when weighted by employment, adoption was 
+
+about 18%. Adoption also varied by sector of the economy with higher adoption rates (about 
+
+12% each) in the Information and Manufacturing sectors. The probability of AI use was found to 
+
+increase with firm size; and controlling for size and industry, younger firms were on average 
+
+more likely to use AI. 
+
+The 2019 ABS technology module focuses on automation and the impact on the workforce 
+
+and was developed in collaboration with Daron Acemoglu and Pascual Restrepo. The module 
+
+asked questions on various aspects of the use of five advanced technologies: artificial 
+
+intelligence, robotics, dedicated equipment, specialized software, and cloud computing. In 
+
+contrast to the 2018 ABS survey, some questions were directly aimed at AI, and a definition of 
+
+artificial intelligence was also provided to the respondents. The AI use rate for the period 2016–
+
+2018 was estimated at 3.2%, and 12.6% of U.S. workers were employed at firms using AI during 
+
+this period—see Acemoglu et al. (2022). AI use was more prevalent in Information (9% of 
+
+firms), Professional, Scientific and Technical services (7%), and Finance, Insurance and Real 
+
+Estate sectors (5%). Conditional on industry, larger and younger firms were more likely to use 
+
+AI. 
+
+Turning back to the BTOS and excluding “Do Not Know” from the calculations, our findings 
+
+are broadly consistent, qualitatively, with the patterns uncovered from the 2018 and 2019 ABS in 
+
+terms of variation in AI use by firm characteristics. However, we observe a number of 
+
+15 
+
+ 
+differences as well. First, we find higher levels of AI use; the current rate of 6.0% at the end of 
+
+our sample period (adjusted to exclude “do not know” responses) represents a near doubling 
+
+from the 3.2% use rate in the 2019 ABS. In the BTOS, firms reported expectations to further 
+
+increase AI use to 8.6% by the fall of 2024—again, adjusted to remove “do not know” responses.  
+
+On an employment-weighted basis, when we exclude “do not know”,  the current use over 
+
+September 2023 to February 2024 averages 9.4%. The future use in the next six months averages 
+
+17.4%.   
+
+Furthermore, we see a more prevalent use of AI by small firms in the BTOS compared to the 
+
+earlier results from the ABS, leading to a U-shaped (rather than increasing) pattern of AI use 
+
+with respect to firm size. One caveat to this difference is that size classes were defined somewhat 
+
+differently in the analyses of the ABS. Nevertheless, the non-monotonicity we observe in the 
+
+BTOS with respect to firm size (specifically the decreasing pattern over the range of smaller firm 
+
+size classes) is still contrary to what can be inferred from relatively comparable size classes in 
+
+previous findings using the ABS. One potential explanation for the relatively high use rates by 
+
+small firms compared to the earlier patterns from the ABS is the accelerating use of generative 
+
+AI particularly among these firms following the introduction of Large Language Models (LLMs) 
+
+and similar applications. Small firms may benefit disproportionately because of a need for 
+
+multitasking by a small number of employees that AI can help with, or because of the relatively 
+
+low cost if cost was previously a barrier to AI use for small firms. The rate of use in the 
+
+Information sector we observe is also much higher than in the earlier studies using ABS, 
+
+indicating an accelerated adoption in this sector. 
+
+There are also private sector surveys on the use of AI. McKinsey and Company’s latest 
+
+annual online global survey of AI use, conducted in April 2023 with about 1,700 (person-level) 
+
+responses worldwide, reports that 55% of respondents used AI in at least one function (but that 
+
+only 33% use AI in more than one function).16 They report that investment in AI is expected to 
+
+16 Since the survey results are reported in terms of percentage of person-level respondents the statistics for 
+organizations should be viewed as employment-weighted. The survey is global and the methodology states “To 
+adjust for differences in response rates, the data are weighted by the contribution of each respondent’s nation to 
+global GDP”. The 55% organization use rate in 2023 is about the same as similar surveys by McKinsey in 2021 and 
+2022. Note, however, only 6% of respondents in North America indicate they are using AI regularly in their own 
+work, 22% indicate they are using AI regularly for both work and outside of work, and 13% indicate they are using 
+AI regularly only for outside of work. The total number of respondents in North America is 392. The survey is also 
+
+16 
+
+ 
+ 
+ 
+increase over the next three years suggesting that adoption is expected to increase over time. 
+
+They also report on reasons for adopting and benefits from adopting. In terms of challenges, they 
+
+report that strategy (for example, setting a clearly defined vision for AI) and models and tools are 
+
+the two biggest reasons cited (p. 10). In considering why the adoption rates differ so 
+
+dramatically, one likely reason is selection bias in terms for firm size and sector. Importantly, a 
+
+large fraction of firms in the U.S. economy (more than 6 million firms) are small firms in 
+
+Construction, Other Services (e.g, drycleaners, hair and nail salons) and Accommodation and 
+
+Food Services.  Our findings highlight low usage rates in these sectors.  
+
+4.  Findings from the AI Supplement 
+
+We next analyze firms’ responses to the AI supplement in BTOS which collected 
+
+information on various aspects of AI use and its effects at the firm level. As in most of the 
+
+analysis above, we combine all 6 periods of the survey over which the supplement was fielded 
+
+and report our findings from the combined sample. 
+
+a.  Use Rates by AI Technology and Application  
+
+Little is known about specific AI technologies and applications being used by businesses, at 
+
+what rate, and how these usage rates will change in the near future.17 The BTOS supplement 
+
+asked firms to identify the AI technologies and applications they utilized in the last six months. 
+
+The response options included separate questions on several core AI technologies (such as 
+
+machine learning, neural networks, natural language processing, deep learning) and business 
+
+applications of these technologies (such as marketing automation, recommendation systems, 
+
+robotics process automation). These response options are neither mutually exclusive nor 
+
+exhaustive (e.g., machine learning is a much broader term that encompasses deep learning and 
+
+not representative in terms of the distribution of employment across sectors (and the national GDP to global GDP 
+will not account for this variation). For example, for what they denote as technology, media and telecom they have 
+244 respondents representing about 15% of respondents. In the U.S., the Information sector (which includes all of 
+these type of firms) accounts for about 2.6% of employment (according to U.S. Census Bureau’s Business Dynamic 
+Statistics). The McKinsey survey has about 7.6% of respondents in consumer goods/retail.  The combined Retail, 
+Food and Accommodation, and Other Services (which includes the service firms such as drycleaners and automobile 
+repair shops) accounts for 26% of US employment. Respondents at Construction firms which have a low AI rate in 
+the BTOS don’t appear to be included in the McKinsey survey – they account for about 5.6% of US employment.   
+17 Prior work using the 2018 ABS provided some information on the use of five AI-related technologies—see Zolas 
+et al. (2020) and McElheran et al. (2024)—but AI was not explicitly mentioned in the survey. 
+
+17 
+
+ 
+ 
+ 
+several others). Firms were asked to choose all options that apply, so that information on the use 
+
+of both the broader and narrower groups of technologies and applications can be collected.  
+
+Table 4a shows the use rates for various technologies and applications (we report results 
+
+for both technologies and applications in the same table). Overall, all technologies and 
+
+applications are used with a low rate across firms in the last 6 months (measured from the period 
+
+of response). Conditional on AI use (i.e., excluding the “none” option), the most commonly used 
+
+technologies and applications are marketing automation (28.4%), virtual agents (21.6%), natural 
+
+language processing (19.3%), text analytics (17.0%), data analytics (17.0%), and speech/voice 
+
+recognition (15.9%). These are followed by an undefined “other” category (15.9%), machine 
+
+learning (13.6%) and large language models (11.4%). The relatively low use rates for the latter 
+
+two may be surprising at first, but respondents may be using these core technologies as part of 
+
+other applications provided in the other response options, and some may not have separately 
+
+reported the use of these two. Furthermore, some respondents may have not been aware of the 
+
+use of these technologies, as they may be embedded in some AI business applications; for 
+
+instance, marketing automation typically uses both machine learning and large language models, 
+
+typically embedded in virtual agents such as ChatGPT that can generate customized marketing 
+
+messages.  
+
+Almost all AI applications and technologies show an increase in their expected use rates 
+
+in the future—with the exception of “other” category. The expected future use rate is the highest 
+
+for marketing automation, with more than one-third of the firms expecting to use some AI 
+
+anticipating future use of this AI application. This is followed by data analytics (29.8%), virtual 
+
+agents (28.2%), and natural language processing (26.6%). Some technologies with low rates of 
+
+current use, such as augmented reality, deep learning, recommendation systems, and decision 
+
+making systems, are expected to have the highest percentage increases in their use rates in the 
+
+future, with nearly a doubling in their current use rates. 
+
+Employment-weighted results in Table 4b, again conditional on use, indicate that data 
+
+analytics is the most prevalent application—32.9% of the employment in AI-using firms are at 
+
+firms using this application. This share is expected to nearly double to 61.1% in the future. 
+
+Robotics process automation, which is used by a relatively small fraction of firms, comes second 
+
+at 29.6% of employment, likely as a result of its use concentrated in large firms in manufacturing 
+
+and other sectors that rely on robotics. 26.2% of employment in AI-using firms is potentially 
+
+18 
+
+ 
+exposed to machine learning, a rate that is expected to double (50.5%) by mid-to-late 2024. The 
+
+next most common application (after “other”) is virtual agents, used by firms accounting for 
+
+22.7% of employment—a share that is expected to increase to 32.3% by mid-to-late 2024. 
+
+b.  AI–Worker Task Substitution 
+
+To what extent do firms use AI to perform tasks previously carried out by their workers? 
+
+This question is at the center of the theories emphasizing the potential role of AI in substituting 
+
+for worker tasks, which can lead to worker exposure to AI that is predicted to be potentially large 
+
+for particular worker types (see, e.g, Elondou et al. (2023)). The supplement asked firms whether 
+
+they use (or expect to use) AI to perform tasks previously done by employees in producing goods 
+
+or services.  
+
+Figure 6a indicates that, conditional on using AI, 26.6% of the businesses use it, at least in 
+
+part, to replace worker tasks. Still, a large fraction (65.2%) is not using AI for worker task 
+
+replacement. However, the use of AI to replace tasks is expected to grow significantly in the 
+
+future: 34.4% of the firms anticipate they will utilize AI to substitute for worker tasks in the next 
+
+6 months—an increase of nearly 30% from the current rate. 
+
+The supplement also asked about the extent of AI–worker task substitution, measured by 
+
+broad qualitative categories of the number of tasks replaced: small, moderate, or large. The 
+
+extent of such replacement does not appear to be very high, as shown in Table 5a. Nearly 85% of 
+
+businesses who reported using AI to replace any tasks use AI to replace a small number of tasks, 
+
+and only 2.4% use it to replace a large number of tasks. However, the extent of task replacement 
+
+is expected to grow considerably in the near future: 20.8% of businesses indicate expectations 
+
+for future AI use to replace a moderate or high number of tasks, up from 15.4%.  
+
+Employment-weighted results in Figure 6b reveal that 14.9% of the employment in AI-using 
+
+firms is potentially exposed to task replacement, whereas 48.1% of the employment is in firms 
+
+that do not use AI to substitute for tasks.18 Firms expecting to use AI to replace tasks in the next 
+
+18 Both of these shares are lower than the corresponding firm-weighted shares in Figure 6a. These lower shares of 
+employment are driven by the “do not know” category: while 8.1% of firms “do not know” whether AI is used for 
+worker task replacement, this fraction is much larger (36.9%) on an employment-weighted basis. In other words, the 
+“do not know” group is composed of relatively large firms, and this works to make the employment share in the 
+“yes” and “no” categories relatively small compared to the firm-weighted shares in Figure 6a. 
+
+19 
+
+ 
+ 
+ 
+six months account for 25.2% of employment of firms anticipating AI use. This fraction 
+
+represents a large increase from the 14.9% of employment in firms that used AI in the last six 
+
+months.  
+
+Turning to the employment-weighted results for the extent of task replacement in Table 5b, 
+
+we observe that 87.0% of employment in AI-using firms is accounted for by firms that use AI to 
+
+replace a small number of tasks. Another 12.3% is in firms using AI to replace a medium number 
+
+of tasks. A very small fraction (0.7%) of employment is in firms using AI to replace a large 
+
+number of tasks. However, the employment share of firms using AI to replace medium to large 
+
+number of tasks is expected to be 19.8% in the next six months, a significant increase from the 
+
+corresponding share (13.0%) of employment in firms that used AI in the last six months. 
+
+c.  Substitution of AI for Equipment/Software Operations 
+
+Next, we turn to the use of AI in relation to the existing equipment/software in a firm. AI has 
+
+the potential to replace or upgrade many existing computer systems and software used in a 
+
+variety of processes in producing goods or services. The supplement asked whether firms use AI 
+
+to perform operations previously performed by existing equipment or software in producing 
+
+goods or services. Figure 6a indicates that, conditional on AI use, 19.6% of firms use AI, at least 
+
+in part, for this purpose—a fraction that is expected to be much larger (33.5%) in the near future. 
+
+On an employment-weighted basis (Figure 6b), 16.9% of workers at AI-using firms are 
+
+employed by firms who reported using AI to replace equipment or software operations. Again, 
+
+this fraction is expected to increase substantially to 34.7% in the next six months.  
+
+Overall, firms’ use of AI to perform equipment or software operations is less common 
+
+than the use to replace worker tasks (26.6% versus 19.6%), but both types of replacement are 
+
+expected to increase substantially in the near future (around 34% each).  
+
+d.  Employment Effects of AI 
+
+The supplement also asked about the net effect of AI use in the last six months on firms’ total 
+
+employment. While AI can replace some workers tasks and types of labor, it can also generate 
+
+new tasks and jobs. The net effect on firm employment depends on the relative strength of these 
+
+two effects.  It also may be that AI is displacing tasks but not workers.   
+
+20 
+
+ 
+Panel A of Table 6 shows that “no change” in employment was, by far, the most common 
+
+response. An overwhelming fraction (94.6%) of AI-using businesses reported not having 
+
+experienced any net change in their employment in the last six months attributable to AI use. 
+
+Firms that experienced an increase or a decline in employment constitute small fractions of 
+
+firms: 2.8% and 2.6%, respectively. Overall, recent use of AI has not reportedly led to a net 
+
+change in employment for many firms. Nevertheless, employment changes attributable to 
+
+expected future use of AI indicate a changing pattern. The fraction of firms anticipating an 
+
+increase in employment due to future AI use is 6.5%, up from 2.8% in the last six months. 
+
+Similarly, the fraction anticipating a decrease (6.1%) is much higher than the 2.6% reporting a 
+
+decrease in the last six months. These figures represent more than double the fractions pertaining 
+
+to the corresponding cases of employment change in the last six months.  
+
+Employment-weighted results in Panel B of Table 6 reveal that positive or negative 
+
+employment changes due to AI use are applicable to only 2.8% of the employment in firms that 
+
+used AI in the last six months. This fraction is expected to increase to 7.7% in the near future, 
+
+consistent with the corresponding rise in the case of firm-weighted results. However, 
+
+employment-weighted results also indicate a relatively larger share of employment is in firms 
+
+expecting an increase in employment rather than a decrease—as opposed to the corresponding 
+
+figures in the firm-weighted results that show very similar shares for each direction.  
+
+Overall, the results do not indicate that a large fraction of firms has reduced, or will reduce, 
+
+employment due to AI use; though both increases and decreases in employment are expected to 
+
+be more prevalent in the future. At the same time, a slightly larger share of firms indicated 
+
+experiencing (or expecting to experience) an increase rather than a decrease—consistent with the 
+
+prior findings from the 2019 ABS (see Acemoglu et al. (2022)). It appears that while a 
+
+significant fraction of firms uses AI to replace worker tasks, a net employment decline due to AI 
+
+use is a far less common outcome.  
+
+e.  Organizational Changes Associated with AI Use 
+
+Historically, changes in the organization of firms accompanying adoption of new 
+
+technologies have been on many dimensions. Research has shown that such changes in firms’ 
+
+organizational structure include changes in the capital equipment, worker mix, workplace 
+
+practices, how workers interact with each other and with capital equipment, and the training of 
+
+21 
+
+ 
+workers.19  Finding the right mix of organizational changes requires experimentation as, ex ante, 
+
+it is often unclear what organizational changes are needed for any given new technology.  
+
+The supplement inquired about some of the key adjustments AI users make to use AI—the 
+
+respondents could choose all applicable adjustments. Figure 7a indicates that 50.5% of firms that 
+
+used AI in the last six months did not implement any changes at all in order to use AI. This likely 
+
+reflects that AI use for business purposes is still in early phases where firms are evaluating 
+
+potential organizational changes. A substantial fraction of AI users (20.8%) trained existing staff 
+
+to use AI, while 19.7% developed new workflows. 12.4% reported purchasing cloud services or 
+
+storage, a key complement to AI use. Other changes were less common. Interestingly, only 8.0% 
+
+of firms reported making changes to data collection and data management practices, and only 
+
+7.8% used vendors or consulting services to install or integrate AI. An even smaller fraction of 
+
+firms (2.0%) hired new staff trained in AI. 
+
+Organizational changes appear to be much more prevalent in the case of expected AI use. 
+
+Among firms expecting to use AI in the next six months, training existing staff (41.9%) and 
+
+developing new workflows (37.6%) are still the most common adjustments anticipated—nearly 
+
+double the corresponding shares for AI use in the last six months. Notably, the share of firms 
+
+making changes to data collection or data management practices, using vendors to 
+
+install/integrate AI, purchasing computing power, or hiring staff trained in AI are all also 
+
+expected to increase in view of the anticipated AI use. 
+
+On an employment-weighted basis (Figure 7b), developing new workflows to accommodate 
+
+AI is the most common adjustment (26.6%), followed by training current staff (22.8%). The 
+
+most common adjustments expected in relation to future use are training current staff (49.1%) 
+
+and purchasing cloud services or storage (43.9%), up from 22.8% and 14.0%, respectively, in the 
+
+case of adjustments in the last six months. As in the case of firm-weighted results, all types of 
+
+adjustments appear to be more prevalent in relation to expected AI use compared to current or 
+
+recent use. Only 10.3% of employment at firms expecting to use AI work at firms indicating no 
+
+anticipated adjustments in relation to expected AI use.  
+
+19 See, for example, Brynjolfsson and Hitt (2000) and Black and Lynch (2021). 
+
+22 
+
+ 
+ 
+ 
+f.  Why Will Some Firms Not Use AI? 
+
+Why is firm-level AI use for producing goods and services relatively low, and why is it likely 
+
+to remain so in the near future? The diffusion of AI is driven by the benefits versus costs of AI, 
+
+and both depend on the types of processes used by the firm and the nature of products and 
+
+services provided. For instance, many small businesses, such as barber shops, nail salons or dry 
+
+cleaners, may not yet see a use for AI, but this can change with growing business applications of 
+
+AI. The supplement asked firms that do not expect to use AI in the future why that might be the 
+
+case. Similar to a question in the 2019 ABS technology module, the question in BTOS was 
+
+designed to uncover some of the key impediments to AI adoption or use.  
+
+Table 7 shows that the most common reason, cited by 80.9% of the businesses not expecting 
+
+to use AI, is the inapplicability of AI to the business—suggesting that most businesses may not 
+
+yet foresee a need for, or a benefit from, AI. As the second most prevalent barrier, 7.3% of firms 
+
+indicated a lack of knowledge on the capabilities of AI. We note, however, that some firms 
+
+lacking such knowledge may have responded as AI being not applicable. Concerns about 
+
+privacy/security and maturity of AI apply to 6.6% of firms not expecting to use AI. Interestingly, 
+
+a considerable fraction of firms did not report the lack of skilled workforce or data, the cost of 
+
+AI, or laws and regulations as impediments to expected future use.  
+
+Overall, the most important barrier, for both recent and expected future use, appears to be the 
+
+limited applicability of AI to most businesses. One potential explanation is the current lack of AI 
+
+applications to a wide variety of business problems. However, this may change with the 
+
+continuing development of AI technologies that can be used in a broader array of business 
+
+processes, as well as in more complex tasks—for example, the advances in generative AI in 
+
+recent years resulted in many new AI applications to business problems. Our findings are also 
+
+similar to the patterns in the 2019 ABS reported in Acemoglu et al. (2022). The most common 
+
+reason for no AI use for the period 2016–2018 was also, by a large margin, the inapplicability of 
+
+AI to a business. AI being too expensive and not mature were the next most common factors 
+
+adversely affecting the use of AI as reported in the 2019 ABS. 
+
+23 
+
+ 
+ 
+ 
+ 
+5.  AI Use and Firm Performance 
+
+In this section, we leverage questions regarding current and expected future business 
+
+outcomes that are in BTOS for an initial look at the connection between AI use and business 
+
+performance. Specifically, we focus on BTOS questions about current and expected future 
+
+overall performance of the business, as well as current and future employment changes, and 
+
+document how these are related to current and expected future AI use. The survey asks 
+
+respondents to assess the current and expected overall performance of their businesses—without 
+
+specifying the exact criteria for measuring performance. The survey also asks about the net 
+
+employment change with respect to the previous measurement period, and also within the next 
+
+six months.20 We emphasize that the analysis in this section does not seek to identify a causal 
+
+link between AI use and firm performance, but rather to explore whether AI use is associated 
+
+with better firm performance in general. 
+
+As shown in Figure 8a, both the firms that have used AI recently and those expecting to use 
+
+AI in the near future tend to indicate better overall current and future performance. Generally, a 
+
+higher share of these firms is in the “excellent” and “above average” performance categories, 
+
+compared to the firms not using or planning to use AI. For example, 38.9% of AI users indicate 
+
+“excellent” or “above average” current performance, whereas 31.4% of non-users indicate these 
+
+performance levels. Similarly, 48.1% of AI users expect “excellent” or “above average” future 
+
+performance, as opposed to 30.9% of non-users. Similar differences between AI users and non-
+
+users also emerge when employment-weighted shares in Figure 8b are considered. For example, 
+
+for firms currently using AI, 23.1% of employment is in firms indicating an “excellent” overall 
+
+current performance, whereas this fraction is only 13.8% for firms not currently using AI. 
+
+Similarly, for firms expecting to use AI in the next six months, 62.0% of the employment is in 
+
+firms with an “above average” or “excellent” expected future performance, whereas the 
+
+corresponding fraction is 41.2% for firms not expecting to use AI. 
+
+A broadly similar picture emerges for the relationship between AI use and changes in 
+
+employment. Figure A1 in Appendix B indicates that 7.6% of AI users have experienced an 
+
+increase in employment within the last two-weeks of the survey response, whereas this fraction 
+
+20 There are also questions on the changes in other firm-level variables of interest in BTOS, such as revenue, worker 
+hours, and demand. We focus on overall performance and employment change for the sake of brevity. 
+
+24 
+
+ 
+ 
+is 4.7% for firms not using AI. Furthermore, a relatively large fraction (28.9%) of AI users 
+
+anticipate an increase in employment in the next six months, compared to 15.7% of non-users. 
+
+Similar patterns are observed for the relationship between expected AI use and current 
+
+employment changes. 7.5% percent of future users had a recent increase in employment. This 
+
+fraction is 4.4% for future non-users. At the same time, a large fraction (30.1%) of the firms 
+
+expecting to use AI in the future also expect an increase in employment, but only 14.2% of firms 
+
+that do not anticipate AI use expect a positive employment change.  
+
+Employment-weighted results in Figure A2 confirm these findings. 27.7% of the 
+
+employment in current AI-using firms are in those firms that experience a positive employment 
+
+change in the last two weeks, as opposed to 14.2% of the employment in non-users. 
+
+Interestingly, nearly 60% of the employment in current AI-using firms is accounted for by firms 
+
+that expect future expansion in employment, compared to 37.3% of the employment in non-
+
+users.  
+
+The findings summarized in this section suggest a positive association between current and 
+
+future AI use on the one hand, and current and future firm performance, on the other. Current 
+
+and future employment expansions are also more prevalent in AI-using firms. The positive 
+
+connection between AI use and business performance documented here is generally consistent 
+
+with the previous findings from the ABS 2019. For example, Acemoglu et al. (2022) find that 
+
+AI-using firms tend to be larger and have higher labor productivity. Similarly, exploiting long 
+
+firm histories, Acemoglu et al. (2023) present evidence suggesting that AI-using firms tend to 
+
+grow faster and become larger than non-users even before the accelerated adoption of AI starting 
+
+in the 2010s, and tend to maintain this size advantage after that period. Consistently, Dinlersoz, 
+
+Dogan, and Zolas (2024) find, based on administrative microdata underlying Business Formation 
+
+Statistics, that businesses originating from AI-related business applications over the period 
+
+2004–2021 tend to have higher employment, revenue, and payroll compared to businesses 
+
+originating from other (non–AI-related) applications.  
+
+25 
+
+ 
+ 
+ 
+ 
+6.  Conclusion and Future Research 
+
+We analyze recently collected high-frequency data on firms’ use of AI in producing goods 
+
+and services based on the Business Trends and Outlook Survey. Several key facts emerge:  
+
+1.  The rate of AI use by firms in producing goods and services is increasing with a use rate 
+
+of about 3.7% in Fall 2023, about 5.4% in February 2024 and expected to rise to about 
+
+6.6% by Fall 2024. The rate of AI use on an employment-weighted basis is higher and 
+
+expected to rise to about 12% by Fall 2024.  The increase from Fall 2023 to expected use 
+
+in Fall 2024 implies rapid growth of AI use by businesses.  
+
+2.  AI use exhibits substantial variation across sectors and states. Notably, the Information 
+
+sector (NAICS 51) is leading in use rate at 18.1% currently and 21.5% in the next six 
+
+months. This contrasts with Construction (NAICS 23) with a current use rate of 1.4% and 
+
+2.2% in the next six months. High use states include those in the west (Colorado, Nevada, 
+
+Utah, California, Arizona, Washington) and some in the east (Florida, Delaware, 
+
+Massachusetts), and the District of Columbia. Low use states include Mississippi, West 
+
+Virginia, Maine, and North Dakota. The high-use states have roughly double the rates at 
+
+the low-use states.  
+
+3.  AI use, while especially high in the largest firms, has a U-shaped pattern with respect to 
+
+firm size. AI use monotonically declines with firm age on a firm-weighted basis and has a 
+
+U-shaped relationship on an employment-weighted basis, for current and future use. 
+
+These patterns together suggest that some AI applications (e.g., Generative AI) may be 
+
+general purpose technologies that do not involve large fixed costs making it more 
+
+attractive to young and small firms.   
+
+4.  While AI use appears to be generally persistent at the firm level, about one in seven users 
+
+of AI do not expect to continue to use AI in the near future, potentially indicating some 
+
+degree of ongoing experimentation or temporary use that may result in de-adoption.  
+
+5.  Marketing automation, virtual agents, natural language processing, and data/text analytics 
+
+appear to be the most widely used AI applications by businesses, and their use will grow 
+
+26 
+
+ 
+in the near future.  On an employment-weighted basis, data analytics and robotics 
+
+automation are the dominant types of use. 
+
+6.  While many businesses use AI to replace worker tasks and existing equipment/software, 
+
+there is little evidence that AI use is associated with a decline in firm employment. In 
+
+fact, an increase in employment as a result of AI use is more common than a decrease. 
+
+While both types of change (increase and decrease) are expected to become more 
+
+common in the near future, the incidences of these changes will remain low relative to 
+
+that of no change. Similarly, a substantial fraction of the firms that use AI to replace 
+
+worker tasks uses it to replace only a small number of worker tasks—a pattern that is 
+
+expected to remain largely the same in the near future. 
+
+7.  AI-using businesses generally perform better than non-users and expect to do so in the 
+
+future. They also more commonly experience employment expansions than contractions 
+
+compared to non-users. The overall better performance of AI-using businesses is a fact 
+
+that has repeatedly emerged from the analysis of other data, including data from the ABS 
+
+and the BFS. 
+
+8.  The most common organizational changes to accommodate AI are training existing 
+
+workers, developing new workflows, purchasing cloud services/storage, and changing 
+
+data management/collection practices.  
+
+9.  The predominant reason why businesses do not expect to use AI in the near future is the 
+
+inapplicability of the technology to a business. Lack of knowledge on the capabilities of 
+
+AI is the second—but far less common—reason.  
+
+These findings offer a rich snapshot of the patterns of recent and future AI use by firms. By 
+
+now, a set of stylized facts about AI use by firms has emerged from surveys (ABS, BTOS) and 
+
+administrative data (BFS). While the use of AI in producing goods and services remains low, it is 
+
+growing, and associated with better firm performance overall, but not leading to declines in firm 
+
+employment in the present period and near future.  Whether these patterns will change as the 
+
+diffusion of AI progresses remains to be seen. While the BTOS AI supplement data collection 
+
+has ended, the core AI questions will continue to be fielded until August 2024. The accumulating 
+
+27 
+
+ 
+large data on AI use by firms will remain a valuable resource for a robust analysis of the 
+
+continuing diffusion of AI and its effects on the economy. 
+
+The BTOS real-time snapshot can also be integrated at the micro level with other Census 
+
+business survey and administrative data. These data can provide more quantitative information 
+
+on output, employment, and capital. Future research can use such integrated data to explore firm 
+
+dynamics in terms of output, employment, productivity and capital investment both prior to and 
+
+subsequent to the adoption of AI. Such analysis has great promise for studying the causal 
+
+connection between AI use and firm performance, and the effects of growing AI use on 
+
+aggregate economic activity and productivity. 
+
+Our findings are consistent with the view that, although AI has been under development for 
+
+some time with rapid advances in recent years, AI use by businesses remains in relatively early 
+
+days (see Chapter 7 of the Economic Report of President (2024) and Agrawal, Gans and 
+
+Goldfarb (2022) for further discussion of the factors underlying current and future adoption of 
+
+AI).  Many businesses do not yet see AI as being relevant for their business activity or do not yet 
+
+have the knowledge to implement AI in their business activity. Training and complementary 
+
+investments in changing business organization in various ways are common activities of users of 
+
+current and future users AI so non-users face these challenges in adopting AI.    
+
+We are likely tracking significant use of AI for business purposes. In some types of 
+
+businesses, this significant use is already large. Moreover, the growth rate over our sample 
+
+period combined with expected future growth suggests AI use will become more widespread 
+
+over time. Given this anticipated growth and the potential impact of AI on business activity 
+
+including workers, it will remain important to track AI use for business purposes and its impact 
+
+in real time.   
+
+28 
+
+ 
+ 
+ 
+References 
+
+Acemoglu, Daron, Gary Anderson, David Beede, Catherine Buffington, Eric Childress, Emin 
+
+Dinlersoz, Lucia Foster, Nathan Goldschlag, John Haltiwanger, Zachary Kroff, Pascual 
+Restrepo, and Nikolas Zolas (2023). “Advanced Technology Adoption: Selection or 
+Causal Effects?,” AEA Papers and Proceedings, 113: 210–214. 
+
+Acemoglu, Daron, Gary Anderson, David Beede, Catherine Buffington, Eric Childress, Emin 
+
+Dinlersoz, Lucia Foster, Nathan Goldschlag, John Haltiwanger, Zachary Kroff, Pascual 
+Restrepo, and Nikolas Zolas (2022). “Technology, Firms, and Workers: Evidence from 
+the 2019 Annual Business Survey,” NBER Working Paper 30659, November. 
+
+Agrawal, Ajay, Joshua Gans, and Avi Goldfarb (2022). Power and Prediction:  The Disruptive 
+
+Economics of Artificial Intelligence, Harvard Business Review Press. 
+
+Babina, Tania, Anastassia Fedyk, Alex He, and James Hodson (2024). “Artificial Intelligence, 
+Firm Growth, and Product Innovation,” Journal of Financial Economics, 151, 103745. 
+
+Baily, Martin Neil, Erik Brynjolfsson, Anton Korinek (2023). “Machines of Mind: The Case for 
+
+an AI-Powered Productivity Boom,” Brookings Institution Research. 
+https://www.brookings.edu/articles/machines-of-mind-the-case-for-an-ai-powered-
+productivity-boom/. 
+
+Black, Sandra E. and Lisa M. Lynch (2001). “How To Compete: The Impact Of Workplace 
+
+Practices And Information Technology On Productivity,” The Review of Economics and 
+Statistics, MIT Press, vol. 83(3), pages 434-445, August. 
+
+Brynjolfsson, Erik and Lorin M. Hitt (2000). "Beyond Computation: Information Technology, 
+Organizational Transformation and Business Performance," Journal of Economic 
+Perspectives, American Economic Association, vol. 14(4), pages 23-48, Fall. 
+
+Buffington, Catherine, Lucia Foster, and Colin Shevlin (2023). “Measuring Business Trends and 
+
+Outlook through a New Survey,” with Catherine Buffington and Colin Shevlin. AEA 
+Papers and Proceedings, 113: 140–144. https://doi.org/10.1257/pandp.20231051. 
+
+Chow, Melissa C., Teresa C. Fort, Christopher Goetz, Nathan Goldschlag, James Lawrence, 
+Elisabeth Ruth Perlman, Martha Stinson, and T. Kirk White (2021). “Redesigning the 
+Longitudinal Business Database” National Bureau of Economic Research Working paper 
+No. w28839. 
+
+Decker, Ryan and John Haltiwanger (2024). “Surging Business Formation:  Causes and 
+
+Consequences,” Brookings Papers on Economic Activity Fall 2023. 
+
+Dinlersoz, Emin, Can Dogan, and Nikolas Zolas (2024). “Starting Up AI,” Center for Economic 
+
+Studies Working Paper CES-24-09, U.S. Census Bureau. 
+
+Economic Report of the President (2024).  https://www.whitehouse.gov/wp-
+
+content/uploads/2024/03/ERP-2024.pdf. 
+
+Eloundou, Tyna, Sam Manning, Pamela Mishkin, and Daniel Rock (2023). “GPTs are GPTs: An 
+
+Early Look at the Labor Market Impact Potential of Large Language Models,” Working 
+Paper, OpenAI. 
+
+29 
+
+ 
+ 
+Jarmin, Ron S. and Javier Miranda (2002). The Longitudinal Business Database. Center for 
+
+Economic Studies Working Paper 02-17, U.S. Census Bureau. 
+
+Gordon, Robert (2024). “The Future of  U.S. Productivity Growth: A Skeptical View,” presented 
+
+at Symposium: U.S. Productivity Growth – Looking Ahead at the NY Federal Reserve 
+Bank, February 16, 2024. Available at: U.S. Productivity Growth: Looking Ahead – 
+Federal Reserve Bank of New York (newyorkfed.org). 
+
+McElheran, Kristina,  J. Frank Li, Erik Brynjolfsson, Zachary Kroff, Emin Dinlersoz, Lucia 
+
+Foster, and Nikolas Zolas (2024). “AI Adoption in America: Who, What, and Where,” 
+Journal of Economics & Management Strategy, 2024:1-41. 
+
+McKinsey and Company (2023). “The State of AI in 2023: Generative AI’s Breakout Year,” the-
+
+state-of-ai-in-2023-generative-ais-breakout-year_vf.pdf (mckinsey.com) 
+
+Miric, Milan, Nan Jia, and Kenneth G. Huang (2023). “Using Supervised Machine Learning for 
+Large-Scale Classification in Management Research: The Case of Identifying Artificial 
+Intelligence Patents,” Strategic Management Journal, 44(2): 491-519. 
+
+Zolas, Nikolas, Zachary Kroff, Erik Brynjolfsson, Kristina McElheran, David Beede, Catherine 
+
+Buffington, Nathan Goldschlag, Lucia Foster, and Emin Dinlersoz (2020). “Advanced 
+Technologies Adoption and Use by U.S. Firms: Evidence from the Annual Business 
+Survey,” National Bureau of Economic Research Working Paper No. 28290. 
+
+30 
+
+ 
+ 
+ 
+Table 1. Contingency Tables for Current vs. Expected AI Use (Firm-weighted) 
+
+Panel A: Unconditional Shares 
+
+Expected AI Use 
+
+Yes 
+
+3.4% 
+2.8% 
+
+0.3% 
+
+No 
+
+0.7% 
+67.4% 
+
+Don't 
+Know 
+0.9% 
+14.0% 
+
+2.5% 
+
+8.0% 
+
+Current 
+AI Use 
+
+Yes 
+No 
+Don't 
+Know 
+
+Panel B: Conditional on Current AI Use (rows) 
+Expected AI Use 
+
+Current 
+AI Use 
+
+Yes 
+No 
+Don't 
+Know 
+
+Yes 
+
+No 
+
+67.9% 
+3.3% 
+
+14.5% 
+80.0% 
+
+Don't 
+Know 
+17.6% 
+16.7% 
+
+3.1% 
+
+23.0% 
+
+73.9% 
+
+Panel C: Conditional on Expected AI Use (columns) 
+
+Expected AI Use 
+
+Yes 
+
+No 
+
+52.0% 
+42.8% 
+
+1.0% 
+95.5% 
+
+Don't 
+Know 
+3.8% 
+61.3% 
+
+5.2% 
+
+3.5% 
+
+34.9% 
+
+Current 
+AI Use 
+
+Yes 
+No 
+Don't 
+Know 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. “Current AI Use” refers to a business’s response to whether it used AI 
+in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a 
+business’s response to whether it thinks it will be using AI during the six months following data collection. Firm-
+weighted shares should be interpreted as the share of firms with a given combination of current and expected AI use. 
+
+31 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 2. Contingency Tables for Current vs. Expected AI Use (Emp.-weighted) 
+
+Panel A: Unconditional Shares 
+
+Expected AI Use 
+
+Yes 
+
+4.8% 
+4.3% 
+
+2.2% 
+
+No 
+
+0.7% 
+50.8% 
+
+Don't 
+Know 
+1.7% 
+14.7% 
+
+2.1% 
+
+18.8% 
+
+Current 
+AI Use 
+
+Yes 
+No 
+Don't 
+Know 
+
+Panel B: Conditional on Current AI Use (rows) 
+Expected AI Use 
+
+Current 
+AI Use 
+
+Yes 
+No 
+Don't 
+Know 
+
+Yes 
+
+No 
+
+66.2% 
+6.1% 
+
+9.6% 
+72.9% 
+
+Don't 
+Know 
+24.2% 
+21.0% 
+
+9.6% 
+
+8.9% 
+
+81.5% 
+
+Panel C: Conditional on Expected AI Use (columns) 
+
+Expected AI Use 
+
+Yes 
+
+No 
+
+Don't 
+Know 
+5.0% 
+41.7% 
+
+1.3% 
+94.9% 
+
+3.8% 
+
+53.4% 
+
+Current 
+AI Use 
+
+Yes 
+No 
+Don't 
+Know 
+
+42.5% 
+38.0% 
+
+19.5% 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. “Current AI Use” refers to a business’s response to whether it used AI 
+in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a 
+business’s response to whether it thinks it will be using AI during the six months following data collection. 
+Employment-weighted shares should be interpreted as the share of employment working at firms with a given 
+combination of current and expected AI use. 
+
+32 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 3. Contingency Table for Average Number of Employees by Current vs. Expected AI 
+Use (Firm-weighted) 
+
+Expected AI Use 
+
+Current 
+AI Use 
+
+Yes 
+No 
+Don't 
+Know 
+
+Yes 
+
+33 
+36 
+
+150 
+
+Average 
+
+40 
+
+No 
+
+22 
+18 
+
+19 
+
+18 
+
+Don't 
+Know 
+46 
+24 
+
+55 
+
+36 
+
+Average 
+
+34 
+19 
+
+49 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. “Current AI Use” refers to a business’s response to whether it used AI 
+in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a 
+business’s response to whether it thinks it will be using AI during the six months following data collection. Firm-
+weighted averages should be interpreted as the average size of firms with a given combination of current and 
+expected AI use. 
+
+33 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 4a. AI Technologies or Applications Used by Businesses (Firm-weighted) 
+
+AI Type/Application 
+
+Last 6 months 
+(Overall Share) 
+
+Last 6 months 
+(Share of Users) 
+
+Marketing automation using AI 
+Virtual agents or chat bots 
+Natural language processing 
+Text analytics using AI 
+Data analytics using AI 
+Other 
+Speech/voice recognition using AI 
+Machine learning 
+Large language models 
+Recommendation systems based on AI 
+Image/pattern recognition 
+Decision making systems based on AI 
+Machine/computer vision 
+Deep learning 
+Robotics process automation 
+Biometrics 
+Neural networks 
+Augmented reality 
+None 
+
+2.5% 
+1.9% 
+1.7% 
+1.5% 
+1.5% 
+1.4% 
+1.4% 
+1.2% 
+1.0% 
+0.8% 
+0.7% 
+0.5% 
+0.5% 
+0.3% 
+0.3% 
+0.3% 
+0.2% 
+0.1% 
+91.2% 
+
+28.4% 
+21.6% 
+19.3% 
+17.0% 
+17.0% 
+15.9% 
+15.9% 
+13.6% 
+11.4% 
+9.1% 
+8.0% 
+5.7% 
+5.7% 
+3.4% 
+3.4% 
+3.4% 
+2.3% 
+1.1% 
+- 
+
+Next 6 months 
+(Share of 
+Expected Users) 
+36.5% 
+28.2% 
+26.6% 
+23.0% 
+29.8% 
+12.4% 
+22.2% 
+22.1% 
+15.5% 
+16.8% 
+13.3% 
+14.1% 
+7.0% 
+7.3% 
+5.2% 
+3.8% 
+3.7% 
+3.3% 
+- 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. Firm-weighted “overall” shares represent the share of firms using a 
+given application of AI in producing goods or services during the six months prior to data collection. Shares of 
+“users” represents the same share conditional on not responding “None.” Shares of “expected users” represent the 
+share of firms with expectations to use a given application of AI in producing goods or services during the six 
+months following data collection. 
+
+34 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 4b. AI Technologies or Applications Used by Businesses (Emp.-weighted) 
+
+AI Type/Application 
+
+Last 6 months 
+(Overall Share) 
+
+Last 6 months 
+(Share of Users) 
+
+Data analytics using AI 
+Robotics process automation 
+Machine learning 
+Other 
+Virtual agents or chat bots 
+Text analytics using AI 
+Speech/voice recognition using AI 
+Machine/computer vision 
+Marketing automation using AI 
+Image/pattern recognition 
+Natural language processing 
+Biometrics 
+Recommendation systems based on AI 
+Decision making systems based on AI 
+Deep learning 
+Large language models 
+Augmented reality 
+Neural networks 
+None 
+
+6.6% 
+5.9% 
+5.2% 
+4.6% 
+4.6% 
+2.8% 
+2.7% 
+2.4% 
+2.3% 
+1.6% 
+1.3% 
+1.2% 
+1.1% 
+1.1% 
+0.7% 
+0.6% 
+0.2% 
+0.1% 
+80.0% 
+
+32.9% 
+29.6% 
+26.2% 
+23.1% 
+22.7% 
+14.1% 
+13.6% 
+12.0% 
+11.4% 
+7.8% 
+6.6% 
+6.1% 
+5.7% 
+5.6% 
+3.4% 
+3.1% 
+1.0% 
+0.4% 
+- 
+
+Next 6 months 
+(Share of 
+Expected Users) 
+61.1% 
+31.5% 
+50.5% 
+6.5% 
+32.3% 
+16.0% 
+28.1% 
+8.9% 
+17.6% 
+10.8% 
+17.1% 
+7.3% 
+12.4% 
+12.0% 
+5.4% 
+6.1% 
+1.5% 
+1.0% 
+- 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. Employment-weighted “overall” shares represent the share of 
+employment working at firms who reported using each application of AI in producing goods or services during the 
+six months prior to data collection. Shares of “users” represents the same share conditional on not responding 
+“None.” Shares of “expected users” represent the share of employment working at firms who reported expectations 
+to use each application of AI in producing goods or services during the six months following data collection. 
+
+35 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 5. Number of Tasks Replaced by AI 
+
+Panel A: Firm-weighted 
+
+Tasks Replaced by AI 
+
+Last 6 months 
+
+Small number 
+Moderate number 
+Large number 
+Panel B: Emp.-weighted 
+
+84.6% 
+13.0% 
+2.4% 
+
+Tasks Replaced by AI 
+
+Last 6 months 
+
+Small number 
+Moderate number 
+Large number 
+
+87.0% 
+12.3% 
+0.7% 
+
+Next 6 months 
+(Expected) 
+79.2% 
+17.7% 
+3.1% 
+
+Next 6 months 
+(Expected) 
+80.3% 
+18.0% 
+1.8% 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. Firm-weighted shares represent the share of firms reporting each 
+qualitative measure of tasks replaced by AI during the six months prior to data collection or expected to be replaced 
+by AI in the six months following data collection. Employment-weighted shares represent the share of employment 
+working at said firms. Response to this question is conditional on a firm responding “yes” to using AI (or expecting 
+to use AI) to perform tasks previously done by employees in producing goods or services. 
+
+Table 6. Effects of AI on Firm Employment 
+
+Panel A: Firm-weighted 
+
+Change in Employment  Last 6 months 
+
+Increase 
+Decrease 
+No change 
+Panel B: Emp.-weighted 
+
+2.8% 
+2.6% 
+94.6% 
+
+Change in Employment  Last 6 months 
+
+Increase 
+Decrease 
+No change 
+
+1.6% 
+1.2% 
+97.2% 
+
+Next 6 months 
+(Expected) 
+6.5% 
+6.1% 
+87.4% 
+
+Next 6 months 
+(Expected) 
+4.4% 
+3.3% 
+92.3% 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. Firm-weighted shares represent the share of firms reporting each 
+direction of change in total employment due to AI use during the six months prior to data collection or expected 
+change in total employment due to AI use in the six months following data collection. Employment-weighted shares 
+represent the share of employment working at said firms. Response to this question is conditional on a firm reporting 
+use or expected use of an AI application in producing goods or services. 
+
+36 
+
+ 
+ 
+ 
+ 
+ 
+Table 7. Reasons for Not Planning to Use AI 
+
+Reason 
+AI is not applicable to this business 
+Lack of knowledge on the capabilities of AI 
+Concerns about privacy/security 
+AI is not a mature enough technology yet 
+Other 
+Too expensive 
+Lack of skilled workforce 
+Concerns about bias 
+Lack of required data 
+Laws and regulations prevent or restrict use of AI 
+Previous or current use of AI did not meet expectations 
+
+Firm-weighted  Emp.- weighted 
+
+80.9% 
+7.3% 
+6.6% 
+6.1% 
+4.5% 
+4.1% 
+2.9% 
+2.8% 
+2.2% 
+1.2% 
+0.9% 
+
+76.2% 
+8.8% 
+8.9% 
+8.1% 
+5.8% 
+4.6% 
+3.6% 
+2.6% 
+2.4% 
+2.5% 
+0.5% 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 
+3, 2023 and February 11, 2024, respectively. Firm-weighted shares represent the share of firms reporting each 
+reason for not planning to use AI in producing goods or services during the six months following data collection. 
+Employment-weighted shares represent the share of employment working at said firms. Response to this question is 
+conditional on a firm responding “no” to expecting to use AI in producing goods or services during the six months 
+following data collection. 
+
+37 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 1. Trends in Current and Expected AI Use 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: First and last reference periods in the graph ended on September 10, 2023 and February 11, 2024, 
+respectively. “Current AI Use” refers to a business responding “yes” to using AI in producing goods or services 
+during the two-week period ending with the date indicated on the graph. “Expected AI Use” refers to a business 
+responding “yes” to thinking it will be using AI during the six months following the date indicated on the graph. 
+Firm-weighted shares should be interpreted as the share of U.S. firms using or expecting to use AI. Employment-
+weighted shares should be interpreted as the share of U.S. employment working at firms who use or expect to use 
+AI. Trend lines shown on the graph are based on simple (OLS) linear regression. 
+
+38 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 2a. Current and Expected AI Use by Sector (Firm-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current AI Use” 
+refers to a business responding “yes” to using AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a business 
+responding “yes” to thinking it will be using AI during the six months following data collection. Firm-weighted shares should be interpreted as, within each sector, the share of 
+firms using or expecting to use AI. Sector codes: XX (firms with establishments in multiple sectors); 11 (Agriculture, Forestry, Fishing and Hunting); 21 (Mining, Quarrying, and 
+Oil and Gas Extraction); 22 (Utilities); 23 (Construction); 31–33 (Manufacturing); 42 (Wholesale Trade); 44–45 (Retail Trade); 48–49 (Transportation and Warehousing); 51 
+(Information); 52 (Finance and Insurance); 53 (Real Estate and Rental and Leasing); 54 (Professional, Scientific, and Technical Services); 55 (Management of Companies and 
+Enterprises); 56 (Administrative and Support and Waste Management and Remediation Services); 61 (Educational Services); 62 (Health Care and Social Assistance);  71 (Arts, 
+Entertainment, and Recreation); 72 (Accommodation and Food Services); 81 (Other Services—except Public Administration). Current AI use for Utilities (NAICS 22) has been 
+suppressed for confidentiality reasons. 
+
+39 
+
+ 
+ 
+Figure 2b. Current and Expected AI Use by Sector (Employment-weighted)
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current AI Use” 
+refers to a business responding “yes” to using AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a business 
+responding “yes” to thinking it will be using AI during the six months following data collection. Employment-weighted shares should be interpreted as, within each sector, the 
+share of employment working at firms who use or expect to use AI. Sector codes: XX (firms with establishments in multiple sectors); 11 (Agriculture, Forestry, Fishing and 
+Hunting); 21 (Mining, Quarrying, and Oil and Gas Extraction); 22 (Utilities); 23 (Construction); 31–33 (Manufacturing); 42 (Wholesale Trade); 44–45 (Retail Trade); 48–49 
+(Transportation and Warehousing); 51 (Information); 52 (Finance and Insurance); 53 (Real Estate and Rental and Leasing); 54 (Professional, Scientific, and Technical Services); 
+55 (Management of Companies and Enterprises); 56 (Administrative and Support and Waste Management and Remediation Services); 61 (Educational Services); 62 (Health Care 
+and Social Assistance);  71 (Arts, Entertainment, and Recreation); 72 (Accommodation and Food Services); 81 (Other Services—except Public Administration). Current AI use for 
+Utilities (NAICS 22) has been suppressed for confidentiality reasons.
+
+40 
+
+ 
+Figure 3a. Current and Expected AI Use by State (Firm-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current 
+AI Use” refers to a business responding “yes” to using AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to 
+a business responding “yes” to thinking it will be using AI during the six months following data collection. Firm-weighted shares should be interpreted as, within each 
+state, the share of firms using or expecting to use AI. State “XX” refers to the set of firms with establishments in multiple states. Includes the District of Columbia (DC) 
+and Puerto Rico (PR). 
+
+41 
+
+ 
+ 
+Figure 3b. Current and Expected AI Use by State (Employment-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current 
+AI Use” refers to a business responding “yes” to using AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to 
+a business responding “yes” to thinking it will be using AI during the six months following data collection. Employment-weighted shares should be interpreted as, within 
+each state, the share of employment working at firms who use or expect to use AI. State “XX” refers to the set of firms with establishments in multiple states. Includes the 
+District of Columbia (DC) and Puerto Rico (PR). 
+
+42 
+
+ 
+ 
+Figure 3c. Current AI Use by State (Firm-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and 
+February 11, 2024, respectively. “Current AI Use” refers to a business responding “yes” to using AI in producing goods or services 
+during the two-week period prior to data collection. Firm-weighted shares should be interpreted as, within each state, the share of 
+firms using or expecting to use AI. State “XX” refers to the set of firms with establishments in multiple states. Includes the District of 
+Columbia (DC) and Puerto Rico (PR). 
+
+43 
+
+ 
+ 
+ 
+Figure 4a. Current and Expected AI Use by Firm Size (Firm-weighted)
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and 
+February 11, 2024, respectively. “Current AI Use” refers to a business responding “yes” to using AI in producing goods or services 
+during the two-week period prior to data collection. “Expected AI Use” refers to a business responding “yes” to thinking it will be 
+using AI during the six months following data collection. Firm-weighted shares should be interpreted as, within each size class, the 
+share of firms using or expecting to use AI. 
+
+Figure 4b. Current and Expected AI Use by Firm Size (Employment-weighted)
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and 
+February 11, 2024, respectively. “Current AI Use” refers to a business responding “yes” to using AI in producing goods or services 
+during the two-week period prior to data collection. “Expected AI Use” refers to a business responding “yes” to thinking it will be 
+using AI during the six months following data collection. Employment-weighted shares should be interpreted as, within each size 
+class, the share of employment working at firms who use or expect to use AI. 
+
+44 
+
+ 
+  
+ 
+Figure 5a. Current and Expected AI Use by Firm Age (Firm-weighted)
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and 
+February 11, 2024, respectively. “Current AI Use” refers to a business responding “yes” to using AI in producing goods or services 
+during the two-week period prior to data collection. “Expected AI Use” refers to a business responding “yes” to thinking it will be 
+using AI during the six months following data collection. Firm-weighted shares should be interpreted as, within each age class, the 
+share of firms using or expecting to use AI. 
+
+Figure 5b. Current and Expected AI Use by Firm Age (Employment-weighted)
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and 
+February 11, 2024, respectively. “Current AI Use” refers to a business responding “yes” to using AI in producing goods or services 
+during the two-week period prior to data collection. “Expected AI Use” refers to a business responding “yes” to thinking it will be 
+using AI during the six months following data collection. Employment-weighted shares should be interpreted as, within each age 
+class, the share of employment working at firms who use or expect to use AI. 
+
+45 
+
+ 
+ 
+ 
+Figure 6a. AI Replacing Worker Tasks and Equipment Operations (Firm-weighted)
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and 
+February 11, 2024, respectively. Firm-weighted shares represent the share of firms reporting whether they used AI during the six 
+months prior to data collection or expect to use AI in the six months following data collection to perform tasks or operations 
+previously performed by employees or equipment/software, respectively. Response to this question is conditional on a firm reporting 
+use or expected use of an AI application in producing goods or services. 
+
+Figure 6b. AI Replacing Worker Tasks and Equipment Operations (Emp.-weighted)
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and 
+February 11, 2024, respectively. Employment-weighted shares represent the share of employment working at firms reporting whether 
+they used AI during the six months prior to data collection or expect to use AI in the six months following data collection to perform 
+tasks or operations previously performed by employees or equipment/software, respectively. Response to this question is conditional 
+on a firm reporting use or expected use of an AI application in producing goods or services. 
+
+46 
+
+ 
+ 
+ 
+Figure 7a. Changes Made by Firms to Use AI (Firm-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. Firm-weighted 
+shares represent the share of firms reporting changes made during the six months prior to data collection or expected to be made in the six months following data collection in 
+order to use AI. Response to this question is conditional on a firm reporting use or expected use of an AI application in producing goods or services. 
+
+47 
+
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 7b. Changes Made by Firms to Use AI (Emp.-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. Emp.-weighted 
+shares represent the share of employment working at firms reporting changes made during the six months prior to data collection or expected to be made in the six months 
+following data collection in order to use AI. Response to this question is conditional on a firm reporting use or expected use of an AI application in producing goods or services. 
+
+48 
+
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 8a. AI Use and Business Performance (Firm-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current AI Use” 
+refers to a business’s response to whether it used AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a business’s 
+response to whether it thinks it will be using AI during the six months following data collection. “Current performance” refers to a business’s response to how it would describe its 
+current performance. “Expected performance” refers to a business’s response to how it thinks it will describe its performance six months following data collection. Firm-weighted 
+shares should be interpreted as, within each response to current or expected AI use, the share of firms reporting each qualitative measure of current or expected performance. In 
+other words, bars of a given color sum to 100%. 
+
+49 
+
+ 
+ 
+ 
+ 
+Figure 8b. AI Use and Business Performance (Emp.-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current AI Use” 
+refers to a business’s response to whether it used AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a business’s 
+response to whether it thinks it will be using AI during the six months following data collection. “Current performance” refers to a business’s response to how it would describe its 
+current performance. “Expected performance” refers to a business’s response to how it thinks it will describe its performance six months following data collection. Employment-
+weighted shares should be interpreted as, within each response to current or expected AI use, the share of employment working at firms who reported each qualitative measure of 
+current or expected performance. In other words, bars of a given color sum to 100%.
+
+50 
+
+ 
+ 
+Appendix A. BTOS Core Content, Survey Year 2 
+
+1. Is __________________ the Employer Identification Number (EIN) used on this business’s 
+latest Internal Revenue Service Form 941, Employer's Federal Quarterly Tax Return? 
+• Yes 
+• No 
+If no, please provide EIN: 
+
+2. Overall, how would you describe this business’s current performance? Please include all 
+domestic operations of this consolidated business, including all locations, subsidiaries, and 
+divisions. 
+• Excellent 
+• Above average 
+• Average 
+• Below average 
+• Poor 
+
+3.. Between MMM DD – MMM DD, how did this business’s operating revenues/sales/receipts 
+change? Please compare this two week period to the two weeks prior. Estimates are acceptable. 
+• Increased  
+• Decreased  
+• No change 
+
+4. Between MMM DD – MMM DD, how did this business’s number of paid employees change?  
+• Increased  
+• Decreased  
+• No change 
+
+5. Between MMM DD – MMM DD, how did the total number of hours worked by this business’s 
+paid employees change?  
+• Increased  
+• Decreased  
+• No change 
+
+6. Between MMM DD – MMM DD, did this business use Artificial Intelligence in producing 
+goods or services? (e.g., machine learning, natural language processing, virtual agents, voice 
+recognition, etc.) 
+a. Yes 
+b. No 
+c. Do not know 
+
+51 
+
+ 
+ 
+ 
+7. Between MMM DD – MMM DD, did this business do any of the following?  
+Select all that apply. 
+• Open a new location 
+• Open a previously closed location  
+• Temporarily close a location  
+• Permanently close a location  
+• None of the above  
+
+8. Between MMM DD – MMM DD, how did the time it takes for this business to receive 
+deliveries from suppliers change? 
+• Increased 
+• Decreased 
+• No change 
+• Not applicable 
+
+9. How would you describe this business’s current inventories? 
+• Larger than optimal 
+• Optimal 
+• Smaller than optimal 
+• Not applicable 
+
+10. Between MMM DD – MMM DD, how did demand for this business’s goods or services 
+change?  
+• Increased  
+• Decreased  
+• No change 
+
+11. Between MMM DD – MMM DD, how did the prices this business charges for its own goods 
+or services change?  
+• Increased  
+• Decreased  
+• No change 
+
+12. Between MMM DD – MMM DD, how did the prices this business pays for goods or services 
+change?  
+• Increased  
+• Decreased  
+• No change 
+
+13. In the last six months, in what ways did changes to interest rates negatively impact this 
+business? Select all that apply. 
+• Decreased profitability 
+• Inability to service debt 
+• Inability to refinance existing loans 
+• Inability to invest in this business 
+• Not applicable 
+
+52 
+
+ 
+ 
+ 
+14. In the last six months, did this business experience any monetary losses due to an extreme 
+weather event (for example, hurricane, flood, drought, or heat wave)? 
+• Yes 
+• No 
+
+15.Six months from now, how do you think you will describe this business’s performance? 
+• Excellent 
+• Above average 
+• Average 
+• Below average 
+• Poor 
+
+16. Six months from now, how do you think this business’s number of paid employees will have 
+changed? 
+• Increased  
+• Decreased  
+• No change 
+
+17. Six months from now, how do you think the total number of hours worked by this business’s 
+paid employees will have changed?  
+• Increased  
+• Decreased 
+• No change 
+
+18. Six months from now, how do you think the time it takes for this business to receive deliveries 
+from suppliers will have changed? 
+• Increased 
+• Decreased 
+• No change  
+• Not applicable 
+
+19. Six months from now, how do you think you will describe this business’s inventories? 
+• Larger than optimal 
+• Optimal 
+• Smaller than optimal 
+• Not applicable 
+
+20. Six months from now, how do you think demand for this business’s goods or services will 
+have changed?  
+• Increased  
+• Decreased 
+• No change 
+
+21. Six months from now, how do you think the prices this business charges for its own goods or 
+services will have changed?  
+• Increased  
+• Decreased 
+• No change 
+
+53 
+
+ 
+ 
+22. Six months from now, how do you think the prices this business pays for goods or services 
+will have changed?  
+• Increased  
+• Decreased 
+• No change 
+
+23.During the next six months, do you think this business will do any of the following?  
+Select all that apply. 
+• Open a new location  
+• Open a previously closed location  
+• Temporarily close a location  
+• Permanently close a location 
+• None of the above  
+
+24. During the next six months, do you think this business will be using Artificial Intelligence in 
+producing goods or services? (e.g., machine learning, natural language processing, virtual agents, 
+voice recognition, etc.) 
+a. Yes 
+b. No 
+c. Do not know 
+
+25. Remarks 
+Contact Info (name/ title) 
+Email 
+
+54 
+
+ 
+ 
+Appendix B. BTOS AI Supplement 
+
+24. In the last six months, what types or applications of Artificial Intelligence (AI) did this 
+business use in producing goods or services? 
+Select all that apply. 
+
+• Machine learning 
+• Natural language processing 
+• Virtual agents or chat bots 
+• Speech/voice recognition using AI 
+• Recommendation systems based on AI 
+• Large language models 
+• Text analytics using AI 
+• Data analytics using AI 
+• Neural networks 
+• Augmented reality 
+• Decision making systems based on AI 
+• Deep learning 
+• Image/pattern recognition 
+• Machine/computer vision 
+• Robotics process automation 
+• Biometrics 
+• Marketing automation using AI 
+• Other 
+• None 
+
+If the answer to 24 is anything other than “None”, then ask 25-29 below: 
+
+25. In the last six months, did this business use Artificial Intelligence to perform tasks previously 
+done by employees in producing goods or services? 
+a. Yes 
+b. No  
+c. Do not know 
+
+If yes to 25, ask 26: 
+
+26. In the last six months, how many tasks previously done by employees were instead performed 
+by Artificial Intelligence? 
+• A small number 
+• A moderate number 
+• A large number 
+
+27. In the last six months, did this business use Artificial Intelligence to perform operations 
+previously performed by existing equipment or software in producing goods or services? 
+• Yes 
+• No  
+• Do not know 
+
+55 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+28. In the last six months, how did the use of Artificial Intelligence affect this business’s total 
+employment? 
+• Increased 
+• Decreased 
+• Did not change 
+
+29. In the last six months, to use Artificial Intelligence (AI), what changes did this business make? 
+Select all that apply. 
+
+• Trained current staff to use AI 
+• Hired staff trained in AI 
+• Purchased computing power or specialized equipment 
+• Purchased cloud services or cloud storage 
+• Changed data collection or data management practices 
+• Developed new workflows 
+• Used vendors or consulting services to install or integrate AI 
+• Other 
+• None 
+
+30. During the next six months, do you think this business will be using Artificial Intelligence (AI) 
+in producing goods or services? (Examples of AI: machine learning, natural language processing, 
+virtual agents, voice recognition, etc.) 
+• Yes 
+• No 
+• Do not know 
+
+If yes to 30, then ask 31-36 below: 
+
+56 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+31. During the next six months, what types or applications of Artificial Intelligence (AI) do you 
+think this business will use in producing goods or services? 
+
+Select all that apply. 
+
+• Machine learning 
+• Natural language processing 
+• Virtual agents or chat bots 
+• Speech/voice recognition using AI 
+• Recommendation systems based on AI 
+• Large language models 
+• Text analytics using AI 
+• Data analytics using AI 
+• Neural networks 
+• Augmented reality 
+• Decision making systems based on AI 
+• Deep learning 
+• Image/pattern recognition 
+• Machine/computer vision 
+• Robotics process automation 
+• Biometrics 
+• Marketing automation using AI 
+• Other 
+
+32. During the next six months, do you think this business will use Artificial Intelligence to perform 
+tasks currently done by employees in producing goods or services? 
+• Yes 
+• No  
+• Do not know 
+
+33.  During  the  next  six  months,  how  many  tasks  currently  done  by  employees  will  instead  be 
+performed by Artificial Intelligence? 
+• A small number 
+• A moderate number 
+• A large number 
+
+34. During the next six months, do you think this business will use Artificial Intelligence to 
+perform operations currently performed by existing equipment and software in producing goods or 
+services? 
+• Yes 
+• No  
+• Do not know 
+
+35. During the next six months, how do you think the use of Artificial Intelligence will affect this 
+business’s total employment? 
+• Increase 
+• Decrease 
+• Will not change 
+
+57 
+
+ 
+ 
+ 
+ 
+ 
+36. During the next six months, to use Artificial Intelligence, what changes do you think this 
+business will make? 
+Select all that apply. 
+
+• Train current staff to use AI 
+• Hire staff trained in AI 
+• Purchase computing power or specialized equipment 
+• Purchase cloud services or cloud storage 
+• Change data collection or data management practices 
+• Develop new workflows 
+• Use vendors or consulting services to install or integrate AI 
+• Other 
+• None 
+
+If no to 30, ask 37: 
+
+37. Why does this business not plan to use Artificial Intelligence (AI) during the next six months 
+in producing goods or services? 
+Select all that apply. 
+
+• Too expensive 
+• AI is not a mature enough technology yet 
+• Lack of knowledge on the capabilities of AI 
+• Concerns about privacy/security 
+• Concerns about bias 
+• Lack of skilled workforce 
+• Lack of required data 
+• Laws and regulations prevent or restrict use of AI 
+• Previous or current use of AI did not meet expectations 
+• Other 
+• AI is not applicable to this business 
+
+58 
+
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Appendix C. Additional Figures 
+
+Figure A1. Employment Changes and AI Use (Firm-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current AI Use” 
+refers to a business’s response to whether it used AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a business’s 
+response to whether it thinks it will be using AI during the six months following data collection. “Current change in paid employees” refers to a business’s response to how its 
+number of paid employees changed during the two-week period prior to data collection. “Expected change in paid employees” refers to a business’s response to how it thinks its 
+number of paid employees will have changed six months following data collection. Firm-weighted shares should be interpreted as, within each response to current or expected AI 
+use, the share of firms reporting each current or expected direction of change in paid employees. In other words, bars of a given color sum to 100%. 
+
+59 
+
+ 
+ 
+ 
+ 
+Figure A2. Employment Changes and AI Use (Emp.-weighted) 
+
+Source: Business Trends and Outlook Survey (BTOS) 
+Notes: Respondents pooled across 6 two-week panels, with the first and last reference periods ending on December 3, 2023 and February 11, 2024, respectively. “Current AI Use” 
+refers to a business’s response to whether it used AI in producing goods or services during the two-week period prior to data collection. “Expected AI Use” refers to a business’s 
+response to whether it thinks it will be using AI during the six months following data collection. “Current change in paid employees” refers to a business’s response to how its 
+number of paid employees changed during the two-week period prior to data collection. “Expected change in paid employees” refers to a business’s response to how it thinks its 
+number of paid employees will have changed six months following data collection. Emp.-weighted shares should be interpreted as, within each response to current or expected AI 
+use, the share of employment working at firms who reported each current or expected direction of change in paid employees. In other words, bars of a given color sum to 100%. 
+
+60 
+
+ 
+ 
+
