@@ -116,7 +116,7 @@ import os
 from getpass import getpass
 
 if "HF_API_TOKEN" not in os.environ:
-    os.environ["HF_API_TOKEN"] = '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'    #getpass("Enter Hugging Face token:")
+    os.environ["HF_API_TOKEN"] = getpass("Enter Hugging Face token:")
 
 """In this step you'll build a query pipeline to answer questions about the documents.
 
