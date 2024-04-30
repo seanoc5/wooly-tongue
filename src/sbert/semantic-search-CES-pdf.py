@@ -1,61 +1,41 @@
 import os
+from pathlib import Path
 
-from haystack.components.converters import pypdf
+from llama_index.core import SimpleDirectoryReader
 from rich.table import Table
 from sentence_transformers import SentenceTransformer, util
 import torch
 
 
 mycuda = torch.cuda.is_available()
-print(mycuda)
+print(f"Cuda available?: {mycuda}")
 
-embedder = SentenceTransformer("all-MiniLM-L6-v2")
+model = "all-MiniLM-L6-v2"
+embedder = SentenceTransformer(model)
+print("embedder model loaded: {}".format(model))
 
-# As dataset, we use census.gov publication AI in the US workplace (something new and interesting for demo)
-import requests
-pdf_name = "CES-WP-24-16.pdf"
-if os.path.exists(pdf_name):
-    print(f"Found pdf ({pdf_name}) available locally, no need to (re)download it")
-else:
-    print(f"Coud NOT find pdf ({pdf_name}) available locally, attempting to download it...")
-    url = f'https://www.census.gov/hfp/btos/downloads/{pdf_name}'
-    response = requests.get(url)
-    with open(pdf_name, 'wb') as f:
-        f.write(response.content)
-    print(f"Wrote file(?): {pdf_name}")
+data_dir = Path("../data")
+filename_fn = lambda filename: {'file_name': filename}
+documents = SimpleDirectoryReader(data_dir, filename_as_id=True, file_metadata=filename_fn).load_data(show_progress=True)
+print(f"documents loaded: {len(documents)}")
 
-# Open the PDF file
-text = ""
-with open(pdf_name, 'rb') as file:
-    reader = pypdf.PdfReader(file)
-    # page_count = reader.page_count
-    page_count = 0
-    for page in reader.pages:
-        page_count = page_count + 1
-        text += page.extract_text() + "\n"
 
-print(f"Extracted text from ({page_count}) pages, text size:({len(text)}")
-
-# from langchain.text_splitter import SpacyTextSplitter
-# text_splitter = SpacyTextSplitter()
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 text_splitter = RecursiveCharacterTextSplitter(
     # Set a really small chunk size, just to show.
     chunk_size = 256,
-    chunk_overlap  = 20
+    chunk_overlap  = 20,
 )
 
-docs = text_splitter.split_text(text)
+for doc in documents:
+    # print(f"document: {doc}")
+    fname = doc.metadata['file_name']
+    txt = doc.text
+    docs = text_splitter.split_text(txt)
+    docs_embeddings = embedder.encode(docs, convert_to_tensor=True, show_progress_bar=True)
 
-docs_embeddings = embedder.encode(docs, convert_to_tensor=True, show_progress_bar=True)
 
-with open('/opt/docs/CensusonAIinBusinessCES-WP-24-16.pdf.txt', 'r') as file:
-    # Read the contents of the file
-    tika_text = file.read()
-tika_docs = text_splitter.split_text(tika_text)
-tika_embeddings = embedder.encode(tika_docs, convert_to_tensor=True, show_progress_bar=True)
-
-print(f"Tika text: {len(tika_text)} tika docs: {len(tika_docs)} ----- pytext:{len(text)} -- docs:{len(docs)}")
+# print(f"Tika text: {len(tika_text)} tika docs: {len(tika_docs)} ----- pytext:{len(text)} -- docs:{len(docs)}")
 
 # Query sentences:
 queries = [
@@ -93,21 +73,9 @@ for query in queries:
     tika_top_results = torch.topk(tika_cos_scores, k=top_k)
 
 
-    # print("\n============================================")
-    # qtext = Text(f"[bold green]{query}[/bold green]")
-    # qtext.stylize("bold magenta",)         # https://youtrack.jetbrains.com/issue/PY-43860/Python-package-rich-print-text-in-color-bold-etc.-does-not-print-color-bold-etc.-in-the-Run-and-Debug-panes.-Works-in-Python
-    # print(f"[bold green]Query:{query}[/bold green]")
-    # print(f"[bold green]Top 5 most similar sentences in corpus:[/bold green]")
-
-
     for score, idx in zip(top_results[0], top_results[1]):
         t = docs[idx]
         table.add_row(docs[idx], "(Score: {:.4f})".format(score), 'tika score', 'tika text')
-
-        # print(docs[idx], "(Score: {:.4f})".format(score))
-        # print("{}) [bold green] ------ Score: {:.4f} ------ [/bold green]".format(idx, score))
-        # console.print(Padding(docs[idx], pad=(0, 0, 0, 4)))
-        # print()
 
     """
     # Alternatively, we can also use util.semantic_search to perform cosine similarty + topk
