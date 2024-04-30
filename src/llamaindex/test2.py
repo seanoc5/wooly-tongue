@@ -1,7 +1,12 @@
 # https://docs.llamaindex.ai/en/stable/examples/customization/llms/SimpleIndexDemo-Huggingface_stablelm/
+# conflict with `datasets`, so I
+# pip uninstall datasets
+# pip install llama-index-llms-huggingface
 
 import logging
 import sys
+
+from llama_index.core.node_parser import SimpleFileNodeParser
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -10,7 +15,45 @@ from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.llms.huggingface import HuggingFaceLLM
 from llama_index.core import Settings
 
-documents = SimpleDirectoryReader("/opt/data/text").load_data()
+samples_dir = '/opt/data/samples'
+
+filename_fn = lambda filename: {'file_name': filename}
+documents = SimpleDirectoryReader(samples_dir, filename_as_id=True, file_metadata=filename_fn).load_data(show_progress=True)
+print([x.doc_id for x in documents])
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size = 700,
+    chunk_overlap  = 20,
+    length_function = len,
+    separators= [
+            "\n\n\n\n",
+            "\n\n\n",
+            "\n\n",
+        ".",
+            "\n",
+            ",",
+            # " ",
+            # "\u200B",  # Zero-width space
+            # "\uff0c",  # Fullwidth comma
+            # "\u3001",  # Ideographic comma
+            # "\uff0e",  # Fullwidth full stop
+            # "\u3002",  # Ideographic full stop
+            # "",
+        ],
+)
+
+
+
+for doc in documents:
+    txt = doc.text
+    texts = text_splitter.split_text(txt)
+    print(len(texts)) # 11
+    print(texts[0]) # 'What I Worked On\n\nFebruary 2021'
+
+# parser = SimpleFileNodeParser()
+# md_nodes = parser.get_nodes_from_documents(documents)
+# md_nodes[0]
 
 # setup prompts - specific to StableLM
 from llama_index.core import PromptTemplate

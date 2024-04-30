@@ -5,7 +5,7 @@
     <option name="enabledOnSave" value="true" />
     <option name="sdkName" value="Python 3.10 (haystack2)" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Python 3.10 (wooly-tongue)" project-jdk-type="Python SDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Python 3.10 (wt2)" project-jdk-type="Python SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
