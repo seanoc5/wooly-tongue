@@ -69,7 +69,8 @@ document_cleaner = DocumentCleaner()
 document_splitter = DocumentSplitter(split_by="word", split_length=100, split_overlap=20)
 
 
-"""Now you'll add a `SentenceTransformersDocumentEmbedder` to create embeddings from the documents. As the last step in this pipeline, the `DocumentWriter` will write them to the `InMemoryDocumentStore`.
+"""Now you'll add a `SentenceTransformersDocumentEmbedder` to create embeddings from the documents. 
+As the last step in this pipeline, the `DocumentWriter` will write them to the `InMemoryDocumentStore`.
 
 """
 

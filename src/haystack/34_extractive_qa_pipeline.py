@@ -33,14 +33,8 @@ To get data into the extractive pipeline, you'll also build an indexing pipeline
 
 # Commented out IPython magic to ensure Python compatibility.
 # %%bash
-# 
+#
 # pip install haystack-ai accelerate "sentence-transformers>=2.2.0" "datasets>=2.6.1"
-
-"""Knowing you’re using this tutorial helps us decide where to invest our efforts to build a better product but you can always opt out by commenting the following line. See [Telemetry](https://docs.haystack.deepset.ai/v2.0/docs/enabling-telemetry) for more details."""
-
-from haystack.telemetry import tutorial_running
-
-tutorial_running(34)
 
 """## Load data into the `DocumentStore`
 
@@ -56,7 +50,7 @@ The `SentenceTransformersDocumentEmbedder` transforms each `Document` into a vec
 Lastly, the `DocumentWriter` writes the vectorized documents to the `DocumentStore`.
 """
 
-from datasets import load_dataset
+# from datasets import load_dataset
 from haystack import Document
 from haystack import Pipeline
 from haystack.document_stores.in_memory import InMemoryDocumentStore
@@ -66,9 +60,8 @@ from haystack.components.embedders import SentenceTransformersDocumentEmbedder
 from haystack.components.writers import DocumentWriter
 
 
-dataset = load_dataset("bilgeyucel/seven-wonders", split="train")
-
-documents = [Document(content=doc["content"], meta=doc["meta"]) for doc in dataset]
+# dataset = load_dataset("bilgeyucel/seven-wonders", split="train")
+# documents = [Document(content=doc["content"], meta=doc["meta"]) for doc in dataset]
 
 model = "sentence-transformers/multi-qa-mpnet-base-dot-v1"
 

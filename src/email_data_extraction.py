@@ -30,10 +30,10 @@ You will need following libraries along with LlamaIndex 🦙.
 # %pip install llama-index-program-openai
 
 # LlamaIndex
-!pip install llama-index
+# !pip install llama-index
 
 # To get text conents from .eml and .msg file
-!pip install "unstructured[msg]"
+# !pip install "unstructured[msg]"
 
 """### Enable Logging and Set up OpenAI API Key
 

@@ -1,13 +1,15 @@
 import os
 from pathlib import Path
 
+import requests
+from haystack import Document
 from llama_index.core import SimpleDirectoryReader
-from rich.highlighter import RegexHighlighter
-from rich.table import Table
-from rich.theme import Theme
 from sentence_transformers import SentenceTransformer, util
 import torch
 
+from rich.highlighter import RegexHighlighter
+from rich.table import Table
+from rich.theme import Theme
 from rich.console import Console
 from rich.text import Text
 from rich.padding import Padding
@@ -46,10 +48,29 @@ model = "all-MiniLM-L6-v2"
 embedder = SentenceTransformer(model)
 print("embedder model loaded: {}".format(model))
 
-data_dir = Path("../../data")
-filename_fn = lambda filename: {'file_name': os.path.basename(filename)}
-documents = SimpleDirectoryReader(data_dir, filename_as_id=True, file_metadata=filename_fn).load_data(show_progress=True)
+git_files = ['https://raw.githubusercontent.com/seanoc5/wooly-tongue/main/data/ces-wp-24-16.pypdf.txt',
+             'https://raw.githubusercontent.com/seanoc5/wooly-tongue/main/data/ces-wp-24-16.tika.txt']
+
+
+# Issue request: r => requests.models.Response
+documents = []
+for gf in git_files:
+    r = requests.get(gf)
+    txt = r.text
+    doc = Document(content=txt, meta={'file_name':gf})
+    documents.append(doc)
+
+# data_dir = Path("../../data")
+# filename_fn = lambda filename: {'file_name': os.path.basename(filename)}
+# documents = SimpleDirectoryReader(data_dir, filename_as_id=True, file_metadata=filename_fn).load_data(show_progress=True)
 print(f"documents loaded: {len(documents)}")
+
+queries = [
+    "what segments show decline in adoption of AI or LLM.",
+    "automation trends in business"
+    "Measuring AI in US economy.",
+    "Large language models.",
+]
 
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -60,18 +81,10 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 
 
-queries = [
-    "what segments show decline in adoption of AI or LLM.",
-    "automation trends in business"
-    "Measuring AI in US economy.",
-    "Large language models.",
-]
-
-
 for doc in documents:
     # print(f"document: {doc}")
-    fname = doc.metadata['file_name']
-    txt = doc.text
+    fname = doc.meta['file_name']
+    txt = doc.content
     docs = text_splitter.split_text(txt)
     docs_embeddings = embedder.encode(docs, convert_to_tensor=True, show_progress_bar=True)
 
