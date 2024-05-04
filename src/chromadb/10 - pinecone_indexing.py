@@ -1,3 +1,5 @@
+# from urllib import request
+import requests
 import torch
 from haystack import Pipeline, Document
 from haystack.components.embedders import SentenceTransformersDocumentEmbedder
@@ -50,15 +52,14 @@ console = Console(highlighter=my_hl, theme=theme)
 
 print(f"Torchy?? [red]{torch.cuda.is_available()}[/red]")
 embedding_model = "sentence-transformers/all-MiniLM-L6-v2"
-document_store = ChromaDocumentStore()
 
-def process_text(embedding_mode, document_store):
-    # global content, document_store, chunk
-    fpath = '../../data/test-paragraphs.txt'
-    content = open(fpath, 'r').read()
+document_store = ChromaDocumentStore()
+# document_store = Pine()
+
+def process_text(content, embedding_mode, document_store):
     print(f"Read content (len:{len(content)}) from path: {fpath}")
 
-    cleaner = DocumentCleaner(remove_repeated_substrings=True)
+    # cleaner = DocumentCleaner(remove_repeated_substrings=True)
     big_doc = Document('doc1', content=content)
     print(f"Doc store STARTS with: {document_store.count_documents()} documents")
     splitter = DocumentSplitter(split_by="sentence", split_length=1, split_overlap=0)
@@ -85,7 +86,7 @@ def process_text(embedding_mode, document_store):
     indexing.run({"document_embedder": {"documents": chunked_docs["documents"]}})
     # indexing.run({"document_cleaner": {"documents": chunked_docs["documents"]}})
     print(f"[green]Doc store AFTER indexing: {document_store.count_documents()} documents")
-
+    return document_store
 
 def do_query(q, embedding_model, k_results, document_store):
     retriever = ChromaQueryTextRetriever(document_store=document_store, top_k=k_results)
@@ -105,8 +106,8 @@ def do_query(q, embedding_model, k_results, document_store):
     return results
 
 
-def display_results(table_title, results, show_lines=True, width=150):
-    table = Table(title=table_title, show_lines=show_lines, width=width, highlight=True)
+def display_results(table_title, results, show_lines=True):
+    table = Table(title=table_title, show_lines=show_lines, highlight=True)
     table.add_column("id", style="blue", )  # no_wrap=True
     table.add_column("text")  # no_wrap=True
     table.add_column("Score", style="blue", )
@@ -115,8 +116,6 @@ def display_results(table_title, results, show_lines=True, width=150):
         table.add_row(d.id, d.content.strip(), "{:.2f}".format(d.score))
     console.print(table)
     print('\n\n')
-
-process_text(embedding_model, document_store)
 
 queries = [
     'who is in the bank to deposit money?',
@@ -129,12 +128,24 @@ queries = [
     'who is looking super fly?',
     'who is looking cool?',
     ]
-
 k = 5
 
-for q in queries:
-    results = do_query(q, embedding_model, k, document_store)
-    title = f"Embedding model: [bold blue]{embedding_model}[/] \nQuery: [bold blue]{q}[/]"
-    display_results(title, results, show_lines=True)
+fpath = 'https://raw.githubusercontent.com/seanoc5/wooly-tongue/main/data/test-paragraphs.txt'
+rsp = requests.get(fpath)
+if(rsp.status_code == 200):
+    content = rsp.text
+    print(f"Got content (len:{len(content)} from path: {fpath}, now process it (embed and save to doc store)")
+    process_text(content, embedding_model, document_store)
+    print("Prepare to run queries...")
+    for q in queries:
+       results = do_query(q, embedding_model, k, document_store)
+       title = f"Embedding model: [bold blue]{embedding_model}[/] \nQuery: [bold blue]{q}[/]"
+       display_results(title, results, show_lines=True)
+
+else:
+    print(f"PROBLEM!!! Could not find fpath: {fpath}")
+
+
+
 
 print("Done!")

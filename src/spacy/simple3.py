@@ -1,7 +1,9 @@
 # https://github.com/langchain-ai/langchain/issues/6952
 import spacy
-from langchain.vectorstores import Chroma
-from langchain.document_loaders import TextLoader
+# from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
+# from langchain.document_loaders import TextLoader
+from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
@@ -35,24 +37,29 @@ test_txt = open("/opt/data/samples/test.txt").read()
 # documents = loader.load()
 text_splitter = RecursiveCharacterTextSplitter(
     # Set a really small chunk size, just to show.
-    chunk_size=300,
+    chunk_size=100,
     chunk_overlap=30,
     length_function=len,
     is_separator_regex=False,
 )
 
 documents = text_splitter.create_documents([test_txt])
-
+print(f"Number of documents: {len(documents)}")
 
 spacy_embeddings = SpacyEmbeddings()
 
-vectordb = Chroma.from_documents(documents=documents, embedding=spacy_embeddings, persist_directory="./content")
-collection = vectordb.get_or
-collection.peek() # returns a list of the first 10 items in the collection
-collection.count()
+vectordb = Chroma.from_documents(documents=documents, embedding=spacy_embeddings)
+# vectordb = Chroma.from_documents(documents=documents, embedding=spacy_embeddings, persist_directory="./content")
+# vectordb.
+# collection = vectordb.
+# collection.peek() # returns a list of the first 10 items in the collection
+# collection.count()
 # query it
 query = "what is BTOS?"
-docs = vectordb.similarity_search(query)
+result_docs = vectordb.similarity_search(query)
 
 # print results
-print(docs[0].page_content)
+for idx, doc in enumerate(result_docs):
+    print(f"{idx}) {doc.page_content}")
+
+print("done")
