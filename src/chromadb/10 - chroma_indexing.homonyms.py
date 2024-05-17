@@ -56,7 +56,7 @@ embedding_model = "sentence-transformers/all-MiniLM-L6-v2"
 document_store = ChromaDocumentStore()
 # document_store = Pine()
 
-def process_text(content, embedding_mode, document_store):
+def process_text(content, embedding_model, document_store):
     print(f"Read content (len:{len(content)}) from path: {fpath}")
 
     # cleaner = DocumentCleaner(remove_repeated_substrings=True)
@@ -134,7 +134,7 @@ fpath = 'https://raw.githubusercontent.com/seanoc5/wooly-tongue/main/data/test-p
 rsp = requests.get(fpath)
 if(rsp.status_code == 200):
     content = rsp.text
-    print(f"Got content (len:{len(content)} from path: {fpath}, now process it (embed and save to doc store)")
+    print(f"Got content (len:{len(content)} from path:{fpath}, now process it (embed and save to doc store)")
     process_text(content, embedding_model, document_store)
     print("Prepare to run queries...")
     for q in queries:

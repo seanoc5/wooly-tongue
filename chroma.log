@@ -1,0 +1,26 @@
+[32mINFO[0m:     [17-05-2024 12:26:52] Set chroma_server_nofile to 65535
+[32mINFO[0m:     [17-05-2024 12:26:52] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+[36mDEBUG[0m:    [17-05-2024 12:26:52] Starting component System
+[36mDEBUG[0m:    [17-05-2024 12:26:52] Starting component OpenTelemetryClient
+[36mDEBUG[0m:    [17-05-2024 12:26:52] Starting component SqliteDB
+[36mDEBUG[0m:    [17-05-2024 12:26:52] Starting component QuotaEnforcer
+[36mDEBUG[0m:    [17-05-2024 12:26:52] Starting component Posthog
+[36mDEBUG[0m:    [17-05-2024 12:26:52] Starting component LocalSegmentManager
+[36mDEBUG[0m:    [17-05-2024 12:26:52] Starting component SegmentAPI
+[32mINFO[0m:     [17-05-2024 12:26:52] Started server process [[36m4181793[0m]
+[32mINFO[0m:     [17-05-2024 12:26:52] Waiting for application startup.
+[32mINFO[0m:     [17-05-2024 12:26:52] Application startup complete.
+[32mINFO[0m:     [17-05-2024 12:26:52] Uvicorn running on [1mhttp://localhost:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     [17-05-2024 12:27:01] 127.0.0.1:45580 - "GET / HTTP/1.1" 404
+[32mINFO[0m:     [17-05-2024 12:27:01] 127.0.0.1:45580 - "GET /favicon.ico HTTP/1.1" 404
+[32mINFO[0m:     [17-05-2024 13:54:34] Shutting down
+[32mINFO[0m:     [17-05-2024 13:54:34] Waiting for application shutdown.
+[36mDEBUG[0m:    [17-05-2024 13:54:34] Stopping component System
+[36mDEBUG[0m:    [17-05-2024 13:54:34] Stopping component SegmentAPI
+[36mDEBUG[0m:    [17-05-2024 13:54:34] Stopping component LocalSegmentManager
+[36mDEBUG[0m:    [17-05-2024 13:54:34] Stopping component Posthog
+[36mDEBUG[0m:    [17-05-2024 13:54:34] Stopping component QuotaEnforcer
+[36mDEBUG[0m:    [17-05-2024 13:54:34] Stopping component SqliteDB
+[36mDEBUG[0m:    [17-05-2024 13:54:34] Stopping component OpenTelemetryClient
+[32mINFO[0m:     [17-05-2024 13:54:34] Application shutdown complete.
+[32mINFO[0m:     [17-05-2024 13:54:34] Finished server process [[36m4181793[0m]

@@ -1,0 +1,77 @@
+Query (0): what bugs are around?
+0.39: 1a) The buzzing of the insect was annoying Adam.
+0.37: 1) The fly was buzzing around Adam's sandwich.
+0.23: 2) Bob unzipped the tent fly to get fresh air.
+0.21: 2a) The flaps of the tent were open and Bob enjoyed the breeze.
+0.20: 5a) Ed got his favorite fly and tied it to his line with a bit of bait.
+
+Query (1): Who would swat at a fly?
+0.48: 1) The fly was buzzing around Adam's sandwich.
+0.38: 1a) The buzzing of the insect was annoying Adam.
+0.31: 5) Ed fisherman pulled out his favorite fly and cast it toward the river bank.
+0.31: 4) The catcher, Dave, pointed to the fly and yelled to the short-stop to catch it.
+0.31: 5a) Ed got his favorite fly and tied it to his line with a bit of bait.
+
+Query (2): Who is camping?
+0.34: 2) Bob unzipped the tent fly to get fresh air.
+0.30: 2a) The flaps of the tent were open and Bob enjoyed the breeze.
+0.23: 5) Ed fisherman pulled out his favorite fly and cast it toward the river bank.
+0.19: 5a) Ed got his favorite fly and tied it to his line with a bit of bait.
+0.18: 4) The catcher, Dave, pointed to the fly and yelled to the short-stop to catch it.
+
+Query (3): what is happening in tents?
+0.41: 2) Bob unzipped the tent fly to get fresh air.
+0.40: 2a) The flaps of the tent were open and Bob enjoyed the breeze.
+0.17: 1a) The buzzing of the insect was annoying Adam.
+0.16: 1) The fly was buzzing around Adam's sandwich.
+0.13: 4a) Dave later popped up and ended the inning.
+
+Query (4): Who is dealing with pants?
+0.25: 3) Cathy told her son to close his fly.
+0.25: 3a) As Cathy finished putting on her jeans, the cowgirl remembered to zip up.
+0.17: 2) Bob unzipped the tent fly to get fresh air.
+0.16: 2a) The flaps of the tent were open and Bob enjoyed the breeze.
+0.15: 4) The catcher, Dave, pointed to the fly and yelled to the short-stop to catch it.
+
+Query (5): Who is concerned about closing pants?
+0.39: 3) Cathy told her son to close his fly.
+0.34: 3a) As Cathy finished putting on her jeans, the cowgirl remembered to zip up.
+0.18: 2) Bob unzipped the tent fly to get fresh air.
+0.17: 2a) The flaps of the tent were open and Bob enjoyed the breeze.
+0.13: 1) The fly was buzzing around Adam's sandwich.
+
+Query (6): Who is dealing with zippers?
+0.31: 3a) As Cathy finished putting on her jeans, the cowgirl remembered to zip up.
+0.27: 2) Bob unzipped the tent fly to get fresh air.
+0.26: 3) Cathy told her son to close his fly.
+0.20: 2a) The flaps of the tent were open and Bob enjoyed the breeze.
+0.18: 1) The fly was buzzing around Adam's sandwich.
+
+Query (7): Who is playing baseball?
+0.36: 4b) Dave hit a grounder past the first baseman.
+0.35: 4) The catcher, Dave, pointed to the fly and yelled to the short-stop to catch it.
+0.34: 4a) Dave later popped up and ended the inning.
+0.14: 5) Ed fisherman pulled out his favorite fly and cast it toward the river bank.
+0.13: 5a) Ed got his favorite fly and tied it to his line with a bit of bait.
+
+Query (8): Who is seeing a baseball in the air?
+0.47: 4) The catcher, Dave, pointed to the fly and yelled to the short-stop to catch it.
+0.38: 4b) Dave hit a grounder past the first baseman.
+0.35: 4a) Dave later popped up and ended the inning.
+0.25: 5) Ed fisherman pulled out his favorite fly and cast it toward the river bank.
+0.21: 5a) Ed got his favorite fly and tied it to his line with a bit of bait.
+
+Query (9): who is fishing?
+0.51: 5) Ed fisherman pulled out his favorite fly and cast it toward the river bank.
+0.40: 5a) Ed got his favorite fly and tied it to his line with a bit of bait.
+0.28: 4) The catcher, Dave, pointed to the fly and yelled to the short-stop to catch it.
+0.20: 2) Bob unzipped the tent fly to get fresh air.
+0.16: 2a) The flaps of the tent were open and Bob enjoyed the breeze.
+
+Query (10): what lures are around?
+0.38: 5) Ed fisherman pulled out his favorite fly and cast it toward the river bank.
+0.37: 5a) Ed got his favorite fly and tied it to his line with a bit of bait.
+0.22: 1) The fly was buzzing around Adam's sandwich.
+0.19: 1a) The buzzing of the insect was annoying Adam.
+0.19: 4) The catcher, Dave, pointed to the fly and yelled to the short-stop to catch it.
+
