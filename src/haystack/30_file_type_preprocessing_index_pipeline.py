@@ -73,8 +73,8 @@ document_splitter = DocumentSplitter(split_by="word", split_length=100, split_ov
 As the last step in this pipeline, the `DocumentWriter` will write them to the `InMemoryDocumentStore`.
 
 """
-
-document_embedder = SentenceTransformersDocumentEmbedder(model="sentence-transformers/all-MiniLM-L6-v2")
+embedding_model = "sentence-transformers/all-MiniLM-L6-v2"
+document_embedder = SentenceTransformersDocumentEmbedder(model=embedding_model)
 document_writer = DocumentWriter(document_store)
 
 """After creating all the components, add them to the indexing pipeline."""
@@ -103,28 +103,14 @@ preprocessing_pipeline.connect("document_splitter", "document_embedder")
 preprocessing_pipeline.connect("document_embedder", "document_writer")
 
 from pathlib import Path
-doc_path = '/opt/data/samples'
+doc_path = '/opt/data/text'
 preprocessing_pipeline.run({"file_type_router": {"sources": list(Path(doc_path).glob("*.txt"))}})
-
-"""🎉 If you only wanted to learn how to preprocess documents, you can stop here! If you want to see an example of using those documents in a RAG pipeline, read on.
-
-## (Optional) Build a pipeline to query documents
-
-Now, let's build a RAG pipeline that answers queries based on the documents you just created in the section above. For this step, we will be using the [`HuggingFaceTGIGenerator`](https://docs.haystack.deepset.ai/v2.0/docs/huggingfacetgigenerator) so must have a [Hugging Face API Key](https://huggingface.co/settings/tokens) for this section. We will be using the `mistralai/Mistral-7B-Instruct-v0.1` model.
-"""
 
 import os
 from getpass import getpass
 
-if "HF_API_TOKEN" not in os.environ:
-    os.environ["HF_API_TOKEN"] = getpass("Enter Hugging Face token:")
-
-"""In this step you'll build a query pipeline to answer questions about the documents.
-
-This pipeline takes the prompt, searches the document store for relevant documents, and passes those documents along to the LLM to formulate an answer.
-
-> ⚠️ Notice how we used `sentence-transformers/all-MiniLM-L6-v2` to create embeddings for our documents before. This is why we will be using the same model to embed incoming questions.
-"""
+# if "HF_API_TOKEN" not in os.environ:
+#     os.environ["HF_API_TOKEN"] = getpass("Enter Hugging Face token:")
 
 from haystack.components.embedders import SentenceTransformersTextEmbedder
 from haystack.components.retrievers.in_memory import InMemoryEmbeddingRetriever
@@ -143,27 +129,27 @@ Question: {{ question }}
 Answer:
 """
 pipe = Pipeline()
-pipe.add_component("embedder", SentenceTransformersTextEmbedder(model="sentence-transformers/all-MiniLM-L6-v2"))
+pipe.add_component("embedder", SentenceTransformersTextEmbedder(model=embedding_model))
 pipe.add_component("retriever", InMemoryEmbeddingRetriever(document_store=document_store))
 pipe.add_component("prompt_builder", PromptBuilder(template=template))
 
 from haystack.components.generators import HuggingFaceLocalGenerator
-# generator = HuggingFaceLocalGenerator(model="google/flan-t5-large",
-#                                       task="text2text-generation",
-#                                       generation_kwargs={
-#                                         "max_new_tokens": 100,
-#                                         "temperature": 0.9,
-#                                         })
+generator = HuggingFaceLocalGenerator(model="google/flan-t5-large",
+                                      task="text2text-generation",
+                                      generation_kwargs={
+                                        "max_new_tokens": 100,
+                                        "temperature": 0.9,
+                                        })
 
-gemma_gen = HuggingFaceLocalGenerator(
-    # model="google/gemma-2b-it",
-    # model="google/gemma-7b",        # license requirement
-    model="tiiuae/falcon-7b",       # memory issues?
-    generation_kwargs={"max_new_tokens": 350}
-    )
+# generator = HuggingFaceLocalGenerator(
+#     model="google/gemma-2b-it",
+#     model="google/gemma-7b",        # license requirement
+    # model="tiiuae/falcon-7b",       # memory issues?
+    # generation_kwargs={"max_new_tokens": 350}
+    # )
 
-gemma_gen.warm_up()
-pipe.add_component("llm", gemma_gen)
+generator.warm_up()
+pipe.add_component("llm", generator)
 # pipe.add_component("llm", HuggingFaceTGIGenerator("mistralai/Mistral-7B-Instruct-v0.1"))
 
 pipe.connect("embedder.embedding", "retriever.query_embedding")

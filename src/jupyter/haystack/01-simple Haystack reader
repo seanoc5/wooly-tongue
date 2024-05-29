@@ -1,0 +1,130 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "92e6fabb-c1b6-4867-8566-06f35d2e1fdb",
+   "metadata": {},
+   "source": [
+    "# Haystack testing and fragents\n",
+    "\n",
+    "Note: need to resolve temparature & use_samplings (currently just commented out temp)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "d881d672-9630-4d33-84b4-d68a324c2b8e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from haystack import Document\n",
+    "from haystack.components.readers import ExtractiveReader"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "3948e227-dc0f-436f-b0d0-9c130e758f4c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "docs = [\n",
+    "    Document(content=\"Python is a popular programming language\"),\n",
+    "    Document(content=\"Icecream is delicious\"),\n",
+    "        Document(content=\"Camels have humps\"),\n",
+    "]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "c94bffd2-3d65-4e7a-8fe9-df6446ecf676",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "reader = ExtractiveReader()\n",
+    "reader.warm_up()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "539500a3-efaa-4f10-bd11-47f9b3ff63aa",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "question = \"What is a popular programming language?\"\n",
+    "result = reader.run(query=question, documents=docs)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "f78e4b46-7882-4d4d-bbb6-ee3d97ae8d74",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert \"Python\" in result[\"answers\"][0].data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "ec0cd55b-e6ea-4f38-b011-bf8e748e9f20",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[ExtractedAnswer(query='What is a popular programming language?', score=0.7912205457687378, data='Python', document=Document(id=db7f24c54f2476f5d0c438cfcbbea5e45de37124ff7de69a5bf8e82413c3f614, content: 'Python is a popular programming language'), context=None, document_offset=ExtractedAnswer.Span(start=0, end=6), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.32089659571647644, data='language', document=Document(id=db7f24c54f2476f5d0c438cfcbbea5e45de37124ff7de69a5bf8e82413c3f614, content: 'Python is a popular programming language'), context=None, document_offset=ExtractedAnswer.Span(start=32, end=40), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.23741841316223145, data='Camels', document=Document(id=f938693041dfc8026ee1a7646a85997af21c8d6f3af5538462457a84c2a934a0, content: 'Camels have humps'), context=None, document_offset=ExtractedAnswer.Span(start=0, end=6), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.23270942270755768, data='programming', document=Document(id=db7f24c54f2476f5d0c438cfcbbea5e45de37124ff7de69a5bf8e82413c3f614, content: 'Python is a popular programming language'), context=None, document_offset=ExtractedAnswer.Span(start=20, end=31), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.21754954755306244, data='a popular', document=Document(id=db7f24c54f2476f5d0c438cfcbbea5e45de37124ff7de69a5bf8e82413c3f614, content: 'Python is a popular programming language'), context=None, document_offset=ExtractedAnswer.Span(start=10, end=19), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.21110448241233826, data='is', document=Document(id=db7f24c54f2476f5d0c438cfcbbea5e45de37124ff7de69a5bf8e82413c3f614, content: 'Python is a popular programming language'), context=None, document_offset=ExtractedAnswer.Span(start=7, end=9), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.1946004182100296, data='Icecream is delicious', document=Document(id=430f0f677b3a8dc31ce4fbf3e83fe250b95132e53106de2f76770c5ef00f8c98, content: 'Icecream is delicious'), context=None, document_offset=ExtractedAnswer.Span(start=0, end=21), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.18848739564418793, data='humps', document=Document(id=f938693041dfc8026ee1a7646a85997af21c8d6f3af5538462457a84c2a934a0, content: 'Camels have humps'), context=None, document_offset=ExtractedAnswer.Span(start=12, end=17), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.15321364998817444, data='have', document=Document(id=f938693041dfc8026ee1a7646a85997af21c8d6f3af5538462457a84c2a934a0, content: 'Camels have humps'), context=None, document_offset=ExtractedAnswer.Span(start=7, end=11), context_offset=None, meta={}),\n",
+       " ExtractedAnswer(query='What is a popular programming language?', score=0.02834175226969469, data=None, document=None, context=None, document_offset=None, context_offset=None, meta={})]"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "result[\"answers\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "92876fab-5d62-4f9f-bd5b-f0db5603031b",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "wt2",
+   "language": "python",
+   "name": "wt2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

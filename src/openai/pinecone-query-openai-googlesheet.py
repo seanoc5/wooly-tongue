@@ -86,7 +86,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(creds, scope)
 client = gspread.authorize(credentials)
 
 # Create a new Google Sheets workbook
-workbook = client.create('StackedCone2')
+workbook = client.create('StackedCone2-1')
 sheet_zero = workbook.get_worksheet(0)
 # Share the spreadsheet with a particular user (replace 'user@example.com' with the email address)
 workbook.share('seanoc5@gmail.com', perm_type='user', role='writer')
