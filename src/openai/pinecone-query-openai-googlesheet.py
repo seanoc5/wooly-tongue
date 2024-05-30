@@ -116,7 +116,7 @@ print(f"Url: {workbook.url}!")
 
 
 for midx, m in enumerate(models):
-    time.sleep(2)
+    # time.sleep(2)
 
     index_name = f"{m}-{my_metric}"
     spec = ServerlessSpec(cloud="aws", region="us-east-1")
