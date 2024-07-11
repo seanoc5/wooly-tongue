@@ -1,11 +1,12 @@
 out/
 chromadb-1/
+*/.ipynb_checkpoints/*
+venv
 
 *.bundle.*
 lib/
 node_modules/
 *.egg-info/
-.ipynb_checkpoints
 *.tsbuildinfo
 
 # Created by https://www.gitignore.io/api/python
@@ -139,5 +140,8 @@ ui-tests/playwright-report
 ui-tests/.yarn/*
 ui-tests/.pnp.*
 /.idea/jupyter-settings.xml
-/src/jupyter/zzz_demos/lotr-demo/.idea/workspace.xml
-/src/jupyter/zzz_demos/lotr-demo/setup/.env
+
+#bin
+#include
+#lib
+
