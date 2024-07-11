@@ -139,3 +139,5 @@ ui-tests/playwright-report
 ui-tests/.yarn/*
 ui-tests/.pnp.*
 /.idea/jupyter-settings.xml
+/src/jupyter/zzz_demos/lotr-demo/.idea/workspace.xml
+/src/jupyter/zzz_demos/lotr-demo/setup/.env
