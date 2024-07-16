@@ -1,6 +1,8 @@
 out/
 chromadb-1/
-*/.ipynb_checkpoints/*
+#*/.ipynb_checkpoints/*
+.ipynb_checkpoints
+
 venv
 
 *.bundle.*
