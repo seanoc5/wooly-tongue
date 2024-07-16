@@ -1,0 +1,121 @@
+<div id="readability-page-1" class="page">
+ <section itemprop="articleBody">
+  <h2 id="bd-intro" data-id="intro"><strong>1. Overview</strong></h2>
+  <p>In this tutorial, we’ll take a look at various strategies for getting MIME types of a file. We’ll look at ways to extend the MIME types available to the strategies, wherever applicable.</p>
+  <p>We’ll also point out where we should favor one strategy over the other.</p>
+  <h2 id="bd-java-7" data-id="java-7"><strong>2. Using Java 7</strong></h2>
+  <p>Let’s start with Java 7 – which provides the method&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Files.html#probeContentType(java.nio.file.Path)"><em>Files.probeContentType(path)</em></a>&nbsp;for resolving the MIME type:</p>
+  <pre><code>@Test
+public void whenUsingJava7_thenSuccess() {
+    Path path = new File("product.png").toPath();
+    String mimeType = Files.probeContentType(path);
+
+    assertEquals(mimeType, "image/png");
+}
+</code></pre>
+  <p>This method makes use of the installed <em>FileTypeDetector </em>implementations to probe the MIME type. It invokes the&nbsp;<em>probeContentType </em>of each implementation to resolve the type.</p>
+  <p>Now, if the file is recognized by any of the implementations, the content type is returned. However, if that doesn’t happen, a system-default file type detector is invoked.</p>
+  <p><strong>However, the default implementations are OS specific and might fail depending on the OS that we are using. </strong></p>
+  <p>In addition to that, it’s also important to note that the strategy will fail if the file isn’t present in the filesystem. Furthermore, if the file doesn’t have an extension, it will result in failure.</p>
+  <h2 id="bd-url-connection" data-id="url-connection"><strong>&nbsp;3. Using <em>URLConnection</em></strong></h2>
+  <p><em>URLConnection</em> provides several APIs for detecting MIME types of a file. Let’s briefly explore each of them.</p>
+  <h3 id="bd-1-using-getcontenttype" data-id="1-using-getcontenttype"><strong>3.1. Using <em>getContentType()</em></strong></h3>
+  <p>We can use <em>getContentType()</em> method of <em>URLConnection</em> to retrieve a file’s MIME type:</p>
+  <pre><code>@Test
+public void whenUsingGetContentType_thenSuccess(){
+    File file = new File("product.png");
+    URLConnection connection = file.toURL().openConnection();
+    String mimeType = connection.getContentType();
+
+    assertEquals(mimeType, "image/png");
+}</code></pre>
+  <p>However, a major drawback of this approach is that<strong> it’s very slow</strong>.</p>
+  <h3 id="bd-2-using-guesscontenttypefromname" data-id="2-using-guesscontenttypefromname"><strong>3.2. Using <em>guessContentTypeFromName()</em></strong></h3>
+  <p>Next, let’s see how we can make use of the <em>guessContentTypeFromName()</em> for the purpose:</p>
+  <pre><code>@Test
+public void whenUsingGuessContentTypeFromName_thenSuccess(){
+    File file = new File("product.png");
+    String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+
+    assertEquals(mimeType, "image/png");
+}</code></pre>
+  <p>This method makes use of the internal <em>FileNameMap</em> to <strong>resolve the MIME type from the extension</strong>.</p>
+  <p>We also have the option of using <em>guessContentTypeFromStream()</em> instead, which uses the first few characters of the input stream, to determine the type.</p>
+  <h3 id="bd-3-using-getfilenamemap" data-id="3-using-getfilenamemap"><strong>3.3. Using <em>getFileNameMap</em>()</strong></h3>
+  <p>A faster way to obtain the MIME type using <em>URLConnection</em> is using the <em>getFileNameMap()</em> method:</p>
+  <pre><code>@Test
+public void whenUsingGetFileNameMap_thenSuccess(){
+    File file = new File("product.png");
+    FileNameMap fileNameMap = URLConnection.getFileNameMap();
+    String mimeType = fileNameMap.getContentTypeFor(file.getName());
+
+    assertEquals(mimeType, "image/png");
+}</code></pre>
+  <p>The method returns the table of MIME types used by all instances of <em>URLConnection. </em>This table is then used to resolve the input file type.</p>
+  <p>The built-in table of MIME types is very limited when it comes to <em>URLConnection</em>.</p>
+  <p>By default, <strong>the class uses <em>content-types.properties</em></strong> file in <em>JRE_HOME/lib</em>. <strong>We can, however, extend it, by specifying a user-specific table using the&nbsp;<em>content.types.user.table&nbsp;</em>property:</strong></p>
+  <pre><code>System.setProperty("content.types.user.table","&lt;path-to-file&gt;");
+</code></pre>
+  <h2 id="bd-using-mimetypes-filetypemap" data-id="using-mimetypes-filetypemap"><strong>4. Using <em>MimeTypesFileTypeMap</em></strong></h2>
+  <p><em>MimeTypesFileTypeMap</em> resolves MIME types by using file’s extension. This class came with Java 6, and hence comes very handy when we’re working with JDK 1.6.</p>
+  <p>Now let’s see how to use it:</p>
+  <pre><code>@Test
+public void whenUsingMimeTypesFileTypeMap_thenSuccess() {
+    File file = new File("product.png");
+    MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+    String mimeType = fileTypeMap.getContentType(file.getName());
+
+    assertEquals(mimeType, "image/png");
+}</code></pre>
+  <p>Here, we can either pass the name of the file or the <em>File</em> instance itself as the parameter to the function. However, the function with <em>File</em> instance as the parameter internally calls the overloaded method that accepts the filename as the parameter.</p>
+  <p><strong>Internally, this method looks up a file called <em>mime.types</em> for the type resolution. It’s very important to note that the method searches for the file in a specific order:</strong></p>
+  <ol>
+   <li>Programmatically added entries to the <em>MimetypesFileTypeMap</em> instance</li>
+   <li>.<em>mime.types</em> in the user’s home directory</li>
+   <li><em>&lt;java.home&gt;/lib/mime.types</em></li>
+   <li>resources named <em>META-INF/mime.types</em></li>
+   <li>resource named <em>META-INF/mimetypes.default</em> (usually found only in the <em>activation.jar</em> file)</li>
+  </ol>
+  <p>However, if no file is found, it will return <em>application/octet-stream</em> as the response.</p>
+  <h2 id="bd-jmimemagic" data-id="jmimemagic"><strong>5. Using <em>jMimeMagic</em></strong></h2>
+  <p><a href="https://github.com/arimus/jmimemagic">jMimeMagic</a> is a restrictively licensed library that we can use to obtain the MIME type of a file.</p>
+  <p>Let’s start by configuring the Maven dependency:</p>
+  <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;net.sf.jmimemagic&lt;/groupId&gt;
+    &lt;artifactId&gt;jmimemagic&lt;/artifactId&gt;
+    &lt;version&gt;0.1.5&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+  <p>We can find the latest version of this library on <a href="https://search.maven.org/classic/#search%7Cgav%7C1%7Cg%3A%22net.sf.jmimemagic%22%20AND%20a%3A%22jmimemagic%22">Maven Central</a>.</p>
+  <p>Next, we’ll explore how to work with the library:</p>
+  <pre><code>@Test
+public void whenUsingJmimeMagic_thenSuccess() {
+    File file = new File("product.png");
+    Magic magic = new Magic();
+    MagicMatch match = magic.getMagicMatch(file, false);
+
+    assertEquals(match.getMimeType(), "image/png");
+}</code></pre>
+  <p>This library can work with a stream of data and hence doesn’t require the file to be present in the file system.</p>
+  <h2 id="bd-apache-tika" data-id="apache-tika"><strong>6. Using Apache Tika</strong></h2>
+  <p><a href="http://tika.apache.org/">Apache Tika</a> is a toolset that detects and extracts metadata and text from a variety of files. It has a rich and powerful API and comes with <a href="https://search.maven.org/classic/#search%7Cgav%7C1%7Cg%3A%22org.apache.tika%22%20AND%20a%3A%22tika-core%22">tika-core</a> which we can make use of, for detecting MIME type of a file.</p>
+  <p>Let’s begin by configuring the Maven dependency:</p>
+  <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.tika&lt;/groupId&gt;
+    &lt;artifactId&gt;tika-core&lt;/artifactId&gt;
+    &lt;version&gt;1.18&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+  <p>Next, we’ll make use of the <em>detect() </em>method to resolve the type:</p>
+  <pre><code>@Test
+public void whenUsingTika_thenSuccess() {
+    File file = new File("product.png");
+    Tika tika = new Tika();
+    String mimeType = tika.detect(file);
+
+    assertEquals(mimeType, "image/png");
+}</code></pre>
+  <p>The library relies on magic markers in the stream prefix, for type resolution.</p>
+  <h2 id="bd-conclusion" data-id="conclusion"><strong>7. Conclusion</strong></h2>
+  <p>In this article, we’ve looked at the various strategies of obtaining the MIME type of a file. Furthermore, we have also analyzed the tradeoffs of the approaches. We have also pointed out the scenarios where we should favor one strategy over the other.</p>
+  <p>The full source code that is used in this article is available <a href="https://github.com/eugenp/tutorials/tree/master/core-java-modules/core-java-io">over at GitHub</a>, as always.</p>
+ </section>
+</div>

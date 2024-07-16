@@ -1,0 +1,1053 @@
+<div id="readability-page-1" class="page">
+    <div id="1">
+        <p id="2">Interaction-based testing is a design and testing technique that emerged in the Extreme Programming (XP) community in the early 2000’s.
+            Focusing on
+            the behavior of objects rather than their state, it explores how the object(s) under specification interact, by way of method calls, with their
+            collaborators.</p>
+        <p id="2b">For example, suppose we have a <code>Publisher</code> that sends messages to its `Subscriber`s:</p>
+        <div id="3">
+            <div id="4">
+    <pre><code data-lang="groovy"><span>class</span> <span>Publisher</span> {
+  <span>List</span>&lt;Subscriber&gt; subscribers = <span>[]</span>
+  <span>int</span> messageCount = <span>0</span>
+  <span>void</span> send(<span>String</span> message){
+    subscribers*.receive(message)
+    messageCount++
+  }
+}
+
+<span>interface</span> Subscriber {
+  <span>void</span> receive(<span>String</span> message)
+}
+
+<span>class</span> <span>PublisherSpec</span> <span>extends</span> Specification {
+  Publisher publisher = <span>new</span> Publisher()
+}</code></pre>
+            </div>
+        </div>
+        <p>How are we going to test <code>Publisher</code>? With state-based testing, we can verify that the publisher keeps track of its subscribers. The more
+            interesting question, though, is whether a message sent by the publisher is received by the subscribers. To answer this question, we need a special
+            implementation of <code>Subscriber</code> that listens in on the conversation between the publisher and its subscribers. Such an implementation is
+            called a <em>mock object</em>.</p>
+        <p>While we could certainly create a mock implementation of <code>Subscriber</code> by hand, writing and maintaining this code can get unpleasant as the
+            number of methods and complexity of interactions increases. This is where mocking frameworks come in: They provide a way to describe the expected
+            interactions between an object under specification and its collaborators, and can generate mock implementations of collaborators that verify these
+            expectations.</p>
+        <p>The Java world has no shortage of popular and mature mocking frameworks: <a href="http://www.jmock.org/">JMock</a>,
+            <a href="http://www.easymock.org">EasyMock</a>, <a href="http://mockito.org/">Mockito</a>, to name just a few. Although each of these tools can be
+            used together with Spock, we decided to roll our own mocking framework, tightly integrated with Spock’s specification language. This decision was
+            driven by the desire to leverage all of Groovy’s capabilities to make interaction-based tests easier to write, more readable, and ultimately more
+            fun. We hope that by the end of this chapter, you will agree that we have achieved these goals.</p>
+        <p>Except where indicated, all features of Spock’s mocking framework work both for testing Java and Groovy code.</p>
+        <div>
+            <h3 id="_creating_mock_objects"><a href="#_creating_mock_objects"></a><a href="#_creating_mock_objects">Creating Mock Objects</a></h3>
+            <p>Mock objects are created with the <code>MockingApi.Mock()</code> method. Let’s create two mock subscribers:</p>
+            <div>
+                <div>
+     <pre><code data-lang="groovy"><span>def</span> subscriber = Mock(Subscriber)
+<span>def</span> subscriber2 = Mock(Subscriber)</code></pre>
+                </div>
+            </div>
+            <p>Alternatively, the following Java-like syntax is supported, which may give better IDE support:</p>
+            <div>
+                <div>
+     <pre><code data-lang="groovy">Subscriber subscriber = Mock()
+Subscriber subscriber2 = Mock()</code></pre>
+                </div>
+            </div>
+            <p>Here, the mock’s type is inferred from the variable type on the left-hand side of the assignment.</p>
+            <div>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p>Note</p></td>
+                        <td>If the mock’s type is given on the left-hand side of the assignment, it’s permissible (though not required) to omit it on the
+                            right-hand side.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Mock objects literally implement (or, in the case of a class, extend) the type they stand in for. In other words, in our example
+                <code>subscriber</code> <em>is-a</em> <code>Subscriber</code>. Hence it can be passed to statically typed (Java) code that expects this type.
+            </p>
+        </div>
+        <div>
+            <h3 id="_default_behavior_of_mock_objects"><a href="#_default_behavior_of_mock_objects"></a><a href="#_default_behavior_of_mock_objects">Default
+                Behavior of Mock Objects</a></h3>
+            <p>Initially, mock objects have no behavior. Calling methods on them is allowed but has no effect other than returning the default value for the
+                method’s return type (<code>false</code>, <code>0</code>, or <code>null</code>). An exception are the <code>Object.equals</code>, <code>Object.hashCode</code>,
+                and <code>Object.toString</code> methods, which have the following default behavior: A mock object is only equal to itself, has a unique hash
+                code, and a string representation that includes the name of the type it represents. This default behavior is overridable by stubbing the
+                methods, which we will learn about in the <a href="#_stubbing">Stubbing</a> section.</p>
+        </div>
+        <div>
+            <h3 id="_injecting_mock_objects_into_code_under_specification">
+                <a href="#_injecting_mock_objects_into_code_under_specification"></a><a href="#_injecting_mock_objects_into_code_under_specification">Injecting
+                Mock Objects into Code Under Specification</a></h3>
+            <p>After creating the publisher and its subscribers, we need to make the latter known to the former:</p>
+            <div>
+                <div>
+     <pre><code data-lang="groovy"><span>class</span> <span>PublisherSpec</span> <span>extends</span> Specification {
+  Publisher publisher = <span>new</span> Publisher()
+  Subscriber subscriber = Mock()
+  Subscriber subscriber2 = Mock()
+
+  <span>def</span> <span>setup</span>() {
+    publisher.subscribers &lt;&lt; subscriber
+    publisher.subscribers &lt;&lt; subscriber2
+  }</code></pre>
+                </div>
+            </div>
+            <p>We are now ready to describe the expected interactions between the two parties.</p>
+        </div>
+        <div>
+            <h3 id="_mocking"><a href="#_mocking"></a><a href="#_mocking">Mocking</a></h3>
+            <p>Mocking is the act of describing (mandatory) interactions between the object under specification and its collaborators. Here is an example:</p>
+            <div>
+                <div>
+     <pre><code data-lang="groovy"><span>def</span> <span><span>"</span><span>should send messages to all subscribers</span><span>"</span></span>() {
+  <span>when</span>:
+  publisher.send(<span><span>"</span><span>hello</span><span>"</span></span>)
+
+  <span>then</span>:
+  <span>1</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+  <span>1</span> * subscriber2.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+}</code></pre>
+                </div>
+            </div>
+            <p>Read out aloud: "When the publisher sends a 'hello' message, then both subscribers should receive that message exactly once."</p>
+            <p>When this feature method gets run, all invocations on mock objects that occur while executing the <code>when</code> block will be matched against
+                the interactions described in the <code>then:</code> block. If one of the interactions isn’t satisfied, a (subclass of) <code>InteractionNotSatisfiedError</code>
+                will be thrown. This verification happens automatically and does not require any additional code.</p>
+            <div>
+                <h4 id="_interactions_2"><a href="#_interactions_2"></a><a href="#_interactions_2">Interactions</a></h4>
+                <p>Let’s take a closer look at the <code>then:</code> block. It contains two <em>interactions</em>, each of which has four distinct parts: a
+                    <em>cardinality</em>, a <em>target constraint</em>, a <em>method constraint</em>, and an <em>argument constraint</em>:</p>
+                <div>
+                    <div>
+      <pre>1 * subscriber.receive("hello")
+|   |          |       |
+|   |          |       argument constraint
+|   |          method constraint
+|   target constraint
+cardinality</pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="_cardinality"><a href="#_cardinality"></a><a href="#_cardinality">Cardinality</a></h4>
+                <p>The cardinality of an interaction describes how often a method call is expected. It can either be a fixed number or a range:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>1</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+<span>0</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+(<span>1</span>..<span>3</span>) * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+(<span>1</span>.._) * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+(_..<span>3</span>) * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+_ * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+                                     </code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="_target_constraint"><a href="#_target_constraint"></a><a href="#_target_constraint">Target Constraint</a></h4>
+                <p>The target constraint of an interaction describes which mock object is expected to receive the method call:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>1</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+<span>1</span> * _.receive(<span><span>"</span><span>hello</span><span>"</span></span>)          </code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="_method_constraint"><a href="#_method_constraint"></a><a href="#_method_constraint">Method Constraint</a></h4>
+                <p>The method constraint of an interaction describes which method is expected to be called:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>1</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+<span>1</span> * subscriber.<span><span>/</span><span>r.*e</span><span>/</span></span>(<span><span>"</span><span>hello</span><span>"</span></span>)
+                                </code></pre>
+                    </div>
+                </div>
+                <p>When expecting a call to a getter method, Groovy property syntax <em>can</em> be used instead of method syntax:</p>
+                <p>When expecting a call to a setter method, only method syntax can be used:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy"><span>1</span> * subscriber.setStatus(<span><span>"</span><span>ok</span><span>"</span></span>) </code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="_argument_constraints"><a href="#_argument_constraints"></a><a href="#_argument_constraints">Argument Constraints</a></h4>
+                <p>The argument constraints of an interaction describe which method arguments are expected:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>1</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+<span>1</span> * subscriber.receive(!<span><span>"</span><span>hello</span><span>"</span></span>)
+<span>1</span> * subscriber.receive()
+<span>1</span> * subscriber.receive(_)
+<span>1</span> * subscriber.receive(*_)
+<span>1</span> * subscriber.receive(!<span>null</span>)
+<span>1</span> * subscriber.receive(_ <span>as</span> <span>String</span>)
+<span>1</span> * subscriber.receive(endsWith(<span><span>"</span><span>lo</span><span>"</span></span>))
+
+<span>1</span> * subscriber.receive({ <span>it</span>.size() &gt; <span>3</span> &amp;&amp; <span>it</span>.contains(<span><span>'</span><span>a</span><span>'</span></span>) })
+
+
+
+</code></pre>
+                    </div>
+                </div>
+                <p>Argument constraints work as expected for methods with multiple arguments:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy"><span>1</span> * process.invoke(<span><span>"</span><span>ls</span><span>"</span></span>, <span><span>"</span><span>-a</span><span>"</span></span>, _, !<span>null</span>, { [<span><span>"</span><span>abcdefghiklmnopqrstuwx1</span><span>"</span></span>].contains(<span>it</span>) })</code></pre>
+                    </div>
+                </div>
+                <p>When dealing with vararg methods, vararg syntax can also be used in the corresponding interactions:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>interface</span> VarArgSubscriber {
+    <span>void</span> receive(<span>String</span>... messages)
+}
+
+...
+
+subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>, <span><span>"</span><span>goodbye</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h5 id="_equality_constraint"><a href="#_equality_constraint"></a><a href="#_equality_constraint">Equality Constraint</a></h5>
+                    <p>The equality constraint uses groovy equality to check the argument, i.e, <code>argument == constraint</code>. You can use</p>
+                    <div>
+                        <ul>
+                            <li>
+                                <p>any literal <code>1 * check('string')</code> / <code>1 * check(1)</code> / <code>1 * check(null)</code>,</p></li>
+                            <li>
+                                <p>a variable <code>1 * check(var)</code>,</p></li>
+                            <li>
+                                <p>a list or map literal <code>1 * check([1])</code> / <code>1 * check([foo: 'bar'])</code>,</p></li>
+                            <li>
+                                <p>an object <code>1 * check(new Person('sam'))</code>,</p></li>
+                            <li>
+                                <p>or the result of a method call <code>1 * check(person())</code></p></li>
+                        </ul>
+                    </div>
+                    <p>as an equality constraint.</p>
+                </div>
+                <div>
+                    <h5 id="_hamcrest_constraint"><a href="#_hamcrest_constraint"></a><a href="#_hamcrest_constraint">Hamcrest Constraint</a></h5>
+                    <p>A variation of the equality constraint, if the constraint object is a Hamcrest matcher, then it will use that matcher to check the
+                        argument.</p>
+                </div>
+                <div>
+                    <h5 id="_wildcard_constraint"><a href="#_wildcard_constraint"></a><a href="#_wildcard_constraint">Wildcard Constraint</a></h5>
+                    <p>The wildcard constraint will match any argument <code>null</code> or otherwise. It is the <code><em></em></code><em>, i.e. <code>1 *
+                        subscriber.receive(</code></em><code>)</code>. There is also the spread wildcard constraint <code>*_</code> which matches any number of
+                        arguments <code>1 * subscriber.receive(*_)</code> including none.</p>
+                </div>
+                <div>
+                    <h5 id="_code_constraint"><a href="#_code_constraint"></a><a href="#_code_constraint">Code Constraint</a></h5>
+                    <p>The code constraint is the most versatile of all. It is a groovy closure that gets the argument as its parameter. The closure is treated
+                        as an condition block, so it behaves like a <code>then</code> block, i.e., every line is treated as an implicit assertion. It can
+                        emulate all but the spread wildcard constraint, however it is suggested to use the simpler constraints where possible. You can do
+                        multiple assertions, call methods for assertions, or use <code>with</code>/<code>verifyAll</code>.</p>
+                    <div>
+                        <div>
+       <pre><code data-lang="groovy"><span>1</span> * list.add({
+  verifyAll(<span>it</span>, Person) {
+    firstname == <span><span>'</span><span>William</span><span>'</span></span>
+    lastname == <span><span>'</span><span>Kirk</span><span>'</span></span>
+    age == <span>45</span>
+  }
+})</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5 id="_negating_constraint"><a href="#_negating_constraint"></a><a href="#_negating_constraint">Negating Constraint</a></h5>
+                    <p>The negating constraint <code>!</code> is a compound constraint, i.e. it needs to be combined with another constraint to work. It inverts
+                        the result of the nested constraint, e.g, <code>1 * subscriber.receive(!null)</code> is the combination of an equality constraint
+                        checking for null and then the negating constraint inverting the result, turning it into not null.</p>
+                    <p>Although it can be combined with any other constraint it does not always make sense, e.g., <code>1 * subscriber.receive(!_)</code> will
+                        match nothing. Also keep in mind that the diagnostics for a non matching negating constraint will just be that the inner constraint did
+                        match, without any more information.</p>
+                </div>
+                <div>
+                    <h5 id="_type_constraint"><a href="#_type_constraint"></a><a href="#_type_constraint">Type Constraint</a></h5>
+                    <p>The type constraint checks for the type/class of the argument, like the negating constraint it is also a compound constraint. It usually
+                        written as <code>_ as Type</code>, which is a combination of the wildcard constraint and the type constraint. You can combined it with
+                        other constraints as well, <code>1 * subscriber.receive({ it.contains('foo')} as String)</code> will assert that it is a
+                        <code>String</code> before executing the code constraint to check if it contains <code>foo</code>.</p>
+                </div>
+            </div>
+            <div>
+                <h4 id="_matching_any_method_call"><a href="#_matching_any_method_call"></a><a href="#_matching_any_method_call">Matching Any Method Call</a>
+                </h4>
+                <p>Sometimes it can be useful to match "anything", in some sense of the word:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>1</span> * subscriber._(*_)
+<span>1</span> * subscriber._
+
+<span>1</span> * _._
+<span>1</span> * _                    </code></pre>
+                    </div>
+                </div>
+                <div>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>Note</p></td>
+                            <td>Although <code>(_.._) * _._(*_) &gt;&gt; _</code> is a valid interaction declaration, it is neither good style nor particularly
+                                useful.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h4 id="_strict_mocking"><a href="#_strict_mocking"></a><a href="#_strict_mocking">Strict Mocking</a></h4>
+                <p>Now, when would matching any method call be useful? A good example is <em>strict mocking</em>, a style of mocking where no interactions other
+                    than those explicitly declared are allowed:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>when</span>:
+publisher.publish(<span><span>"</span><span>hello</span><span>"</span></span>)
+
+<span>then</span>:
+<span>1</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+_ * auditing._
+<span>0</span> * _                           </code></pre>
+                    </div>
+                </div>
+                <p><code>0 *</code> only makes sense as the last interaction of a <code>then:</code> block or method. Note the use of <code>_ *</code> (any
+                    number of calls), which allows any interaction with the auditing component.</p>
+                <div>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>Note</p></td>
+                            <td><code>_ *</code> is only meaningful in the context of strict mocking. In particular, it is never necessary when
+                                <a href="#_stubbing">Stubbing</a> an invocation. For example, <code>_ * auditing.record(<em>) &gt;&gt; "ok"</em></code><em> can
+                                    (and should!) be simplified to <code>auditing.record(</code></em><code>) &gt;&gt; "ok"</code>.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h4 id="_where_to_declare_interactions"><a href="#_where_to_declare_interactions"></a><a href="#_where_to_declare_interactions">Where to Declare
+                    Interactions</a></h4>
+                <p>So far, we declared all our interactions in a <code>then:</code> block. This often results in a spec that reads naturally. However, it is
+                    also permissible to put interactions anywhere <em>before</em> the <code>when:</code> block that is supposed to satisfy them. In particular,
+                    this means that interactions can be declared in a <code>setup</code> method. Interactions can also be declared in any "helper" instance
+                    method of the same specification class.</p>
+                <p>When an invocation on a mock object occurs, it is matched against interactions in the interactions' declared order. If an invocation matches
+                    multiple interactions, the earliest declared interaction that hasn’t reached its upper invocation limit will win. There is one exception to
+                    this rule: Interactions declared in a <code>then:</code> block are matched against before any other interactions. This allows to override
+                    interactions declared in, say, a <code>setup</code> method with interactions declared in a <code>then:</code> block.</p>
+            </div>
+            <div>
+                <h4 id="declaring-interactions-at-creation-time">
+                    <a href="#declaring-interactions-at-creation-time"></a><a href="#declaring-interactions-at-creation-time">Declaring Interactions at Mock
+                    Creation Time</a></h4>
+                <p>If a mock has a set of "base" interactions that don’t vary, they can be declared right at mock creation time:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">Subscriber subscriber = Mock {
+   <span>1</span> * receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+   <span>1</span> * receive(<span><span>"</span><span>goodbye</span><span>"</span></span>)
+}</code></pre>
+                    </div>
+                </div>
+                <p>This feature is particularly attractive for <a href="#_stubbing">Stubbing</a> and with dedicated <a href="#Stubs">Stubs</a>. Note that the
+                    interactions don’t (and cannot ) have a target constraint; it’s clear from the context which mock object they belong to.</p>
+                <p>Interactions can also be declared when initializing an instance field with a mock:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>class</span> <span>MySpec</span> <span>extends</span> Specification {
+    Subscriber subscriber = Mock {
+        <span>1</span> * receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+        <span>1</span> * receive(<span><span>"</span><span>goodbye</span><span>"</span></span>)
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="_mixing_interactions_and_conditions"><a href="#_mixing_interactions_and_conditions"></a><a href="#_mixing_interactions_and_conditions">Mixing
+                    Interactions and Conditions</a></h4>
+                <p>A <code>then:</code> block may contain both interactions and conditions. Although not strictly required, it is customary to declare
+                    interactions before conditions:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>when</span>:
+publisher.send(<span><span>"</span><span>hello</span><span>"</span></span>)
+
+<span>then</span>:
+<span>1</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+publisher.messageCount == <span>1</span></code></pre>
+                    </div>
+                </div>
+                <p>Read out aloud: "When the publisher sends a 'hello' message, then the subscriber should receive the message exactly once, and the publisher’s
+                    message count should be one."</p>
+            </div>
+            <div>
+                <h4 id="_explicit_interaction_blocks"><a href="#_explicit_interaction_blocks"></a><a href="#_explicit_interaction_blocks">Explicit Interaction
+                    Blocks</a></h4>
+                <p>Internally, Spock must have full information about expected interactions <em>before</em> they take place. So how is it possible for
+                    interactions to be declared in a <code>then:</code> block? The answer is that under the hood, Spock moves interactions declared in a <code>then:</code>
+                    block to immediately before the preceding <code>when:</code> block. In most cases this works out just fine, but sometimes it can lead to
+                    problems:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>when</span>:
+publisher.send(<span><span>"</span><span>hello</span><span>"</span></span>)
+
+<span>then</span>:
+<span>def</span> message = <span><span>"</span><span>hello</span><span>"</span></span>
+<span>1</span> * subscriber.receive(message)</code></pre>
+                    </div>
+                </div>
+                <p>Here we have introduced a variable for the expected argument. (Likewise, we could have introduced a variable for the cardinality.) However,
+                    Spock isn’t smart enough (huh?) to tell that the interaction is intrinsically linked to the variable declaration. Hence it will just move
+                    the interaction, which will cause a <code>MissingPropertyException</code> at runtime.</p>
+                <p>One way to solve this problem is to move (at least) the variable declaration to before the <code>when:</code> block. (Fans of
+                    <a href="#data-driven-testing">Data Driven Testing</a> might move the variable into a <code>where:</code> block.) In our example, this would
+                    have the added benefit that we could use the same variable for sending the message.</p>
+                <p>Another solution is to be explicit about the fact that variable declaration and interaction belong together:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>when</span>:
+publisher.send(<span><span>"</span><span>hello</span><span>"</span></span>)
+
+<span>then</span>:
+interaction {
+  <span>def</span> message = <span><span>"</span><span>hello</span><span>"</span></span>
+  <span>1</span> * subscriber.receive(message)
+}</code></pre>
+                    </div>
+                </div>
+                <p>Since an <code>MockingApi.interaction</code> block is always moved in its entirety, the code now works as intended.</p>
+            </div>
+            <div>
+                <h4 id="_scope_of_interactions"><a href="#_scope_of_interactions"></a><a href="#_scope_of_interactions">Scope of Interactions</a></h4>
+                <p>Interactions declared in a <code>then:</code> block are scoped to the preceding <code>when:</code> block:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>when</span>:
+publisher.send(<span><span>"</span><span>message1</span><span>"</span></span>)
+
+<span>then</span>:
+<span>1</span> * subscriber.receive(<span><span>"</span><span>message1</span><span>"</span></span>)
+
+<span>when</span>:
+publisher.send(<span><span>"</span><span>message2</span><span>"</span></span>)
+
+<span>then</span>:
+<span>1</span> * subscriber.receive(<span><span>"</span><span>message2</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+                <p>This makes sure that <code>subscriber</code> receives <code>"message1"</code> during execution of the first <code>when:</code> block, and
+                    <code>"message2"</code> during execution of the second <code>when:</code> block.</p>
+                <p>Interactions declared outside a <code>then:</code> block are active from their declaration until the end of the containing feature method.
+                </p>
+                <p>Interactions are always scoped to a particular feature method. Hence they cannot be declared in a static method, <code>setupSpec</code>
+                    method, or <code>cleanupSpec</code> method. Likewise, mock objects should not be stored in static or <code>@Shared</code> fields.</p>
+            </div>
+            <div>
+                <h4 id="_verification_of_interactions"><a href="#_verification_of_interactions"></a><a href="#_verification_of_interactions">Verification of
+                    Interactions</a></h4>
+                <p>There are two main ways in which a mock-based test can fail: An interaction can match more invocations than allowed, or it can match fewer
+                    invocations than required. The former case is detected right when the invocation happens, and causes a <code>TooManyInvocationsError</code>:
+                </p>
+                <div>
+                    <div>
+      <pre>Too many invocations for:
+
+2 * subscriber.receive(_) (3 invocations)</pre>
+                    </div>
+                </div>
+                <p>To make it easier to diagnose why too many invocations matched, Spock will show all invocations matching the interaction in question:</p>
+                <div>
+                    <div>
+      <pre>Matching invocations (ordered by last occurrence):
+
+2 * subscriber.receive("hello")   &lt;-- this triggered the error
+1 * subscriber.receive("goodbye")</pre>
+                    </div>
+                </div>
+                <p>According to this output, one of the <code>receive("hello")</code> calls triggered the <code>TooManyInvocationsError</code>. Note that
+                    because indistinguishable calls like the two invocations of <code>subscriber.receive("hello")</code> are aggregated into a single line of
+                    output, the first <code>receive("hello")</code> may well have occurred before the <code>receive("goodbye")</code>.</p>
+                <p>The second case (fewer invocations than required) can only be detected once execution of the <code>when</code> block has completed. (Until
+                    then, further invocations may still occur.) It causes a <code>TooFewInvocationsError</code>:</p>
+                <div>
+                    <div>
+      <pre>Too few invocations for:
+
+1 * subscriber.receive("hello") (0 invocations)</pre>
+                    </div>
+                </div>
+                <p>Note that it doesn’t matter whether the method was not called at all, the same method was called with different arguments, the same method
+                    was called on a different mock object, or a different method was called "instead" of this one; in either case, a <code>TooFewInvocationsError</code>
+                    error will occur.</p>
+                <p>To make it easier to diagnose what happened "instead" of a missing invocation, Spock will show all invocations that didn’t match any
+                    interaction, ordered by their similarity with the interaction in question. In particular, invocations that match everything but the
+                    interaction’s arguments will be shown first:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">Unmatched invocations (ordered by similarity):
+
+<span>1</span> * subscriber.receive(<span><span>"</span><span>goodbye</span><span>"</span></span>)
+<span>1</span> * subscriber2.receive(<span><span>"</span><span>hello</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="_invocation_order_2"><a href="#_invocation_order_2"></a><a href="#_invocation_order_2">Invocation Order</a></h4>
+                <p>Often, the exact method invocation order isn’t relevant and may change over time. To avoid over-specification, Spock defaults to allowing any
+                    invocation order, provided that the specified interactions are eventually satisfied:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>then</span>:
+<span>2</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+<span>1</span> * subscriber.receive(<span><span>"</span><span>goodbye</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+                <p>Here, any of the invocation sequences <code>"hello"</code> <code>"hello"</code> <code>"goodbye"</code>, <code>"hello"</code>
+                    <code>"goodbye"</code> <code>"hello"</code>, and <code>"goodbye"</code> <code>"hello"</code> <code>"hello"</code> will satisfy the specified
+                    interactions.</p>
+                <p>In those cases where invocation order matters, you can impose an order by splitting up interactions into multiple <code>then:</code> blocks:
+                </p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>then</span>:
+<span>2</span> * subscriber.receive(<span><span>"</span><span>hello</span><span>"</span></span>)
+
+<span>then</span>:
+<span>1</span> * subscriber.receive(<span><span>"</span><span>goodbye</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+                <p>Now Spock will verify that both <code>"hello"</code>'s are received before the <code>"goodbye"</code>. In other words, invocation order is
+                    enforced <em>between</em> but not <em>within</em> <code>then:</code> blocks.</p>
+                <div>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>Note</p></td>
+                            <td>Splitting up a <code>then:</code> block with <code>and:</code> does not impose any ordering, as <code>and:</code> is only meant
+                                for documentation purposes and doesn’t carry any semantics.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h4 id="_mocking_classes"><a href="#_mocking_classes"></a><a href="#_mocking_classes">Mocking Classes</a></h4>
+                <p>Besides interfaces, Spock also supports mocking of classes. Mocking classes works just like mocking interfaces; the only additional
+                    requirement is to put <code>byte-buddy</code> 1.9+ or <code>cglib-nodep</code> 3.2.0+ on the class path.</p>
+                <p>When using for example</p>
+                <div>
+                    <ul>
+                        <li>
+                            <p>normal <code>Mock</code>s or <code>Stub</code>s or</p></li>
+                        <li>
+                            <p><code>Spy</code>s that are configured with <code>useObjenesis: true</code> or</p></li>
+                        <li>
+                            <p><code>Spy</code>s that spy on a concrete instance like <code>Spy(myInstance)</code></p></li>
+                    </ul>
+                </div>
+                <p>it is also necessary to put <code>objenesis</code> 3.0+ on the class path, except for classes with accessible no-arg constructor or
+                    configured <code>constructorArgs</code> unless the constructor call should not be done, for example to avoid unwanted side effects.</p>
+                <p>If either of these libraries is missing from the class path, Spock will gently let you know.</p>
+            </div>
+        </div>
+        <div>
+            <h3 id="_stubbing"><a href="#_stubbing"></a><a href="#_stubbing">Stubbing</a></h3>
+            <p>Stubbing is the act of making collaborators respond to method calls in a certain way. When stubbing a method, you don’t care if and how many
+                times the method is going to be called; you just want it to return some value, or perform some side effect, <em>whenever</em> it gets called.
+            </p>
+            <p>For the sake of the following examples, let’s modify the <code>Subscriber</code>'s <code>receive</code> method to return a status code that tells
+                if the subscriber was able to process a message:</p>
+            <div>
+                <div>
+     <pre><code data-lang="groovy"><span>interface</span> Subscriber {
+    <span>String</span> receive(<span>String</span> message)
+}</code></pre>
+                </div>
+            </div>
+            <p>Now, let’s make the <code>receive</code> method return <code>"ok"</code> on every invocation:</p>
+            <div>
+                <div>
+                    <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span></code></pre>
+                </div>
+            </div>
+            <p>Read out aloud: "<em>Whenever</em> the subscriber receives a message, <em>make</em> it respond with 'ok'."</p>
+            <p>Compared to a mocked interaction, a stubbed interaction has no cardinality on the left end, but adds a <em>response generator</em> on the right
+                end:</p>
+            <div>
+                <div>
+     <pre>subscriber.receive(_) &gt;&gt; "ok"
+|          |       |     |
+|          |       |     response generator
+|          |       argument constraint
+|          method constraint
+target constraint</pre>
+                </div>
+            </div>
+            <p>A stubbed interaction can be declared in the usual places: either inside a <code>then:</code> block, or anywhere before a <code>when:</code>
+                block. (See <a href="#_where_to_declare_interactions">Where to Declare Interactions</a> for the details.) If a mock object is only used for
+                stubbing, it’s common to declare interactions <a href="#declaring-interactions-at-creation-time">at mock creation time</a> or in a
+                <code>given:</code> block.</p>
+            <div>
+                <h4 id="_returning_fixed_values"><a href="#_returning_fixed_values"></a><a href="#_returning_fixed_values">Returning Fixed Values</a></h4>
+                <p>We have already seen the use of the right-shift (<code>&gt;&gt;</code>) operator to return a fixed value:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span></code></pre>
+                    </div>
+                </div>
+                <p>To return different values for different invocations, use multiple interactions:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">subscriber.receive(<span><span>"</span><span>message1</span><span>"</span></span>) &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span>
+subscriber.receive(<span><span>"</span><span>message2</span><span>"</span></span>) &gt;&gt; <span><span>"</span><span>fail</span><span>"</span></span></code></pre>
+                    </div>
+                </div>
+                <p>This will return <code>"ok"</code> whenever <code>"message1"</code> is received, and <code>"fail"</code> whenever <code>"message2"</code> is
+                    received. There is no limit as to which values can be returned, provided they are compatible with the method’s declared return type.</p>
+            </div>
+            <div>
+                <h4 id="_returning_sequences_of_values"><a href="#_returning_sequences_of_values"></a><a href="#_returning_sequences_of_values">Returning
+                    Sequences of Values</a></h4>
+                <p>To return different values on successive invocations, use the triple-right-shift (<code>&gt;&gt;&gt;</code>) operator:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt;&gt; [<span><span>"</span><span>ok</span><span>"</span></span>, <span><span>"</span><span>error</span><span>"</span></span>, <span><span>"</span><span>error</span><span>"</span></span>, <span><span>"</span><span>ok</span><span>"</span></span>]</code></pre>
+                    </div>
+                </div>
+                <p>This will return <code>"ok"</code> for the first invocation, <code>"error"</code> for the second and third invocation, and <code>"ok"</code>
+                    for all remaining invocations. The right-hand side must be a value that Groovy knows how to iterate over; in this example, we’ve used a
+                    plain list.</p>
+            </div>
+            <div>
+                <h4 id="_computing_return_values"><a href="#_computing_return_values"></a><a href="#_computing_return_values">Computing Return Values</a></h4>
+                <p>To compute a return value based on the method’s argument, use the the right-shift (<code>&gt;&gt;</code>) operator together with a closure.
+                    If the closure declares a single untyped parameter, it gets passed the method’s argument list:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; { args -&gt; args[<span>0</span>].size() &gt; <span>3</span> ? <span><span>"</span><span>ok</span><span>"</span></span> : <span><span>"</span><span>fail</span><span>"</span></span> }</code></pre>
+                    </div>
+                </div>
+                <p>Here <code>"ok"</code> gets returned if the message is more than three characters long, and <code>"fail"</code> otherwise.</p>
+                <p>In most cases it would be more convenient to have direct access to the method’s arguments. If the closure declares more than one parameter or
+                    a single <em>typed</em> parameter, method arguments will be mapped one-by-one to closure parameters:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; { <span>String</span> message -&gt; message.size() &gt; <span>3</span> ? <span><span>"</span><span>ok</span><span>"</span></span> : <span><span>"</span><span>fail</span><span>"</span></span> }</code></pre>
+                    </div>
+                </div>
+                <p>This response generator behaves the same as the previous one, but is arguably more readable.</p>
+                <p>If you find yourself in need of more information about a method invocation than its arguments, have a look at <code>org.spockframework.mock.IMockInvocation</code>.
+                    All methods declared in this interface are available inside the closure, without a need to prefix them. (In Groovy terminology, the closure
+                    <em>delegates</em> to an instance of <code>IMockInvocation</code>.)</p>
+            </div>
+            <div>
+                <h4 id="_performing_side_effects"><a href="#_performing_side_effects"></a><a href="#_performing_side_effects">Performing Side Effects</a></h4>
+                <p>Sometimes you may want to do more than just computing a return value. A typical example is throwing an exception. Again, closures come to the
+                    rescue:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; { <span>throw</span> <span>new</span> <span>InternalError</span>(<span><span>"</span><span>ouch</span><span>"</span></span>) }</code></pre>
+                    </div>
+                </div>
+                <p>Of course, the closure can contain more code, for example a <code>println</code> statement. It will get executed every time an incoming
+                    invocation matches the interaction.</p>
+            </div>
+            <div>
+                <h4 id="_chaining_method_responses"><a href="#_chaining_method_responses"></a><a href="#_chaining_method_responses">Chaining Method
+                    Responses</a></h4>
+                <p>Method responses can be chained:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt;&gt; [<span><span>"</span><span>ok</span><span>"</span></span>, <span><span>"</span><span>fail</span><span>"</span></span>, <span><span>"</span><span>ok</span><span>"</span></span>] &gt;&gt; { <span>throw</span> <span>new</span> <span>InternalError</span>() } &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span></code></pre>
+                    </div>
+                </div>
+                <p>This will return <code>"ok", "fail", "ok"</code> for the first three invocations, throw <code>InternalError</code> for the fourth
+                    invocations, and return <code>ok</code> for any further invocation.</p>
+            </div>
+            <div>
+                <h4 id="_returning_a_default_response"><a href="#_returning_a_default_response"></a><a href="#_returning_a_default_response">Returning a default
+                    response</a></h4>
+                <p>If you don’t really care what you return, but you must return a non-null value, you can use <code>_</code>. This will use the same logic to
+                    compute a response as <code>Stub</code> (see <a href="#Stubs">Stubs</a>), so it is only really useful for <code>Mock</code> and
+                    <code>Spy</code> instances.</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; _</code></pre>
+                    </div>
+                </div>
+                <p>You can of course use this with chaining as well. Here it might be useful for <code>Stub</code> instances as well.</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt;&gt; [<span><span>"</span><span>ok</span><span>"</span></span>, <span><span>"</span><span>fail</span><span>"</span></span>] &gt;&gt; _ &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 id="_combining_mocking_and_stubbing"><a href="#_combining_mocking_and_stubbing"></a><a href="#_combining_mocking_and_stubbing">Combining Mocking
+                and Stubbing</a></h3>
+            <p>Mocking and stubbing go hand-in-hand:</p>
+            <div>
+                <div>
+     <pre><code data-lang="groovy"><span>1</span> * subscriber.receive(<span><span>"</span><span>message1</span><span>"</span></span>) &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span>
+<span>1</span> * subscriber.receive(<span><span>"</span><span>message2</span><span>"</span></span>) &gt;&gt; <span><span>"</span><span>fail</span><span>"</span></span></code></pre>
+                </div>
+            </div>
+            <p>When mocking and stubbing the same method call, they have to happen in the same interaction. In particular, the following Mockito-style splitting
+                of stubbing and mocking into two separate statements will <em>not</em> work:</p>
+            <div>
+                <div>
+     <pre><code data-lang="groovy"><span>given</span>:
+subscriber.receive(<span><span>"</span><span>message1</span><span>"</span></span>) &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span>
+
+<span>when</span>:
+publisher.send(<span><span>"</span><span>message1</span><span>"</span></span>)
+
+<span>then</span>:
+<span>1</span> * subscriber.receive(<span><span>"</span><span>message1</span><span>"</span></span>)</code></pre>
+                </div>
+            </div>
+            <p>As explained in <a href="#_where_to_declare_interactions">Where to Declare Interactions</a>, the <code>receive</code> call will first get matched
+                against the interaction in the <code>then:</code> block. Since that interaction doesn’t specify a response, the default value for the method’s
+                return type (<code>null</code> in this case) will be returned. (This is just another facet of Spock’s lenient approach to mocking.). Hence, the
+                interaction in the <code>given:</code> block will never get a chance to match.</p>
+            <div>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p>Note</p></td>
+                        <td>Mocking and stubbing of the same method call has to happen in the same interaction.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <h3 id="OtherKindsOfMockObjects"><a href="#OtherKindsOfMockObjects"></a><a href="#OtherKindsOfMockObjects">Other Kinds of Mock Objects</a></h3>
+            <p>So far, we have created mock objects with the <code>MockingApi.Mock</code> method. Aside from this method, the <code>MockingApi</code> class
+                provides a couple of other factory methods for creating more specialized kinds of mock objects.</p>
+            <div>
+                <h4 id="Stubs"><a href="#Stubs"></a><a href="#Stubs">Stubs</a></h4>
+                <p>A <em>stub</em> is created with the <code>MockingApi.Stub</code> factory method:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">Subscriber subscriber = <span>Stub</span>()</code></pre>
+                    </div>
+                </div>
+                <p>Whereas a mock can be used both for stubbing and mocking, a stub can only be used for stubbing. Limiting a collaborator to a stub
+                    communicates its role to the readers of the specification.</p>
+                <div>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>Note</p></td>
+                            <td>If a stub invocation matches a <em>mandatory</em> interaction (like <code>1 * foo.bar()</code>), an
+                                <code>InvalidSpecException</code> is thrown.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Like a mock, a stub allows unexpected invocations. However, the values returned by a stub in such cases are more ambitious:</p>
+                <div>
+                    <ul>
+                        <li>
+                            <p>For primitive types, the primitive type’s default value is returned.</p></li>
+                        <li>
+                            <p>For non-primitive numerical values (such as <code>BigDecimal</code>), zero is returned.</p></li>
+                        <li>
+                            <p>If the value is assignable from the stub instance, then the instance is returned (e.g. builder pattern)</p></li>
+                        <li>
+                            <p>For non-numerical values, an "empty" or "dummy" object is returned. This could mean an empty String, an empty collection, an
+                                object constructed from its default constructor, or another stub returning default values. See class <code>org.spockframework.mock.EmptyOrDummyResponse</code>
+                                for the details.</p></li>
+                    </ul>
+                </div>
+                <div>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>Note</p></td>
+                            <td>If the response type of the method is a final class or if it requires a class-mocking library and cglib or ByteBuddy are not
+                                available, then the "dummy" object creation will fail with a <code>CannotCreateMockException</code>.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>A stub often has a fixed set of interactions, which makes <a href="#declaring-interactions-at-creation-time">declaring interactions at mock
+                    creation time</a> particularly attractive:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">Subscriber subscriber = <span>Stub</span> {
+    receive(<span><span>"</span><span>message1</span><span>"</span></span>) &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span>
+    receive(<span><span>"</span><span>message2</span><span>"</span></span>) &gt;&gt; <span><span>"</span><span>fail</span><span>"</span></span>
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="Spies"><a href="#Spies"></a><a href="#Spies">Spies</a></h4>
+                <p>(Think twice before using this feature. It might be better to change the design of the code under specification.)</p>
+                <p>A <em>spy</em> is created with the <code>MockingApi.Spy</code> factory method:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">SubscriberImpl subscriber = Spy(<span>constructorArgs</span>: [<span><span>"</span><span>Fred</span><span>"</span></span>])</code></pre>
+                    </div>
+                </div>
+                <p>A spy is always based on a real object. Hence you must provide a class type rather than an interface type, along with any constructor
+                    arguments for the type. If no constructor arguments are provided, the type’s no-arg constructor will be used.</p>
+                <p>If the given constructor arguments lead to an ambiguity, you can cast the constructor arguments as usual using <code>as</code> or Java-style
+                    cast. If the testee for example has one constructor with a <code>String</code> parameter and one with a <code>Pattern</code> parameter and
+                    you want <code>null</code> as <code>constructorArg</code>:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">SubscriberImpl subscriber = Spy(<span>constructorArgs</span>: [<span>null</span> <span>as</span> <span>String</span>])
+SubscriberImpl subscriber2 = Spy(<span>constructorArgs</span>: [(<span>Pattern</span>) <span>null</span>])</code></pre>
+                    </div>
+                </div>
+                <p>You may also create a spy from an instantiated object. This may be useful in cases where you do not have full control over the instantiation
+                    of types you are interested in spying. (For example when testing within a Dependency Injection framework such as Spring or Guice.)</p>
+                <p>Method calls on a spy are automatically delegated to the real object. Likewise, values returned from the real object’s methods are passed
+                    back to the caller via the spy.</p>
+                <p>After creating a spy, you can listen in on the conversation between the caller and the real object underlying the spy:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy"><span>1</span> * subscriber.receive(_)</code></pre>
+                    </div>
+                </div>
+                <p>Apart from making sure that <code>receive</code> gets called exactly once, the conversation between the publisher and the <code>SubscriberImpl</code>
+                    instance underlying the spy remains unaltered.</p>
+                <p>When stubbing a method on a spy, the real method no longer gets called:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; <span><span>"</span><span>ok</span><span>"</span></span></code></pre>
+                    </div>
+                </div>
+                <p>Instead of calling <code>SubscriberImpl.receive</code>, the <code>receive</code> method will now simply return <code>"ok"</code>.</p>
+                <p>Sometimes, it is desirable to both execute some code <em>and</em> delegate to the real method:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">subscriber.receive(_) &gt;&gt; { <span>String</span> message -&gt; callRealMethod(); message.size() &gt; <span>3</span> ? <span><span>"</span><span>ok</span><span>"</span></span> : <span><span>"</span><span>fail</span><span>"</span></span> }</code></pre>
+                    </div>
+                </div>
+                <p>Here we use <code>callRealMethod()</code> to delegate the method invocation to the real object. Note that we don’t have to pass the <code>message</code>
+                    argument along; this is taken care of automatically. <code>callRealMethod()</code> returns the real invocation’s result, but in this example
+                    we opted to return our own result instead. If we had wanted to pass a different message to the real method, we could have used <code>callRealMethodWithArgs("changed
+                        message")</code>.</p>
+                <p>Please note that while semantically both <code>callRealMethod()</code> and <code>callRealMethodWithArgs(…​)</code> only make sense with
+                    spies, technically you can also call these methods on mock or stub objects, kind of turning them into (pseudo) spy objects "through the
+                    backdoor". The only precondition is that the mocked/stubbed object actually has a real method implementation, i.e. for interface mocks there
+                    must be a default method, for class mocks there must be a (non-abstract) original method.</p>
+            </div>
+            <div>
+                <h4 id="PartialMocks"><a href="#PartialMocks"></a><a href="#PartialMocks">Partial Mocks</a></h4>
+                <p>(Think twice before using this feature. It might be better to change the design of the code under specification.)</p>
+                <p>Spies can also be used as partial mocks:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">
+MessagePersister persister = Spy {
+
+  isPersistable(_) &gt;&gt; <span>true</span>
+}
+
+<span>when</span>:
+persister.receive(<span><span>"</span><span>msg</span><span>"</span></span>)
+
+<span>then</span>:
+
+<span>1</span> * persister.persist(<span><span>"</span><span>msg</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 id="GroovyMocks"><a href="#GroovyMocks"></a><a href="#GroovyMocks">Groovy Mocks</a></h3>
+            <p>So far, all the mocking features we have seen work the same no matter if the calling code is written in Java or Groovy. By leveraging Groovy’s
+                dynamic capabilities, Groovy mocks offer some additional features specifically for testing Groovy code. They are created with the <code>MockingApi.GroovyMock()</code>,
+                <code>MockingApi.GroovyStub()</code>, and <code>MockingApi.GroovySpy()</code> factory methods.</p>
+            <div>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p>Tip</p></td>
+                        <td>When Should Groovy Mocks be Favored over Regular Mocks? Groovy mocks should be used when the code under specification is written in
+                            Groovy <em>and</em> some of the unique Groovy mock features are needed. When called from Java code, Groovy mocks will behave like
+                            regular mocks. Note that it isn’t necessary to use a Groovy mock merely because the code under specification and/or mocked type is
+                            written in Groovy. Unless you have a concrete reason to use a Groovy mock, prefer a regular mock.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h4 id="_mocking_dynamic_methods"><a href="#_mocking_dynamic_methods"></a><a href="#_mocking_dynamic_methods">Mocking Dynamic Methods</a></h4>
+                <p>All Groovy mocks implement the <code>GroovyObject</code> interface. They support the mocking and stubbing of dynamic methods as if they were
+                    physically declared methods:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">Subscriber subscriber = GroovyMock()
+
+<span>1</span> * subscriber.someDynamicMethod(<span><span>"</span><span>hello</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 id="MockingAllInstancesOfAType"><a href="#MockingAllInstancesOfAType"></a><a href="#MockingAllInstancesOfAType">Mocking All Instances of a
+                    Type</a></h4>
+                <p>(Think twice before using this feature. It might be better to change the design of the code under specification.)</p>
+                <p>Usually, Groovy mocks need to be injected into the code under specification just like regular mocks. However, when a Groovy mock is created
+                    as <em>global</em>, it automagically replaces all real instances of the mocked type for the duration of the feature method:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy"><span>def</span> publisher = <span>new</span> Publisher()
+publisher &lt;&lt; <span>new</span> RealSubscriber() &lt;&lt; <span>new</span> RealSubscriber()
+
+RealSubscriber anySubscriber = GroovyMock(<span>global</span>: <span>true</span>)
+
+<span>when</span>:
+publisher.publish(<span><span>"</span><span>message</span><span>"</span></span>)
+
+<span>then</span>:
+<span>2</span> * anySubscriber.receive(<span><span>"</span><span>message</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+                <p>Here, we set up the publisher with two instances of a real subscriber implementation. Then we create a global mock of the <em>same</em> type.
+                    This reroutes all method calls on the real subscribers to the mock object. The mock object’s instance isn’t ever passed to the publisher; it
+                    is only used to describe the interaction.</p>
+                <div>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>Note</p></td>
+                            <td>A global mock can only be created for a class type. It effectively replaces all instances of that type for the duration of the
+                                feature method.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Since global mocks have a somewhat, well, global effect, it’s often convenient to use them together with <code>GroovySpy</code>. This leads
+                    to the real code getting executed <em>unless</em> an interaction matches, allowing you to selectively listen in on objects and change their
+                    behavior just where needed.</p>
+            </div>
+            <div>
+                <h4 id="MockingConstructors"><a href="#MockingConstructors"></a><a href="#MockingConstructors">Mocking Constructors</a></h4>
+                <p>(Think twice before using this feature. It might be better to change the design of the code under specification.)</p>
+                <p>Global mocks support mocking of constructors:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">RealSubscriber anySubscriber = GroovySpy(<span>global</span>: <span>true</span>)
+
+<span>1</span> * <span>new</span> RealSubscriber(<span><span>"</span><span>Fred</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+                <p>Since we are using a spy, the object returned from the constructor call remains unchanged. To change which object gets constructed, we can
+                    stub the constructor:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy"><span>new</span> RealSubscriber(<span><span>"</span><span>Fred</span><span>"</span></span>) &gt;&gt; <span>new</span> RealSubscriber(<span><span>"</span><span>Barney</span><span>"</span></span>)</code></pre>
+                    </div>
+                </div>
+                <p>Now, whenever some code tries to construct a subscriber named Fred, we’ll construct a subscriber named Barney instead.</p>
+            </div>
+            <div>
+                <h4 id="_mocking_static_methods"><a href="#_mocking_static_methods"></a><a href="#_mocking_static_methods">Mocking Static Methods</a></h4>
+                <p>(Think twice before using this feature. It might be better to change the design of the code under specification.)</p>
+                <p>Global mocks support mocking and stubbing of static methods:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">RealSubscriber anySubscriber = GroovySpy(<span>global</span>: <span>true</span>)
+
+<span>1</span> * RealSubscriber.someStaticMethod(<span><span>"</span><span>hello</span><span>"</span></span>) &gt;&gt; <span>42</span></code></pre>
+                    </div>
+                </div>
+                <p>The same works for dynamic static methods.</p>
+                <p>When a global mock is used solely for mocking constructors and static methods, the mock’s instance isn’t really needed. In such a case one
+                    can just write:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy">GroovySpy(RealSubscriber, <span>global</span>: <span>true</span>)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 id="_advanced_features"><a href="#_advanced_features"></a><a href="#_advanced_features">Advanced Features</a></h3>
+            <p>Most of the time you shouldn’t need these features. But if you do, you’ll be glad to have them.</p>
+            <div>
+                <h4 id="ALaCarteMocks"><a href="#ALaCarteMocks"></a><a href="#ALaCarteMocks">A la Carte Mocks</a></h4>
+                <p>At the end of the day, the <code>Mock()</code>, <code>Stub()</code>, and <code>Spy()</code> factory methods are just canned ways to create
+                    mock objects with a certain configuration. If you want more fine-grained control over a mock’s configuration, have a look at the <code>org.spockframework.mock.IMockConfiguration</code>
+                    interface. All properties of this interface can be passed as named arguments to the <code>Mock()</code> method. For example:</p>
+                <div>
+                    <div>
+                        <pre><code data-lang="groovy"><span>def</span> person = Mock(<span>name</span>: <span><span>"</span><span>Fred</span><span>"</span></span>, <span>type</span>: Person, <span>defaultResponse</span>: ZeroOrNullResponse.INSTANCE, <span>verified</span>: <span>false</span>)</code></pre>
+                    </div>
+                </div>
+                <p>Here, we create a mock whose default return values match those of a <code>Mock()</code>, but whose invocations aren’t verified (as for a
+                    <code>Stub()</code>). Instead of passing <code>ZeroOrNullResponse</code>, we could have supplied our own custom <code>org.spockframework.mock.IDefaultResponse</code>
+                    for responding to unexpected method invocations.</p>
+            </div>
+            <div>
+                <h4 id="DetectingMockObjects"><a href="#DetectingMockObjects"></a><a href="#DetectingMockObjects">Detecting Mock Objects</a></h4>
+                <p>To find out whether a particular object is a Spock mock object, use a <code>org.spockframework.mock.MockUtil</code>:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">MockUtil mockUtil = <span>new</span> MockUtil()
+<span>List</span> list1 = <span>[]</span>
+<span>List</span> list2 = Mock()
+
+<span>expect</span>:
+!mockUtil.isMock(list1)
+mockUtil.isMock(list2)</code></pre>
+                    </div>
+                </div>
+                <p>An util can also be used to get more information about a mock object:</p>
+                <div>
+                    <div>
+      <pre><code data-lang="groovy">IMockObject mock = mockUtil.asMock(list2)
+
+<span>expect</span>:
+mock.name == <span><span>"</span><span>list2</span><span>"</span></span>
+mock.type == <span>List</span>
+mock.nature == MockNature.MOCK</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 id="_further_reading"><a href="#_further_reading"></a><a href="#_further_reading">Further Reading</a></h3>
+            <p>If you would like to dive deeper into interaction-based testing, we recommend the following resources:</p>
+        </div>
+    </div>
+</div>
