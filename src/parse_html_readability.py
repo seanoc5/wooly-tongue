@@ -1,4 +1,5 @@
 #! /usr/bin/python
+import os
 import time
 import requests
 from bs4 import BeautifulSoup
@@ -6,22 +7,30 @@ from collections import defaultdict
 import sys
 import logging
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-# logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 SECTION = 'section'
 content_map = defaultdict(lambda: [])
+heading_tags = ["h1", "h2", "h3", 'h4', 'h5', 'h6']
 
 def read_file_text(src, ):
     logging.info(f'using source: {src}')
     source_text = open(src).read()
     return source_text
 
-def parse_html(source_text: str) -> BeautifulSoup:
-    soup=BeautifulSoup(source_text, "html.parser")
+def parse_html(src: str) -> BeautifulSoup:
+    body_text:str
+
+    if os.path.exists(src):
+        body_text = read_file_text(src)
+        logging.info(f"Read content from file: {src} -> size: {len(body_text)}")
+    else:
+        logging.info(f"content given in src param: {len(src)}")
+        body_text = src
+
+    soup=BeautifulSoup(body_text, "html.parser")
+
     first_tag:BeautifulSoup = soup.currentTag
     foo_tags = first_tag.children
-
     # the rest is debugging/test
     tag : BeautifulSoup
     bar = first_tag.descendants
@@ -34,8 +43,6 @@ def parse_html(source_text: str) -> BeautifulSoup:
             logging.info(f"tag id:{id}: {tag.name}")
         else:
             logging.debug(f"foo tag: {tag.name}")
-    # children = first_tag.
-    # foo_tags = soup.
 
     return soup
 
@@ -43,35 +50,50 @@ def parse_html(source_text: str) -> BeautifulSoup:
 def extract_text(soup:BeautifulSoup):
     return soup.text
 
-def split_sections(soup, content_map, section_tags = [SECTION]) -> dict:
-    sections = soup.find_all(section_tags)
-    if(sections):
-        logging.info(f"Section count: {len(sections)}")
-        content_map['sections'] = sections
-    else:
-        logging.info("No sections!!")
-    return content_map
+# def split_sections(soup, content_map, section_tags = [SECTION]) -> dict:
+#     sections = soup.find_all(section_tags)
+#     if(sections):
+#         logging.info(f"Section count: {len(sections)}")
+#         content_map['sections'] = sections
+#     else:
+#         logging.info("No sections!!")
+#     return content_map
 
-def split_subsections(soup, content_map, subsection_tags=["h1", "h2", "h3", 'h4', 'h5', 'h6']) -> dict:
-    # logging.info(f"Section: {sect.sourceline}")
+
+def split_sections_by_tags(soup, content_map, subsection_tags) -> dict:
     start = 0
     content = extract_text(soup)
     tags = soup.find_all(subsection_tags)
+    tag:BeautifulSoup
     for tag in tags:
+        tag_name = tag.name
+        depth = tag_name[1]
+        # if(
+        new_heading = soup.new_tag(heading.name)
+        htext = f"{'#' * depth} { heading.text}"
+
         logging.info(f"\t\t{tag.name}:{tag.id}) ({tag.sourceline}) : {tag.text}")
+
+        htext = f'## {heading.text}'
+        new_heading = soup.new_tag(heading.name)
+        new_heading.string = "## mytest"
+        heading.content = new_heading
+        # heading.contents
+        logging.debug('hacky markdown?')
+
 
 
     return content_map
 
 
-# def walk_nodes(soup:BeautifulSoup):
-
 
 if __name__ == "__main__":
-    source_text = read_file_text('../data/test3.html')
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+    # logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
+
+    source_text = read_file_text('../data/test4.html')
     soup = parse_html(source_text)
 
-    heading_tags = ["h1", "h2", "h3", 'h4', 'h5', 'h6']
     headings = soup.find_all(heading_tags)
     heading : BeautifulSoup
     for heading in headings:
@@ -82,8 +104,6 @@ if __name__ == "__main__":
         # heading.contents
         logging.debug('hacky markdown?')
 
-
-    # sections = split_sections(soup, content_map)
 
     plain_text = extract_text(soup)
 
