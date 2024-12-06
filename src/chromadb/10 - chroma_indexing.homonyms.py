@@ -120,6 +120,7 @@ def display_results(table_title, results, show_lines=True):
 queries = [
     'who is in the bank to deposit money?',
     'who is on a bank?',
+    "joe is at the teller window, ready to put extra cash in his checking account."
 
     'where can I get a board for fixing my wall?',
     'who is on the board?',

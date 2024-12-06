@@ -1,90 +1,102 @@
 #! /usr/bin/python
 import os
+import re
 import time
 import requests
+from typing import List
 from bs4 import BeautifulSoup
 from collections import defaultdict
 import sys
 import logging
 
-
 SECTION = 'section'
 content_map = defaultdict(lambda: [])
 heading_tags = ["h1", "h2", "h3", 'h4', 'h5', 'h6']
 
-def read_file_text(src, ):
+def read_file_text(src: str) -> str:
+    """ wrapper to get text from file"""
     logging.info(f'using source: {src}')
     source_text = open(src).read()
     return source_text
 
+
 def parse_html(src: str) -> BeautifulSoup:
+    """wrapper to accept either html text, or a path string to an html file, load it in soup and return soup"""
     body_text:str
 
     if os.path.exists(src):
         body_text = read_file_text(src)
-        logging.info(f"Read content from file: {src} -> size: {len(body_text)}")
+        logging.debug(f"Read content from file: {src} -> size: {len(body_text)}")
     else:
-        logging.info(f"content given in src param: {len(src)}")
+        logging.debug(f"text content (not file pointer) given in src param: {len(src)}")
         body_text = src
 
     soup=BeautifulSoup(body_text, "html.parser")
-
-    first_tag:BeautifulSoup = soup.currentTag
-    foo_tags = first_tag.children
-    # the rest is debugging/test
-    tag : BeautifulSoup
-    bar = first_tag.descendants
-    for tag in bar:
-        if(tag.name):
-            if(tag.has_attr('id')):
-                id = tag['id']
-            else:
-                logging.debug(f"no id")
-            logging.info(f"tag id:{id}: {tag.name}")
-        else:
-            logging.debug(f"foo tag: {tag.name}")
-
     return soup
 
 
 def extract_text(soup:BeautifulSoup):
+    """simple wrapper method to get text from soup (may be useful to extend later)"""
     return soup.text
 
-# def split_sections(soup, content_map, section_tags = [SECTION]) -> dict:
-#     sections = soup.find_all(section_tags)
-#     if(sections):
-#         logging.info(f"Section count: {len(sections)}")
-#         content_map['sections'] = sections
-#     else:
-#         logging.info("No sections!!")
-#     return content_map
 
-
-def split_sections_by_tags(soup, content_map, subsection_tags) -> dict:
+def convert_html_to_markdown(soup:BeautifulSoup, subsection_tags: List[str]) -> str:
+    """simplified and custom code to convert a subset of html to markdown"""
     start = 0
-    content = extract_text(soup)
     tags = soup.find_all(subsection_tags)
+    tag_count = len(tags)
+    logging.info(f"\t\tsubsection tags: {len(tags)}")
+
     tag:BeautifulSoup
     for tag in tags:
         tag_name = tag.name
         depth = tag_name[1]
-        # if(
-        new_heading = soup.new_tag(heading.name)
-        htext = f"{'#' * depth} { heading.text}"
-
-        logging.info(f"\t\t{tag.name}:{tag.id}) ({tag.sourceline}) : {tag.text}")
-
-        htext = f'## {heading.text}'
-        new_heading = soup.new_tag(heading.name)
-        new_heading.string = "## mytest"
-        heading.content = new_heading
-        # heading.contents
-        logging.debug('hacky markdown?')
+        new_heading = soup.new_tag(tag.name)
+        new_heading.string = f"{'#' * int(depth)} {tag.text}"
+        tag.replace_with(new_heading)
+        logging.debug(f"\t\ttag:{tag.name} id:{tag.id}) (src line:{tag.sourceline}) : {tag.text}")
+    txt = soup.text
+    return txt
 
 
+heading_regex = re.compile("^#+ (.*)")  # type: Pattern[str]
+def split_by_md_heading(body_text:str, heading_regex: re.Pattern[str] = heading_regex) -> List[str]:
+    sections_map = {}
+    lines = body_text.split("\n")
+    logging.info(f"\t\tline count: {len(lines)}")
 
-    return content_map
+    current_section_lines:List[str] = []
+    line:str
+    l_no = 0
+    for line in lines:
+        l_no += 1
+        if(heading_regex.match(line)):
+            if(current_section_lines):
+                chunk:str = '\n'.join(current_section_lines)
+                if(chunk.strip()):
+                    sections_map[l_no] = chunk
+                else:
+                    logging.debug(f"{l_no}: empty chunk, no need to add? '{chunk.strip()}' (stripped())")
+                current_section_lines = [line]
+                logging.debug(f"\t\t{l_no}: Created section starting at {l_no}")
+            else:
+                logging.warning(f"\t\t{l_no}: No section lines??  {l_no}")
+        else:
+            current_section_lines.append(line)
 
+    if(current_section_lines):
+        chunk:str = '\n'.join(current_section_lines)
+        sections_map[l_no] = chunk
+        logging.debug(f"\t\tAdded last section starting at {l_no}: text len:{len(chunk)}")
+
+    logging.debug(f"\t\tFound: {len(sections_map)}")
+    return sections_map
+
+
+pr = re.compile("^(.+) (.*)")
+def split_section_to_paragraphs(section:str, para_regex= pr) -> List[str]:
+    paras:List[str] = section.split("\n\s*\n\s*")
+    return paras
 
 
 if __name__ == "__main__":
@@ -106,14 +118,18 @@ if __name__ == "__main__":
 
 
     plain_text = extract_text(soup)
-
-    # preformatteds = soup.find_all('pre')
-    # codes = soup.find_all('code')
-    # kbds = soup.find_all('kbd')
-    # tables = soup.find_all('table')
-
-    # sub_sections = split_subsections(soup, content_map, heading_tags)
-    # heading_tags = soup.find_all(heading_tags)
-    # for idx, heading in enumerate(heading_tags):
-    #     logging.info(f"{idx} [{heading.sourceline}:{heading.sourcepos}]) {heading}")
     logging.info(f"Content")
+    print("More code here (add some default testing when running this library as a script)...")
+
+
+
+
+# preformatteds = soup.find_all('pre')
+# codes = soup.find_all('code')
+# kbds = soup.find_all('kbd')
+# tables = soup.find_all('table')
+
+# sub_sections = split_subsections(soup, content_map, heading_tags)
+# heading_tags = soup.find_all(heading_tags)
+# for idx, heading in enumerate(heading_tags):
+#     logging.info(f"{idx} [{heading.sourceline}:{heading.sourcepos}]) {heading}")
